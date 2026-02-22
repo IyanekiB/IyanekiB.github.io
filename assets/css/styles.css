@@ -57,8 +57,8 @@ button {
   --accent-glow:       rgba(108, 99, 255, 0.25);
   --accent-glow-cyan:  rgba(0, 217, 255, 0.15);
   --text-primary:      #f0f0f5;
-  --text-secondary:    #8888aa;
-  --text-muted:        #44445a;
+  --text-secondary:    #b4b4cc;
+  --text-muted:        #6a6a90;
   --border:            #1e1e30;
   --border-hover:      #2e2e50;
 
@@ -477,6 +477,14 @@ body.page-interior #site-nav {
   display: flex;
   align-items: center;
   overflow: hidden;
+  padding-top: 68px;
+}
+
+/* Left-bias the hero content on wide screens */
+.hero > .container {
+  margin-left: max(2rem, 5vw);
+  margin-right: auto;
+  max-width: min(860px, calc(100% - max(4rem, 10vw)));
 }
 
 .hero-bg {
@@ -988,19 +996,19 @@ body.page-interior .project-detail-hero {
 }
 
 .project-description ul li {
-  display: flex;
-  gap: 0.75rem;
+  position: relative;
+  padding-left: 1.4rem;
   color: var(--text-secondary);
   font-size: var(--text-base);
-  line-height: 1.6;
-  padding-left: 0;
+  line-height: 1.7;
 }
 
 .project-description ul li::before {
   content: '▸';
   color: var(--accent-primary);
-  flex-shrink: 0;
-  margin-top: 0.1em;
+  position: absolute;
+  left: 0;
+  top: 0.15em;
 }
 
 .project-tech-section {
@@ -1046,6 +1054,14 @@ body.page-interior .project-detail-hero {
   margin-bottom: var(--space-md);
 }
 
+.project-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
 .project-media-placeholder-icon {
   font-size: 4rem;
   opacity: 0.6;
@@ -1077,10 +1093,10 @@ body.page-interior .project-detail-hero {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-sm);
-  padding-block: var(--space-xl);
+  padding-block: var(--space-md);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  margin-block: var(--space-xl);
+  margin-block: var(--space-md);
 }
 
 .highlight-card {
@@ -1159,14 +1175,15 @@ body.page-interior .project-detail-hero {
    11. ABOUT PAGE
    ============================================================ */
 .page-hero {
-  padding-top: calc(68px + var(--space-xl));
-  padding-bottom: var(--space-xl);
+  padding-top: calc(68px + var(--space-lg));
+  padding-bottom: var(--space-md);
   background: linear-gradient(to bottom, var(--bg-surface), var(--bg-base));
   border-bottom: 1px solid var(--border);
 }
 
 body.page-interior .page-hero {
-  padding-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-md);
 }
 
 .page-hero-title {
@@ -1187,7 +1204,7 @@ body.page-interior .page-hero {
   grid-template-columns: 1fr 360px;
   gap: var(--space-xl);
   align-items: start;
-  padding-block: var(--space-xl);
+  padding-block: var(--space-lg);
 }
 
 .about-bio p {
@@ -1352,18 +1369,19 @@ body.page-interior .page-hero {
 }
 
 .timeline-bullets li {
-  display: flex;
-  gap: 0.75rem;
+  position: relative;
+  padding-left: 1.4rem;
   color: var(--text-secondary);
   font-size: var(--text-sm);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .timeline-bullets li::before {
   content: '▸';
   color: var(--accent-primary);
-  flex-shrink: 0;
-  margin-top: 0.1em;
+  position: absolute;
+  left: 0;
+  top: 0.15em;
 }
 
 /* Skills section */
