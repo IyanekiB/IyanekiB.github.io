@@ -480,11 +480,9 @@ body.page-interior #site-nav {
   padding-top: calc(68px + 3rem);
 }
 
-/* Left-bias the hero content on wide screens */
+/* Hero content aligns with standard container */
 .hero > .container {
-  margin-left: max(2rem, 5vw);
-  margin-right: auto;
-  max-width: min(860px, calc(100% - max(4rem, 10vw)));
+  align-self: flex-start;
 }
 
 .hero-bg {
