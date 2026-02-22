@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="32-bit MIPS CPU (Multi-Cycle) — VHDL implementation with FSM-based control, external memory interfacing, and Zynq FPGA synthesis.">
+  <meta name="author" content="Iyan Nekib">
+  <title>32-bit MIPS CPU — Iyan Nekib</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="page-interior">
+
+  <div id="nav-mount"></div>
+
+  <main>
+
+    <!-- ── Project Header ────────────────────────── -->
+    <header class="project-detail-hero">
+      <div class="container">
+        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+
+        <div class="project-badges">
+          <span class="tag tag-primary">Computer Architecture</span>
+          <span class="tag tag-cyan">FPGA</span>
+          <span class="tag">VHDL</span>
+          <span class="tag">Digital Design</span>
+        </div>
+
+        <h1 class="project-detail-title">32-bit MIPS CPU (Multi-Cycle)</h1>
+        <p class="project-detail-subtitle">
+          Multi-cycle MIPS32 processor implemented in VHDL with FSM-based control unit,
+          external memory interfacing, and validation on Zynq FPGA hardware.
+        </p>
+
+        <div class="project-detail-meta">
+          <div class="project-meta-item">
+            <span class="project-meta-label">Duration</span>
+            <span class="project-meta-value">Sept – Dec 2024</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Domain</span>
+            <span class="project-meta-value">Computer Architecture</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Type</span>
+            <span class="project-meta-value">Academic Project</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Hardware</span>
+            <span class="project-meta-value">Zynq FPGA (BRAM)</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Metrics ────────────────────────────────── -->
+    <section class="container">
+      <div class="project-highlights">
+        <div class="highlight-card" data-animate="scale" data-delay="1">
+          <div class="highlight-value">32-bit</div>
+          <div class="highlight-label">Architecture Width</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="2">
+          <div class="highlight-value">FSM</div>
+          <div class="highlight-label">Control Strategy</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="3">
+          <div class="highlight-value">FPGA</div>
+          <div class="highlight-label">Hardware Validated</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Body ──────────────────────────────────── -->
+    <section class="section" style="padding-top:0;" aria-label="Project details">
+      <div class="container">
+        <div class="project-detail-body">
+
+          <div class="project-description" data-animate="fade-right">
+
+            <h3>Project Overview</h3>
+            <p>
+              A complete multi-cycle MIPS32 processor designed from scratch in VHDL, synthesized
+              and validated on Xilinx Zynq FPGA hardware. The project spans RTL design, simulation,
+              synthesis, and hardware testing — covering the full digital design workflow.
+            </p>
+
+            <h3>Architecture</h3>
+            <ul>
+              <li>
+                <strong>Multi-cycle datapath:</strong> Instructions execute over multiple clock
+                cycles — fetch, decode, execute, memory access, writeback — sharing hardware
+                resources across stages rather than using dedicated pipelined units.
+              </li>
+              <li>
+                <strong>FSM-based control unit:</strong> A Moore FSM drives control signals
+                cycle-by-cycle, transitioning between states for each instruction class
+                (R-type, load/store, branch, jump).
+              </li>
+              <li>
+                <strong>ALU:</strong> Supports arithmetic (ADD, SUB, ADDI), logical (AND, OR, SLT),
+                shift, and comparison operations with a zero-detection output for branch control.
+              </li>
+              <li>
+                <strong>External memory interface:</strong> Interfaces with Zynq block RAM (BRAM)
+                for instruction and data memory — requires careful address and timing alignment
+                for synchronous reads.
+              </li>
+              <li>
+                <strong>Register file:</strong> 32 × 32-bit general purpose registers with
+                simultaneous dual-read and single-write capability, with $0 hardwired to zero.
+              </li>
+            </ul>
+
+            <h3>Verification Strategy</h3>
+            <ul>
+              <li>
+                <strong>Tcl simulation testbenches:</strong> Automated VHDL testbenches driven
+                by Tcl scripts in Vivado simulator — testing each instruction with expected
+                register file and memory state assertions.
+              </li>
+              <li>
+                <strong>C/C++ MIPS cross-compilation:</strong> Programs compiled with
+                <code>mips-elf-gcc</code>, loaded into Zynq BRAM via memory initialization
+                files, and executed on hardware — output verified against expected register dumps.
+              </li>
+              <li>
+                <strong>Waveform analysis:</strong> Control signal traces validated in Vivado
+                to confirm FSM state transitions matched the intended cycle diagrams.
+              </li>
+            </ul>
+
+            <h3>Challenges Overcome</h3>
+            <ul>
+              <li>
+                Synchronous BRAM timing caused a one-cycle read latency that required inserting
+                an extra wait state in the fetch FSM state — discovered through waveform analysis.
+              </li>
+              <li>
+                Branch resolution required forwarding the computed PC to the instruction register
+                a cycle early, handled by careful FSM state ordering rather than a dedicated
+                forwarding unit.
+              </li>
+            </ul>
+
+            <div class="project-tech-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tech-tags">
+                <span class="tag tag-primary">VHDL</span>
+                <span class="tag tag-primary">Vivado</span>
+                <span class="tag tag-cyan">MIPS32</span>
+                <span class="tag tag-cyan">Zynq FPGA</span>
+                <span class="tag">FSM</span>
+                <span class="tag">BRAM</span>
+                <span class="tag">Tcl</span>
+                <span class="tag">C / C++</span>
+                <span class="tag">RTL Design</span>
+                <span class="tag">Digital Logic</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Media -->
+          <div class="project-media-panel" data-animate="fade-left">
+            <div class="project-media-container"
+                 style="--card-gradient: linear-gradient(135deg, #00001a 0%, #001066 40%, #0033cc 75%, #6c63ff 100%);">
+              <span class="project-media-placeholder-icon">💾</span>
+              <span class="project-media-placeholder-text">Waveform / Schematic</span>
+            </div>
+            <p class="project-media-caption">
+              Add Vivado waveform screenshot or RTL schematic here.
+            </p>
+
+            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Instruction Support</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;font-family:var(--font-mono);font-size:var(--text-xs);">
+                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">R-type (ADD, SUB, AND…)</div>
+                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">I-type (ADDI, LW, SW)</div>
+                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Branch (BEQ, BNE)</div>
+                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Jump (J, JAL, JR)</div>
+                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Shifts (SLL, SRL)</div>
+                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Compare (SLT, SLTI)</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Project Navigation ─────────────────────── -->
+    <section class="container">
+      <div class="project-nav">
+        <a class="project-nav-link" href="civilization-replica.html">
+          <div class="project-nav-direction">← Previous Project</div>
+          <div class="project-nav-title">Java Civilization VI Replica</div>
+        </a>
+        <div></div><!-- empty right -->
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEURA Glove — Senior Design ML project mapping IMU and flex-sensor data to 21-point 3D hand poses for Unity VR using LSTM and Kalman filtering.">
+  <meta name="author" content="Iyan Nekib">
+  <title>NEURA Glove — Iyan Nekib</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="page-interior">
+
+  <div id="nav-mount"></div>
+
+  <main>
+
+    <!-- ── Project Header ────────────────────────── -->
+    <header class="project-detail-hero">
+      <div class="container">
+        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+
+        <div class="project-badges">
+          <span class="tag tag-primary">Senior Design</span>
+          <span class="tag tag-cyan">Machine Learning</span>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">Sensor Fusion</span>
+        </div>
+
+        <h1 class="project-detail-title">NEURA Glove</h1>
+        <p class="project-detail-subtitle">
+          Real-time 3D hand pose reconstruction for Unity VR using LSTM networks,
+          Kalman filtering, and IMU/flex-sensor fusion.
+        </p>
+
+        <div class="project-detail-meta">
+          <div class="project-meta-item">
+            <span class="project-meta-label">Duration</span>
+            <span class="project-meta-value">Aug – Dec 2025</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Role</span>
+            <span class="project-meta-value">Lead ML Engineer</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Type</span>
+            <span class="project-meta-value">Senior Capstone Project</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Institution</span>
+            <span class="project-meta-value">University of Pittsburgh</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Metrics ────────────────────────────────── -->
+    <section class="container">
+      <div class="project-highlights">
+        <div class="highlight-card" data-animate="scale" data-delay="1">
+          <div class="highlight-value">≤50ms</div>
+          <div class="highlight-label">Inference Latency</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="2">
+          <div class="highlight-value">21</div>
+          <div class="highlight-label">Hand Joints Tracked</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="3">
+          <div class="highlight-value">3D</div>
+          <div class="highlight-label">Pose Dimensions</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Body: Description + Media ─────────────── -->
+    <section class="section" style="padding-top:0;" aria-label="Project details">
+      <div class="container">
+        <div class="project-detail-body">
+
+          <!-- Left: Description -->
+          <div class="project-description" data-animate="fade-right">
+
+            <h3>Project Overview</h3>
+            <p>
+              NEURA Glove is my senior capstone project — a smart instrumented glove that reconstructs
+              full 3D hand poses in real time for immersive Unity VR applications. The system bridges
+              the gap between low-cost inertial and flex sensors and high-fidelity skeletal hand
+              representations, achieving sub-50ms end-to-end inference latency.
+            </p>
+
+            <h3>The Problem</h3>
+            <p>
+              Existing VR hand tracking solutions either rely on expensive external camera rigs or
+              high-end compute hardware. The challenge was to build a pipeline that runs on low-cost
+              sensors and edge-suitable hardware while still producing smooth, accurate 21-joint
+              hand poses that match ground truth MediaPipe estimates.
+            </p>
+
+            <h3>Technical Approach</h3>
+            <ul>
+              <li>
+                Built an ML pipeline mapping raw <strong>IMU (acceleration, gyroscope, magnetometer)</strong>
+                and flex-sensor data to 21-point 3D hand poses using a custom
+                <strong>LSTM (Long Short-Term Memory)</strong> architecture.
+              </li>
+              <li>
+                Applied a <strong>Kalman filter</strong> over LSTM outputs to smooth temporal noise
+                and reduce jitter — critical for comfortable VR use where hand shake is amplified.
+              </li>
+              <li>
+                Used <strong>MediaPipe Hands</strong> with a synchronized RGB camera as the ground
+                truth annotation source, enabling self-supervised dataset collection during wear.
+              </li>
+              <li>
+                Integrated the inference pipeline with <strong>Unity VR</strong> via a real-time
+                serial/UDP data stream, driving the hand rig at native VR frame rates.
+              </li>
+              <li>
+                Achieved <strong>≤50ms total latency</strong> from sensor acquisition to Unity bone
+                update, keeping the system within VR presence thresholds.
+              </li>
+            </ul>
+
+            <h3>Key Challenges</h3>
+            <ul>
+              <li>
+                Synchronizing sensor streams (IMU at 100Hz, flex at 50Hz, camera at 30fps) without
+                timestamp drift — solved with a hardware trigger and circular buffer alignment.
+              </li>
+              <li>
+                Handling sensor occlusion and gimbal lock in IMU readings with a cascaded Kalman
+                predictor that fell back to gyro integration during camera blackout frames.
+              </li>
+              <li>
+                Collecting high-quality labeled training data while wearing the glove — designed a
+                semi-automatic annotation pipeline using MediaPipe confidence thresholds.
+              </li>
+            </ul>
+
+            <div class="project-tech-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tech-tags">
+                <span class="tag tag-primary">Python</span>
+                <span class="tag tag-primary">PyTorch</span>
+                <span class="tag tag-cyan">LSTM</span>
+                <span class="tag tag-cyan">Kalman Filter</span>
+                <span class="tag">MediaPipe</span>
+                <span class="tag">Unity VR</span>
+                <span class="tag">IMU Sensors</span>
+                <span class="tag">Flex Sensors</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">Arduino</span>
+                <span class="tag">C#</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Media placeholder -->
+          <div class="project-media-panel" data-animate="fade-left">
+            <div class="project-media-container"
+                 style="--card-gradient: linear-gradient(135deg, #1a0533 0%, #4a2090 40%, #6c63ff 70%, #00d9ff 100%);">
+              <span class="project-media-placeholder-icon">✋</span>
+              <span class="project-media-placeholder-text">Demo / Screenshot</span>
+            </div>
+            <p class="project-media-caption">
+              Demo video or project screenshot — add media here to showcase the glove in action.
+            </p>
+
+            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Pipeline Overview</div>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:var(--text-xs);font-family:var(--font-mono);color:var(--text-secondary);">
+                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">1. Sensor Acquisition (IMU + Flex)</div>
+                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">2. Stream Synchronization</div>
+                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">3. LSTM Inference</div>
+                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">4. Kalman Smoothing</div>
+                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-secondary);">5. Unity VR Hand Rig Update</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Project Navigation ─────────────────────── -->
+    <section class="container">
+      <div class="project-nav">
+        <div></div><!-- empty left -->
+        <a class="project-nav-link next" href="disease-prediction.html">
+          <div class="project-nav-direction">Next Project →</div>
+          <div class="project-nav-title">Disease-Symptom Prediction</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

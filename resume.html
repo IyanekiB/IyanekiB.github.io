@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Iyan Nekib's resume — Electrical and Computer Engineering graduate, systems software engineer.">
+  <meta name="author" content="Iyan Nekib">
+  <title>Resume — Iyan Nekib</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="page-interior">
+
+  <div id="nav-mount"></div>
+
+  <main>
+
+    <section class="section" aria-label="Resume">
+      <div class="container">
+
+        <div class="resume-page-header" data-animate="fade-up">
+          <div>
+            <span class="section-label">Curriculum Vitae</span>
+            <h1 class="section-title" style="margin-bottom:0.25rem;">Resume</h1>
+            <p style="font-size:var(--text-sm);color:var(--text-muted);">Last updated February 2026</p>
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a class="btn btn-primary"
+               href="Iyan_Resume_2026.pdf"
+               download="Iyan_Nekib_Resume_2026.pdf"
+               aria-label="Download resume PDF">
+              Download PDF ↓
+            </a>
+            <a class="btn btn-outline"
+               href="https://www.linkedin.com/in/iyan-nekib/"
+               target="_blank"
+               rel="noopener noreferrer">
+              LinkedIn ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- PDF Embed -->
+        <div class="resume-iframe-wrapper" data-animate="fade-up" data-delay="1">
+          <iframe
+            src="Iyan_Resume_2026.pdf"
+            title="Iyan Nekib Resume 2026"
+            width="100%"
+            loading="lazy"
+            aria-label="Iyan Nekib Resume PDF viewer">
+            <!-- Fallback for browsers that don't support PDF iframes (e.g. Safari iOS) -->
+            <div class="resume-fallback">
+              <p style="margin-bottom:1rem;">Your browser doesn't support embedded PDFs.</p>
+              <a class="btn btn-primary" href="Iyan_Resume_2026.pdf" download="Iyan_Nekib_Resume_2026.pdf">
+                Download PDF ↓
+              </a>
+            </div>
+          </iframe>
+        </div>
+
+        <!-- Mobile note -->
+        <p style="font-size:var(--text-xs);color:var(--text-muted);text-align:center;margin-top:0.75rem;font-family:var(--font-mono);">
+          If the PDF doesn't display, use the Download button above.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

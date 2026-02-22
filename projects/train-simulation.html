@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Integrated Train System Simulation — full rail system with CTC, wayside signaling, and physics-based train motion using PyQt and MVC architecture.">
+  <meta name="author" content="Iyan Nekib">
+  <title>Train System Simulation — Iyan Nekib</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="page-interior">
+
+  <div id="nav-mount"></div>
+
+  <main>
+
+    <!-- ── Project Header ────────────────────────── -->
+    <header class="project-detail-hero">
+      <div class="container">
+        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+
+        <div class="project-badges">
+          <span class="tag tag-primary">Systems Software</span>
+          <span class="tag tag-cyan">Real-Time Systems</span>
+          <span class="tag">MVC Architecture</span>
+          <span class="tag">Simulation</span>
+        </div>
+
+        <h1 class="project-detail-title">Integrated Train System Simulation</h1>
+        <p class="project-detail-subtitle">
+          Full-scale rail system simulation with centralized traffic control, wayside signaling,
+          and physics-based train motion at 0.1-second real-time control resolution.
+        </p>
+
+        <div class="project-detail-meta">
+          <div class="project-meta-item">
+            <span class="project-meta-label">Duration</span>
+            <span class="project-meta-value">Jan – Apr 2025</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Type</span>
+            <span class="project-meta-value">Academic Project</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Team Size</span>
+            <span class="project-meta-value">Group Project</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Metrics ────────────────────────────────── -->
+    <section class="container">
+      <div class="project-highlights">
+        <div class="highlight-card" data-animate="scale" data-delay="1">
+          <div class="highlight-value">0.1s</div>
+          <div class="highlight-label">Control Resolution</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="2">
+          <div class="highlight-value">4</div>
+          <div class="highlight-label">System Modules</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="3">
+          <div class="highlight-value">MVC</div>
+          <div class="highlight-label">Architecture Pattern</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Body ──────────────────────────────────── -->
+    <section class="section" style="padding-top:0;" aria-label="Project details">
+      <div class="container">
+        <div class="project-detail-body">
+
+          <div class="project-description" data-animate="fade-right">
+
+            <h3>Project Overview</h3>
+            <p>
+              This project is a comprehensive rail system simulation built as a major software
+              engineering course deliverable. It models the full operational stack of a modern
+              train network — from the centralized dispatcher all the way down to individual
+              train physics — in a cohesive, real-time GUI application.
+            </p>
+
+            <h3>System Architecture</h3>
+            <ul>
+              <li>
+                <strong>Centralized Traffic Control (CTC) Office:</strong> Dispatches trains,
+                manages schedules, monitors occupancy blocks, and overrides wayside signals.
+                Implemented as a standalone PyQt GUI module communicating over an internal
+                message bus.
+              </li>
+              <li>
+                <strong>Wayside Controller:</strong> Manages track block occupancy, switch
+                positions, and speed authority — enforcing safe separation between trains using
+                a PLC-style logic engine updated every control tick.
+              </li>
+              <li>
+                <strong>Track Model:</strong> Maintains a full graph of track blocks, grades,
+                curves, stations, and infrastructure state — serving as the shared ground truth
+                for all modules.
+              </li>
+              <li>
+                <strong>Train Controller &amp; Physics Model:</strong> Implements onboard speed
+                regulation with brake authority, a physics-based kinematic model (acceleration,
+                drag, grade effects), and passenger load simulation.
+              </li>
+            </ul>
+
+            <h3>Key Design Decisions</h3>
+            <ul>
+              <li>
+                <strong>Real-time MVC architecture:</strong> Each system module follows a strict
+                Model-View-Controller separation, enabling independent testing of business logic
+                without GUI dependencies.
+              </li>
+              <li>
+                <strong>0.1-second simulation tick:</strong> A master clock drives all module
+                updates in lockstep — matching industry control loop frequencies and keeping
+                physics models numerically stable.
+              </li>
+              <li>
+                <strong>PyQt event loop integration:</strong> The simulation timer runs inside
+                Qt's event loop, ensuring GUI responsiveness while maintaining deterministic
+                simulation timing.
+              </li>
+            </ul>
+
+            <div class="project-tech-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tech-tags">
+                <span class="tag tag-primary">Python</span>
+                <span class="tag tag-primary">PyQt5</span>
+                <span class="tag tag-cyan">MVC Pattern</span>
+                <span class="tag tag-cyan">Real-Time Systems</span>
+                <span class="tag">Conda</span>
+                <span class="tag">Physics Simulation</span>
+                <span class="tag">State Machines</span>
+                <span class="tag">Event-Driven Design</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Media -->
+          <div class="project-media-panel" data-animate="fade-left">
+            <div class="project-media-container"
+                 style="--card-gradient: linear-gradient(135deg, #1a0e00 0%, #7a4500 40%, #c07000 75%, #ffd166 100%);">
+              <span class="project-media-placeholder-icon">🚆</span>
+              <span class="project-media-placeholder-text">GUI Screenshot</span>
+            </div>
+            <p class="project-media-caption">
+              Add a screenshot of the CTC GUI or simulation running here.
+            </p>
+
+            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Module Hierarchy</div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:var(--text-xs);font-family:var(--font-mono);color:var(--text-secondary);">
+                <div style="background:rgba(108,99,255,0.1);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">CTC Office (Dispatcher)</div>
+                <div style="background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--border-hover);margin-left:1rem;">Wayside Controller</div>
+                <div style="background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--border-hover);margin-left:1rem;">Track Model</div>
+                <div style="background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--border-hover);margin-left:2rem;">Train Controller</div>
+                <div style="background:rgba(0,217,255,0.08);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-secondary);margin-left:3rem;">Physics Engine</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Project Navigation ─────────────────────── -->
+    <section class="container">
+      <div class="project-nav">
+        <a class="project-nav-link" href="disease-prediction.html">
+          <div class="project-nav-direction">← Previous Project</div>
+          <div class="project-nav-title">Disease-Symptom Prediction</div>
+        </a>
+        <a class="project-nav-link next" href="civilization-replica.html">
+          <div class="project-nav-direction">Next Project →</div>
+          <div class="project-nav-title">Java Civilization VI Replica</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

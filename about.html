@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Iyan Nekib — ECE graduate, systems software engineer, ML practitioner. Experience, education, and skills.">
+  <meta name="author" content="Iyan Nekib">
+  <title>About — Iyan Nekib</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="page-interior">
+
+  <div id="nav-mount"></div>
+
+  <main>
+
+    <!-- ── Page Hero ─────────────────────────────── -->
+    <header class="page-hero">
+      <div class="container">
+        <span class="section-label">Get to know me</span>
+        <h1 class="page-hero-title">About Me</h1>
+        <p class="page-hero-subtitle">Engineer, builder, and lifelong learner based in Halifax, NS.</p>
+      </div>
+    </header>
+
+    <!-- ── Bio + Contact ──────────────────────────── -->
+    <section class="section" aria-label="Bio and contact">
+      <div class="container">
+        <div class="about-grid">
+
+          <!-- Bio -->
+          <div class="about-bio" data-animate="fade-right">
+            <p>
+              Hey, I'm <span class="bio-highlight">Iyan Nekib</span> — an Electrical and Computer Engineering
+              graduate from the <span class="bio-highlight">University of Pittsburgh</span> (3.7 GPA, Dean's
+              Honors List every year, 2022–2025). I graduated in December 2025 and I'm currently based in
+              Halifax, Nova Scotia, Canada.
+            </p>
+            <p>
+              My work spans a wide range of the stack — from writing
+              <span class="bio-highlight">VHDL for multi-cycle processors on FPGAs</span>, to building
+              <span class="bio-highlight">ML inference pipelines for real-time VR hand tracking</span>, to
+              contributing <span class="bio-highlight">Rust-based cloud-native services</span> to distributed
+              storage systems at Microsoft.
+            </p>
+            <p>
+              I'm drawn to problems at the intersection of hardware and software — where you can't just
+              abstract away the physical constraints, and every design decision has real consequences.
+              Whether that's latency in an embedded control loop, memory bandwidth on an FPGA, or reliability
+              in a distributed Kubernetes environment, I like understanding systems from the ground up.
+            </p>
+            <p>
+              Outside of engineering, I'm into learning about emerging AI research, competitive programming,
+              and exploring the best coffee shops Halifax has to offer.
+            </p>
+            <p>
+              I'm actively looking for <span class="bio-highlight">full-time opportunities</span> in software
+              engineering, embedded systems, or applied ML — remote or in-person. Feel free to reach out!
+            </p>
+          </div>
+
+          <!-- Contact Card -->
+          <aside class="contact-card" data-animate="fade-left" aria-label="Contact information">
+            <h2 class="contact-card-header">Contact</h2>
+
+            <div class="contact-item">
+              <span class="contact-item-icon" aria-hidden="true">✉️</span>
+              <div style="flex:1">
+                <div style="font-size:var(--text-sm);color:var(--text-primary)">iyan.n@outlook.com</div>
+              </div>
+              <button class="btn-copy" data-copy-email aria-label="Copy email address">Copy</button>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-item-icon" aria-hidden="true">📞</span>
+              <a href="tel:+17822340444" style="font-size:var(--text-sm)">+1 (782) 234-0444</a>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-item-icon" aria-hidden="true">📍</span>
+              <span style="font-size:var(--text-sm);color:var(--text-secondary)">Halifax, Nova Scotia, Canada</span>
+            </div>
+
+            <div class="divider" style="margin-block:0.5rem;"></div>
+
+            <div class="contact-social-buttons">
+              <a class="btn btn-secondary"
+                 href="https://www.linkedin.com/in/iyan-nekib/"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 style="justify-content:center;">
+                LinkedIn ↗
+              </a>
+              <a class="btn btn-outline"
+                 href="https://github.com/IyanekiB"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 style="justify-content:center;">
+                GitHub ↗
+              </a>
+              <a class="btn btn-secondary"
+                 href="Iyan_Resume_2026.pdf"
+                 download="Iyan_Nekib_Resume_2026.pdf"
+                 style="justify-content:center;">
+                Download CV ↓
+              </a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Experience Timeline ────────────────────── -->
+    <section class="section" style="padding-top:0" aria-label="Work experience">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <span class="section-label">Experience</span>
+          <h2 class="section-title">Where I've Worked</h2>
+        </div>
+
+        <div class="timeline">
+
+          <!-- Microsoft -->
+          <div class="timeline-item" data-animate="fade-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-company">Microsoft</div>
+              <div class="timeline-role">Software Engineering Project Contributor</div>
+              <div class="timeline-meta">
+                <span class="timeline-date">Sept 2025 – Dec 2025</span>
+                <span class="timeline-location">Pittsburgh, PA</span>
+              </div>
+            </div>
+            <ul class="timeline-bullets">
+              <li>
+                Contributed reliability-focused control-plane enhancements to
+                <strong>OpenEBS Mayastor</strong>, implementing Rust-based services and
+                REST/OpenAPI-driven metrics endpoints — reducing recurring production alerts by 25%.
+              </li>
+              <li>
+                Investigated and debugged production issues across distributed storage components by
+                analyzing logs and <strong>Prometheus metrics</strong>, validating fixes through peer reviews
+                and post-deployment checks in a Kubernetes-native environment.
+              </li>
+            </ul>
+            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
+              <div class="project-tech-tags">
+                <span class="tag tag-cyan">Rust</span>
+                <span class="tag">Kubernetes</span>
+                <span class="tag">OpenEBS</span>
+                <span class="tag">Prometheus</span>
+                <span class="tag">REST/OpenAPI</span>
+                <span class="tag">Distributed Systems</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Westinghouse -->
+          <div class="timeline-item" data-animate="fade-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-company">Westinghouse Electric Company</div>
+              <div class="timeline-role">Software Engineering Project Contributor</div>
+              <div class="timeline-meta">
+                <span class="timeline-date">Jan 2025 – Apr 2025</span>
+                <span class="timeline-location">Cranberry Township, PA</span>
+              </div>
+            </div>
+            <ul class="timeline-bullets">
+              <li>
+                Developed a diagnostic tool to parse and visualize <strong>50+ XML-based system
+                configuration files</strong>, supporting requirements traceability, documentation, and
+                engineering analysis — reducing data retrieval time by 40%.
+              </li>
+              <li>
+                Designed hierarchical system views and validation logic to support debugging, design
+                reviews, and cross-functional engineering decision-making.
+              </li>
+            </ul>
+            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
+              <div class="project-tech-tags">
+                <span class="tag">Python</span>
+                <span class="tag">XML Parsing</span>
+                <span class="tag">Data Visualization</span>
+                <span class="tag">Requirements Traceability</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- HERL -->
+          <div class="timeline-item" data-animate="fade-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-company">Human Engineering Research Laboratories</div>
+              <div class="timeline-role">Research Associate Co-op</div>
+              <div class="timeline-meta">
+                <span class="timeline-date">Sept 2023 – Apr 2024</span>
+                <span class="timeline-location">Pittsburgh, PA</span>
+              </div>
+            </div>
+            <ul class="timeline-bullets">
+              <li>
+                Integrated and validated an <strong>automated power wheelchair system</strong> on
+                NVIDIA Jetson AGX Xavier (Linux) using an Intel RealSense depth camera and real-time
+                control logic to enable curb detection and automatic curb climbing — reducing manual user
+                intervention by 35%.
+              </li>
+              <li>
+                Developed and debugged <strong>Python/PyQt software</strong> interfacing with
+                Arduino-based encoders and load cells, validating real-time sensor pipelines to reduce
+                runtime failures by 30%, supporting clinicians and veterans.
+              </li>
+            </ul>
+            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
+              <div class="project-tech-tags">
+                <span class="tag tag-cyan">NVIDIA Jetson AGX Xavier</span>
+                <span class="tag">Intel RealSense</span>
+                <span class="tag">Python</span>
+                <span class="tag">PyQt</span>
+                <span class="tag">Arduino</span>
+                <span class="tag">Linux</span>
+                <span class="tag">Embedded</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Education ──────────────────────────────── -->
+    <section class="section" style="padding-top:0" aria-label="Education">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <span class="section-label">Education</span>
+          <h2 class="section-title">Academic Background</h2>
+        </div>
+
+        <div class="education-card" data-animate="fade-up">
+          <div>
+            <div class="education-school">University of Pittsburgh</div>
+            <div class="education-degree">Bachelor of Science — Electrical and Computer Engineering</div>
+            <div class="education-badges" style="margin-top:0.75rem;">
+              <span class="tag tag-primary">GPA: 3.7 / 4.0</span>
+              <span class="tag tag-cyan">Dean's Honors List (2022–2025)</span>
+              <span class="tag">Swanson School of Engineering</span>
+            </div>
+            <div style="margin-top:1rem;">
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem;">Relevant Coursework</div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+                <span class="tag">Embedded Systems</span>
+                <span class="tag">Operating Systems</span>
+                <span class="tag">Computer Architecture</span>
+                <span class="tag">Data Structures &amp; Algorithms</span>
+                <span class="tag">Real-Time Operating Systems</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Big Data &amp; Algorithms</span>
+                <span class="tag">Systems Engineering</span>
+                <span class="tag">Software Construction</span>
+              </div>
+            </div>
+          </div>
+          <div class="education-right">
+            <div class="education-dates">Jan 2022 – Dec 2025</div>
+            <div class="education-location">Pittsburgh, PA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Skills ─────────────────────────────────── -->
+    <section class="section" style="padding-top:0;padding-bottom:var(--space-2xl);" aria-label="Technical skills">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <span class="section-label">Expertise</span>
+          <h2 class="section-title">Technical Skills</h2>
+        </div>
+
+        <div class="skills-categories">
+
+          <div class="skill-category" data-animate="fade-up" data-delay="1">
+            <div class="skill-category-label">Languages</div>
+            <div class="skill-chips">
+              <span class="skill-chip">Python</span>
+              <span class="skill-chip">C++</span>
+              <span class="skill-chip">Java</span>
+              <span class="skill-chip">Rust</span>
+              <span class="skill-chip">Go</span>
+              <span class="skill-chip">JavaScript</span>
+              <span class="skill-chip">C</span>
+              <span class="skill-chip">MATLAB</span>
+              <span class="skill-chip">VHDL</span>
+              <span class="skill-chip">PostgreSQL</span>
+            </div>
+          </div>
+
+          <div class="skill-category" data-animate="fade-up" data-delay="2">
+            <div class="skill-category-label">AI / ML</div>
+            <div class="skill-chips">
+              <span class="skill-chip">PyTorch</span>
+              <span class="skill-chip">TensorFlow</span>
+              <span class="skill-chip">OpenCV</span>
+              <span class="skill-chip">scikit-learn</span>
+              <span class="skill-chip">LangChain</span>
+              <span class="skill-chip">GPT-4</span>
+              <span class="skill-chip">Agentic Systems</span>
+              <span class="skill-chip">MediaPipe</span>
+            </div>
+          </div>
+
+          <div class="skill-category" data-animate="fade-up" data-delay="3">
+            <div class="skill-category-label">DevOps &amp; Cloud</div>
+            <div class="skill-chips">
+              <span class="skill-chip">Docker</span>
+              <span class="skill-chip">Kubernetes</span>
+              <span class="skill-chip">Azure</span>
+              <span class="skill-chip">GitHub Actions</span>
+              <span class="skill-chip">GitLab</span>
+              <span class="skill-chip">Helm</span>
+              <span class="skill-chip">Prometheus</span>
+              <span class="skill-chip">Grafana</span>
+              <span class="skill-chip">REST APIs</span>
+            </div>
+          </div>
+
+          <div class="skill-category" data-animate="fade-up" data-delay="4">
+            <div class="skill-category-label">Computer Architecture</div>
+            <div class="skill-chips">
+              <span class="skill-chip">VHDL</span>
+              <span class="skill-chip">MIPS32</span>
+              <span class="skill-chip">Multi-cycle CPU Design</span>
+              <span class="skill-chip">Vivado</span>
+              <span class="skill-chip">Intel Quartus</span>
+              <span class="skill-chip">FPGA Synthesis</span>
+            </div>
+          </div>
+
+          <div class="skill-category" data-animate="fade-up" data-delay="5">
+            <div class="skill-category-label">Embedded Systems</div>
+            <div class="skill-chips">
+              <span class="skill-chip">ESP32</span>
+              <span class="skill-chip">ATMega328P</span>
+              <span class="skill-chip">Arduino</span>
+              <span class="skill-chip">UART / I2C</span>
+              <span class="skill-chip">Zynq</span>
+              <span class="skill-chip">NVIDIA Jetson</span>
+              <span class="skill-chip">Intel RealSense</span>
+            </div>
+          </div>
+
+          <div class="skill-category" data-animate="fade-up">
+            <div class="skill-category-label">Software Engineering</div>
+            <div class="skill-chips">
+              <span class="skill-chip">Agile / Scrum</span>
+              <span class="skill-chip">Test-Driven Development</span>
+              <span class="skill-chip">Design Patterns</span>
+              <span class="skill-chip">CI/CD</span>
+              <span class="skill-chip">Version Control</span>
+              <span class="skill-chip">System Architecture</span>
+              <span class="skill-chip">JUnit</span>
+              <span class="skill-chip">pytest</span>
+              <span class="skill-chip">MVC</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

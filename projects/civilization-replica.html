@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Java-based Civilization VI Replica — strategy game with OOP, Extreme Programming, and 90%+ test coverage via TDD.">
+  <meta name="author" content="Iyan Nekib">
+  <title>Civilization VI Replica — Iyan Nekib</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="page-interior">
+
+  <div id="nav-mount"></div>
+
+  <main>
+
+    <!-- ── Project Header ────────────────────────── -->
+    <header class="project-detail-hero">
+      <div class="container">
+        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+
+        <div class="project-badges">
+          <span class="tag tag-primary">Software Engineering</span>
+          <span class="tag tag-cyan">Test-Driven Development</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Game Development</span>
+        </div>
+
+        <h1 class="project-detail-title">Java-based Civilization VI Replica</h1>
+        <p class="project-detail-subtitle">
+          Modular strategy game implementing city, unit, and combat mechanics using
+          object-oriented design and Extreme Programming — 90%+ test coverage via TDD.
+        </p>
+
+        <div class="project-detail-meta">
+          <div class="project-meta-item">
+            <span class="project-meta-label">Duration</span>
+            <span class="project-meta-value">Sept – Dec 2024</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Methodology</span>
+            <span class="project-meta-value">Extreme Programming (XP)</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Type</span>
+            <span class="project-meta-value">Academic Group Project</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Metrics ────────────────────────────────── -->
+    <section class="container">
+      <div class="project-highlights">
+        <div class="highlight-card" data-animate="scale" data-delay="1">
+          <div class="highlight-value">90%+</div>
+          <div class="highlight-label">Test Coverage</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="2">
+          <div class="highlight-value">TDD</div>
+          <div class="highlight-label">Development Method</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="3">
+          <div class="highlight-value">XP</div>
+          <div class="highlight-label">Engineering Practice</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Body ──────────────────────────────────── -->
+    <section class="section" style="padding-top:0;" aria-label="Project details">
+      <div class="container">
+        <div class="project-detail-body">
+
+          <div class="project-description" data-animate="fade-right">
+
+            <h3>Project Overview</h3>
+            <p>
+              A full-featured clone of the core Civilization VI game loop — built as a semester-long
+              software engineering project. The goal was not just to ship a working game, but to
+              practice disciplined software engineering: rigorous test coverage, iterative development,
+              and clean object-oriented design throughout.
+            </p>
+
+            <h3>Game Features Implemented</h3>
+            <ul>
+              <li>
+                <strong>City system:</strong> City founding, growth, tile claiming, building construction,
+                and production queues — each with separate model and state management classes.
+              </li>
+              <li>
+                <strong>Unit system:</strong> Multiple unit types (military, civilian, builder) with
+                movement range, action points, and turn management.
+              </li>
+              <li>
+                <strong>Combat system:</strong> Turn-based combat resolution with strength modifiers,
+                terrain bonuses, and HP tracking — following Civilization's formula closely.
+              </li>
+              <li>
+                <strong>Technology tree:</strong> A directed graph of unlockable technologies
+                gating unit/building availability.
+              </li>
+              <li>
+                <strong>Hex tile map:</strong> Procedurally generated map with terrain types,
+                resources, and yields affecting city growth.
+              </li>
+            </ul>
+
+            <h3>Engineering Practices</h3>
+            <ul>
+              <li>
+                <strong>Test-Driven Development (TDD):</strong> Every feature was preceded by
+                failing unit tests. JUnit 5 test suites for all domain logic — achieving
+                90%+ line and branch coverage.
+              </li>
+              <li>
+                <strong>Extreme Programming (XP):</strong> Weekly sprints, pair programming sessions,
+                continuous integration via Gradle builds, and collective code ownership.
+              </li>
+              <li>
+                <strong>Design patterns:</strong> Observer pattern for game event system,
+                Strategy pattern for combat calculations, Factory pattern for unit creation.
+              </li>
+              <li>
+                <strong>Version control discipline:</strong> Feature branches, pull request reviews,
+                and commit message conventions enforced via team agreement.
+              </li>
+            </ul>
+
+            <div class="project-tech-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tech-tags">
+                <span class="tag tag-primary">Java</span>
+                <span class="tag tag-primary">JUnit 5</span>
+                <span class="tag tag-cyan">Gradle</span>
+                <span class="tag tag-cyan">TDD</span>
+                <span class="tag">OOP</span>
+                <span class="tag">Design Patterns</span>
+                <span class="tag">Git</span>
+                <span class="tag">Extreme Programming</span>
+                <span class="tag">JavaFX</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Media -->
+          <div class="project-media-panel" data-animate="fade-left">
+            <div class="project-media-container"
+                 style="--card-gradient: linear-gradient(135deg, #1a0300 0%, #6b1500 40%, #b02000 75%, #ff5733 100%);">
+              <span class="project-media-placeholder-icon">⚔️</span>
+              <span class="project-media-placeholder-text">Game Screenshot</span>
+            </div>
+            <p class="project-media-caption">
+              Add a gameplay screenshot or demo GIF here.
+            </p>
+
+            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Core Systems</div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">
+                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
+                  <span>City System</span><span style="color:var(--accent-primary)">✓ Tested</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
+                  <span>Unit System</span><span style="color:var(--accent-primary)">✓ Tested</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
+                  <span>Combat Engine</span><span style="color:var(--accent-primary)">✓ Tested</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
+                  <span>Tech Tree</span><span style="color:var(--accent-primary)">✓ Tested</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;background:rgba(108,99,255,0.1);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border:1px solid rgba(108,99,255,0.2);">
+                  <span>Overall Coverage</span><span style="color:var(--accent-primary);font-weight:600">≥ 90%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Project Navigation ─────────────────────── -->
+    <section class="container">
+      <div class="project-nav">
+        <a class="project-nav-link" href="train-simulation.html">
+          <div class="project-nav-direction">← Previous Project</div>
+          <div class="project-nav-title">Train System Simulation</div>
+        </a>
+        <a class="project-nav-link next" href="mips-cpu.html">
+          <div class="project-nav-direction">Next Project →</div>
+          <div class="project-nav-title">32-bit MIPS CPU</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

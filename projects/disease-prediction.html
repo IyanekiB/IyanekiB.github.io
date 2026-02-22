@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Disease-Symptom Prediction Model — benchmarking Random Forest, SVM, and MLP classifiers on symptom text data achieving ≥99% accuracy.">
+  <meta name="author" content="Iyan Nekib">
+  <title>Disease Prediction — Iyan Nekib</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="page-interior">
+
+  <div id="nav-mount"></div>
+
+  <main>
+
+    <!-- ── Project Header ────────────────────────── -->
+    <header class="project-detail-hero">
+      <div class="container">
+        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+
+        <div class="project-badges">
+          <span class="tag tag-primary">Machine Learning</span>
+          <span class="tag tag-cyan">NLP</span>
+          <span class="tag">Classification</span>
+          <span class="tag">Data Science</span>
+        </div>
+
+        <h1 class="project-detail-title">Disease-Symptom Prediction Model</h1>
+        <p class="project-detail-subtitle">
+          Multi-model ML pipeline achieving ≥99% accuracy on disease prediction
+          from textual symptom data with NLP preprocessing and rigorous cross-validation.
+        </p>
+
+        <div class="project-detail-meta">
+          <div class="project-meta-item">
+            <span class="project-meta-label">Duration</span>
+            <span class="project-meta-value">Jun – Aug 2025</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Domain</span>
+            <span class="project-meta-value">Medical NLP / ML</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Type</span>
+            <span class="project-meta-value">Personal Project</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Metrics ────────────────────────────────── -->
+    <section class="container">
+      <div class="project-highlights">
+        <div class="highlight-card" data-animate="scale" data-delay="1">
+          <div class="highlight-value">≥99%</div>
+          <div class="highlight-label">Classification Accuracy</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="2">
+          <div class="highlight-value">3</div>
+          <div class="highlight-label">Models Benchmarked</div>
+        </div>
+        <div class="highlight-card" data-animate="scale" data-delay="3">
+          <div class="highlight-value">10</div>
+          <div class="highlight-label">Validation Seeds</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Body ──────────────────────────────────── -->
+    <section class="section" style="padding-top:0;" aria-label="Project details">
+      <div class="container">
+        <div class="project-detail-body">
+
+          <div class="project-description" data-animate="fade-right">
+
+            <h3>Project Overview</h3>
+            <p>
+              This project builds and rigorously benchmarks machine learning models for predicting
+              diseases from textual symptom descriptions. The goal was to compare classical ML
+              approaches on a structured NLP pipeline and establish clear evidence of which
+              architecture performs best, and why.
+            </p>
+
+            <h3>Approach</h3>
+            <ul>
+              <li>
+                Preprocessed raw symptom text using <strong>NLTK</strong> — tokenization,
+                stopword removal, stemming — and encoded features via TF-IDF vectorization
+                to capture symptom co-occurrence patterns.
+              </li>
+              <li>
+                Trained and compared three classifiers:
+                <strong>Random Forest</strong>, <strong>Support Vector Machine (SVM)</strong>,
+                and <strong>Multi-Layer Perceptron (MLP)</strong> — each tuned via
+                grid search on held-out validation sets.
+              </li>
+              <li>
+                Applied <strong>stratified k-fold cross-validation</strong> with 10 random seeds
+                to ensure results were statistically robust and not artifacts of a single split.
+              </li>
+              <li>
+                Analyzed performance using <strong>confusion matrices</strong>, per-class precision/recall,
+                and F1 scores — surfacing exactly which diseases each model struggled with.
+              </li>
+              <li>
+                Achieved <strong>≥99% accuracy</strong> across all three models, with Random Forest
+                showing the best interpretability via feature importance rankings.
+              </li>
+            </ul>
+
+            <h3>Key Findings</h3>
+            <ul>
+              <li>
+                All three classifiers converged to near-identical top-line accuracy, confirming
+                the data was linearly separable after TF-IDF transformation — an interesting result
+                that motivated ablation experiments removing preprocessing steps.
+              </li>
+              <li>
+                The few misclassifications were concentrated in symptom overlap zones
+                (e.g. flu vs. common cold), which informed potential improvements through
+                hierarchical classification.
+              </li>
+              <li>
+                Random Forest's feature importances revealed the top 15 discriminating symptoms
+                per disease class, providing clinically interpretable model insights.
+              </li>
+            </ul>
+
+            <div class="project-tech-section">
+              <h4>Tech Stack</h4>
+              <div class="project-tech-tags">
+                <span class="tag tag-primary">Python</span>
+                <span class="tag tag-primary">scikit-learn</span>
+                <span class="tag tag-cyan">NLTK</span>
+                <span class="tag tag-cyan">Pandas</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">Random Forest</span>
+                <span class="tag">SVM</span>
+                <span class="tag">MLP</span>
+                <span class="tag">TF-IDF</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Media -->
+          <div class="project-media-panel" data-animate="fade-left">
+            <div class="project-media-container"
+                 style="--card-gradient: linear-gradient(135deg, #001a0d 0%, #005533 40%, #00aa66 75%, #00d9ff 100%);">
+              <span class="project-media-placeholder-icon">🧬</span>
+              <span class="project-media-placeholder-text">Confusion Matrix / Results</span>
+            </div>
+            <p class="project-media-caption">
+              Add confusion matrix visualizations or accuracy plots here.
+            </p>
+
+            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Model Comparison</div>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);">
+                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">Random Forest</span>
+                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent-primary);">≥99%</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);">
+                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">SVM</span>
+                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent-primary);">≥99%</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);">
+                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">MLP</span>
+                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent-primary);">≥99%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Project Navigation ─────────────────────── -->
+    <section class="container">
+      <div class="project-nav">
+        <a class="project-nav-link" href="neura-glove.html">
+          <div class="project-nav-direction">← Previous Project</div>
+          <div class="project-nav-title">NEURA Glove</div>
+        </a>
+        <a class="project-nav-link next" href="train-simulation.html">
+          <div class="project-nav-direction">Next Project →</div>
+          <div class="project-nav-title">Train System Simulation</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
