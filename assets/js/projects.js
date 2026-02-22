@@ -87,7 +87,7 @@ function renderProjectCards(containerId, base = './') {
       <div class="project-card-thumb"
            style="--card-gradient: ${p.gradient};"
            aria-hidden="true">
-        ${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy">` : ''}
+        ${p.image ? `<img src="${p.image}" alt="${p.title}" loading="eager">` : ''}
         <span class="project-card-icon">${p.icon}</span>
       </div>
       <div class="project-card-body">
