@@ -79,17 +79,15 @@ function renderProjectCards(containerId, base = './') {
   if (!container) return;
 
   container.innerHTML = PROJECTS.map((p, i) => `
-    <a class="project-row"
+    <a class="project-img-card"
        href="${base}${p.href}"
        data-animate="fade-up"
        data-delay="${i + 1}"
-       aria-label="${p.title} — ${p.category}">
-      <span class="project-row-index">0${i + 1}</span>
-      <div class="project-row-info">
-        <h3 class="project-row-title">${p.title}</h3>
-        <span class="project-row-meta">${p.category} &middot; ${p.date}</span>
+       aria-label="${p.title}">
+      <img src="${base}${p.image}" alt="${p.title}" loading="eager">
+      <div class="project-img-overlay">
+        <span class="project-img-title">${p.title}</span>
       </div>
-      <span class="project-row-arrow">&#8594;</span>
     </a>
   `).join('');
 }

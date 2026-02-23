@@ -13,22 +13,6 @@ function getBasePath() {
 
 // ─── Navigation injection ─────────────────────────────────────
 function injectNav(base) {
-  const projects = [
-    { href: `${base}projects/neura-glove.html`,          label: 'NEURA Glove' },
-    { href: `${base}projects/disease-prediction.html`,   label: 'Disease Prediction' },
-    { href: `${base}projects/train-simulation.html`,     label: 'Train Simulation' },
-    { href: `${base}projects/civilization-replica.html`, label: 'Civilization Replica' },
-    { href: `${base}projects/mips-cpu.html`,             label: '32-bit MIPS CPU' },
-  ];
-
-  const dropdownItems = projects
-    .map(p => `<li><a class="nav-dropdown-link" href="${p.href}">${p.label}</a></li>`)
-    .join('');
-
-  const mobileProjectLinks = projects
-    .map(p => `<a class="mobile-nav-link" style="font-size:1.1rem;color:var(--text-muted)" href="${p.href}">${p.label}</a>`)
-    .join('');
-
   const navHTML = `
     <nav id="site-nav" role="navigation" aria-label="Main navigation">
       <div class="nav-inner container">
@@ -37,18 +21,7 @@ function injectNav(base) {
         <ul class="nav-links" role="list">
           <li><a class="nav-link" href="${base}index.html">Home</a></li>
           <li><a class="nav-link" href="${base}about.html">About</a></li>
-          <li class="nav-item-dropdown">
-            <button
-              class="nav-link nav-dropdown-toggle"
-              aria-expanded="false"
-              aria-haspopup="true"
-              id="projects-dropdown-btn">
-              Projects <span class="arrow" aria-hidden="true">▾</span>
-            </button>
-            <ul class="nav-dropdown" role="list" aria-labelledby="projects-dropdown-btn">
-              ${dropdownItems}
-            </ul>
-          </li>
+          <li><a class="nav-link" href="${base}projects.html">Projects</a></li>
           <li><a class="nav-link" href="${base}resume.html">Resume</a></li>
           <li>
             <a class="nav-link nav-external"
@@ -85,8 +58,7 @@ function injectNav(base) {
       <a class="mobile-nav-link" href="${base}index.html">Home</a>
       <a class="mobile-nav-link" href="${base}about.html">About</a>
       <div class="mobile-nav-divider"></div>
-      <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">Projects</span>
-      ${mobileProjectLinks}
+      <a class="mobile-nav-link" href="${base}projects.html">Projects</a>
       <div class="mobile-nav-divider"></div>
       <a class="mobile-nav-link" href="${base}resume.html">Resume</a>
       <div class="mobile-social-links">
