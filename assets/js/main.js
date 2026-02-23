@@ -205,22 +205,48 @@ function initActiveLink() {
   });
 }
 
+// // ─── Scroll-reveal animations ─────────────────────────────────
+// function initScrollAnimations() {
+//   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+//   if (prefersReduced) {
+//     // Observe existing elements
+//     const observeAll = () => {
+//       document.querySelectorAll('[data-animate]:not(.visible)').forEach(el => {
+//         observer.observe(el);
+//       });
+//     };
+
+//     observeAll();
+
+//     // also watch for dynamically injected elements (like projects)
+//     const mo = new MutationObserver(observeAll);
+//     mo.observe(document.body, { childList: true, subtree: true });
+//     return;
+//   }
+
+//   const observer = new IntersectionObserver((entries) => {
+//     entries.forEach(entry => {
+//       if (entry.isIntersecting) {
+//         entry.target.classList.add('visible');
+//         observer.unobserve(entry.target);
+//       }
+//     });
+//   }, {
+//     threshold: 0.1,
+//     rootMargin: '0px 0px -40px 0px'
+//   });
+
+//   document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+// }
+
 // ─── Scroll-reveal animations ─────────────────────────────────
 function initScrollAnimations() {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const elsSelector = '[data-animate]';
+
+  // If reduced motion, just show everything
   if (prefersReduced) {
-    // Observe existing elements
-    const observeAll = () => {
-      document.querySelectorAll('[data-animate]:not(.visible)').forEach(el => {
-        observer.observe(el);
-      });
-    };
-
-    observeAll();
-
-    // also watch for dynamically injected elements (like projects)
-    const mo = new MutationObserver(observeAll);
-    mo.observe(document.body, { childList: true, subtree: true });
+    document.querySelectorAll(elsSelector).forEach(el => el.classList.add('visible'));
     return;
   }
 
@@ -236,7 +262,24 @@ function initScrollAnimations() {
     rootMargin: '0px 0px -40px 0px'
   });
 
-  document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  // Observe any elements not already visible
+  const observeAll = () => {
+    document.querySelectorAll(`${elsSelector}:not(.visible)`).forEach(el => {
+      observer.observe(el);
+    });
+  };
+
+  // 1) Observe whatever exists right now
+  observeAll();
+
+  // 2) Re-scan shortly after load to catch things injected by other DOMContentLoaded listeners (like projects.js)
+  setTimeout(observeAll, 0);
+  setTimeout(observeAll, 50);
+  setTimeout(observeAll, 250);
+
+  // 3) Watch for dynamically injected content and observe it too
+  const mo = new MutationObserver(() => observeAll());
+  mo.observe(document.body, { childList: true, subtree: true });
 }
 
 // ─── Typewriter hero ──────────────────────────────────────────
