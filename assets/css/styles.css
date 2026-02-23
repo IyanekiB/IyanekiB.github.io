@@ -736,22 +736,22 @@ body.page-interior #site-nav {
 }
 
 .project-card {
-  background: var(--bg-surface);
+  position: relative;
+  display: block;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition:
-    box-shadow var(--transition-med),
-    transform var(--transition-med);
-  display: flex;
-  flex-direction: column;
+  aspect-ratio: 3 / 2;
+  background-color: var(--bg-elevated);
+  background-size: cover;
+  background-position: center;
   cursor: pointer;
   will-change: transform;
-  transform-style: preserve-3d;
+  transition: transform var(--transition-med), box-shadow var(--transition-med);
 }
 
 .project-card:hover {
-  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
 }
 
 .project-card:focus-visible {
@@ -759,70 +759,70 @@ body.page-interior #site-nav {
   outline-offset: 3px;
 }
 
-.project-card-thumb {
-  background: var(--card-gradient, linear-gradient(135deg, var(--bg-elevated), var(--bg-surface)));
-  aspect-ratio: 16 / 9;
-  position: relative;
-  overflow: hidden;
-}
-
-.project-card-thumb::before {
+/* Gradient overlay — ensures title readable; darkens fully on hover to mute image */
+.project-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(10,10,15,0.5) 100%);
+  background: linear-gradient(
+    to top,
+    rgba(10,10,15,0.92) 0%,
+    rgba(10,10,15,0.25) 55%,
+    rgba(10,10,15,0.05) 100%
+  );
+  transition: background var(--transition-med);
   z-index: 1;
 }
 
-.project-card-thumb::after {
-  content: '';
+.project-card:hover::before {
+  background: linear-gradient(
+    to top,
+    rgba(10,10,15,0.97) 0%,
+    rgba(10,10,15,0.85) 100%
+  );
+}
+
+/* Content: flex column pinned to bottom of card */
+.project-card-content {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.04) 100%);
-  opacity: 0;
-  transition: opacity var(--transition-med);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem 1.5rem;
   z-index: 2;
 }
 
-.project-card:hover .project-card-thumb::after {
+/* Description + tags: hidden by default, revealed on hover */
+.project-card-hover-info {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--transition-med), transform var(--transition-med);
+  margin-bottom: 0.75rem;
+}
+
+.project-card:hover .project-card-hover-info {
   opacity: 1;
+  transform: translateY(0);
 }
 
-
-.project-card-icon {
-  position: absolute;
-  bottom: 0.75rem;
-  left: 0.9rem;
-  font-size: 1.4rem;
-  z-index: 3;
-  filter: drop-shadow(0 1px 6px rgba(0,0,0,0.8));
-  pointer-events: none;
-}
-
-.project-card:hover .project-card-icon {
-  transform: scale(1.15);
-}
-
-.project-card-body {
-  padding: var(--space-md);
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  flex: 1;
+/* Title + category: always visible */
+.project-card-base {
+  flex-shrink: 0;
 }
 
 .project-card-meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
 }
 
 .project-card-category {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
-  color: var(--accent-primary);
+  color: var(--accent-secondary);
   text-transform: uppercase;
 }
 
@@ -838,18 +838,13 @@ body.page-interior #site-nav {
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.3;
-  transition: color var(--transition-fast);
-}
-
-.project-card:hover .project-card-title {
-  color: var(--accent-primary);
 }
 
 .project-card-desc {
   font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: 1.6;
-  flex: 1;
+  margin-bottom: 0.75rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -860,7 +855,21 @@ body.page-interior #site-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 0.4rem;
+}
+
+/* Mobile / touch: show description always since there is no hover */
+@media (hover: none) {
+  .project-card-hover-info {
+    opacity: 1;
+    transform: none;
+  }
+  .project-card::before {
+    background: linear-gradient(
+      to top,
+      rgba(10,10,15,0.95) 0%,
+      rgba(10,10,15,0.65) 100%
+    );
+  }
 }
 
 /* ============================================================

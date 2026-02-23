@@ -83,21 +83,21 @@ function renderProjectCards(containerId, base = './') {
        href="${base}${p.href}"
        data-animate="fade-up"
        data-delay="${i + 1}"
+       style="${p.image ? `background-image: url('${base}${p.image}');` : ''}"
        aria-label="${p.title} — ${p.category}">
-      <div class="project-card-thumb"
-           style="--card-gradient: ${p.gradient};${p.image ? ` background-image: url('${base}${p.image}'); background-size: cover; background-position: center;` : ''}"
-           aria-hidden="true">
-        <span class="project-card-icon">${p.icon}</span>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-meta">
-          <span class="project-card-category">${p.category}</span>
-          <span class="project-card-date">${p.date}</span>
+      <div class="project-card-content">
+        <div class="project-card-hover-info">
+          <p class="project-card-desc">${p.description}</p>
+          <div class="project-card-tags">
+            ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
         </div>
-        <h3 class="project-card-title">${p.title}</h3>
-        <p class="project-card-desc">${p.description}</p>
-        <div class="project-card-tags">
-          ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+        <div class="project-card-base">
+          <div class="project-card-meta">
+            <span class="project-card-category">${p.category}</span>
+            <span class="project-card-date">${p.date}</span>
+          </div>
+          <h3 class="project-card-title">${p.title}</h3>
         </div>
       </div>
     </a>
