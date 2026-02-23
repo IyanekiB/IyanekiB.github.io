@@ -79,26 +79,17 @@ function renderProjectCards(containerId, base = './') {
   if (!container) return;
 
   container.innerHTML = PROJECTS.map((p, i) => `
-    <a class="project-card"
+    <a class="project-row"
        href="${base}${p.href}"
        data-animate="fade-up"
        data-delay="${i + 1}"
        aria-label="${p.title} — ${p.category}">
-      <div class="project-card-accent" style="background: ${p.gradient}"></div>
-      <div class="project-card-body">
-        <div class="project-card-header">
-          <span class="project-card-icon">${p.icon}</span>
-          <div class="project-card-meta">
-            <span class="project-card-category">${p.category}</span>
-            <span class="project-card-date">${p.date}</span>
-          </div>
-        </div>
-        <h3 class="project-card-title">${p.title}</h3>
-        <p class="project-card-desc">${p.description}</p>
-        <div class="project-card-tags">
-          ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-        </div>
+      <span class="project-row-index">0${i + 1}</span>
+      <div class="project-row-info">
+        <h3 class="project-row-title">${p.title}</h3>
+        <span class="project-row-meta">${p.category} &middot; ${p.date}</span>
       </div>
+      <span class="project-row-arrow">&#8594;</span>
     </a>
   `).join('');
 }
