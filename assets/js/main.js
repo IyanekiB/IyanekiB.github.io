@@ -209,7 +209,18 @@ function initActiveLink() {
 function initScrollAnimations() {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) {
-    document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('visible'));
+    // Observe existing elements
+    const observeAll = () => {
+      document.querySelectorAll('[data-animate]:not(.visible)').forEach(el => {
+        observer.observe(el);
+      });
+    };
+
+    observeAll();
+
+    // also watch for dynamically injected elements (like projects)
+    const mo = new MutationObserver(observeAll);
+    mo.observe(document.body, { childList: true, subtree: true });
     return;
   }
 
