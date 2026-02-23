@@ -74,25 +74,36 @@ function injectNav(base) {
           <span></span><span></span><span></span>
         </button>
       </div>
-
-      <div id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Mobile navigation">
-        <a class="mobile-nav-link" href="${base}index.html">Home</a>
-        <a class="mobile-nav-link" href="${base}about.html">About</a>
-        <div class="mobile-nav-divider"></div>
-        <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">Projects</span>
-        ${mobileProjectLinks}
-        <div class="mobile-nav-divider"></div>
-        <a class="mobile-nav-link" href="${base}resume.html">Resume</a>
-        <div class="mobile-social-links">
-          <a class="mobile-social-link" href="https://github.com/IyanekiB" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a class="mobile-social-link" href="https://www.linkedin.com/in/iyan-nekib/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        </div>
-      </div>
     </nav>
   `;
 
+  // Mobile menu is injected at body level (not inside <nav>) to prevent
+  // backdrop-filter on .scrolled nav from creating a containing block that
+  // traps position:fixed children within the 68px nav height.
+  const mobileMenuHTML = `
+    <div id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Mobile navigation">
+      <a class="mobile-nav-link" href="${base}index.html">Home</a>
+      <a class="mobile-nav-link" href="${base}about.html">About</a>
+      <div class="mobile-nav-divider"></div>
+      <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">Projects</span>
+      ${mobileProjectLinks}
+      <div class="mobile-nav-divider"></div>
+      <a class="mobile-nav-link" href="${base}resume.html">Resume</a>
+      <div class="mobile-social-links">
+        <a class="mobile-social-link" href="https://github.com/IyanekiB" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a class="mobile-social-link" href="https://www.linkedin.com/in/iyan-nekib/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      </div>
+    </div>
+  `;
+
   const mount = document.getElementById('nav-mount');
-  if (mount) mount.innerHTML = navHTML;
+  if (mount) {
+    mount.innerHTML = navHTML;
+    // Remove any previous mobile menu (re-injection on SPA-style reloads)
+    const existing = document.getElementById('mobile-menu');
+    if (existing) existing.remove();
+    document.body.insertAdjacentHTML('beforeend', mobileMenuHTML);
+  }
 }
 
 // ─── Footer injection ─────────────────────────────────────────

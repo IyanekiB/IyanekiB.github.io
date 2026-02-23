@@ -409,13 +409,14 @@ body.page-interior #site-nav {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobile menu overlay */
+/* Mobile menu overlay — injected at body level, not inside <nav>,
+   so backdrop-filter on nav.scrolled cannot trap position:fixed children */
 #mobile-menu {
   display: none;
   position: fixed;
   inset: 0;
   background: rgba(10, 10, 15, 0.97);
-  z-index: 999;
+  z-index: 1001;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -491,6 +492,16 @@ body.page-interior #site-nav {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+}
+
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.08;
+  pointer-events: none;
 }
 
 .orb {
@@ -1134,7 +1145,7 @@ body.page-interior .project-detail-hero {
 
 .highlight-label {
   font-size: var(--text-xs);
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
