@@ -13,6 +13,17 @@ function getBasePath() {
 
 // ─── Navigation injection ─────────────────────────────────────
 function injectNav(base) {
+  const projects = [
+    { href: `${base}projects/neura-glove.html`,          label: 'NEURA Glove' },
+    { href: `${base}projects/disease-prediction.html`,   label: 'Disease Prediction' },
+    { href: `${base}projects/train-simulation.html`,     label: 'Train Simulation' },
+    { href: `${base}projects/civilization-replica.html`, label: 'Civilization Replica' },
+    { href: `${base}projects/mips-cpu.html`,             label: '32-bit MIPS CPU' },
+  ];
+  const dropdownItems = projects
+    .map(p => `<li><a class="nav-dropdown-link" href="${p.href}">${p.label}</a></li>`)
+    .join('');
+
   const navHTML = `
     <nav id="site-nav" role="navigation" aria-label="Main navigation">
       <div class="nav-inner container">
@@ -21,7 +32,14 @@ function injectNav(base) {
         <ul class="nav-links" role="list">
           <li><a class="nav-link" href="${base}index.html">Home</a></li>
           <li><a class="nav-link" href="${base}about.html">About</a></li>
-          <li><a class="nav-link" href="${base}projects.html">Projects</a></li>
+          <li class="nav-item-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="${base}projects.html">
+              Projects <span class="arrow" aria-hidden="true">▾</span>
+            </a>
+            <ul class="nav-dropdown" role="list">
+              ${dropdownItems}
+            </ul>
+          </li>
           <li><a class="nav-link" href="${base}resume.html">Resume</a></li>
           <li>
             <a class="nav-link nav-external"
