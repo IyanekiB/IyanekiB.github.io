@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="description" content="NEURA Glove — Senior Design ML project mapping IMU and flex-sensor data to 21-point 3D hand poses for Unity VR using LSTM and Kalman filtering.">
   <meta name="author" content="Iyan Nekib">
   <title>NEURA Glove — Iyan Nekib</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/css/styles.css">
@@ -20,44 +21,57 @@
 
   <main>
 
+    <!-- ── Back link ──────────────────────────────── -->
+    <div class="back-link-bar">
+      <div class="container">
+        <a class="back-link" href="../projects.html">Back to projects</a>
+      </div>
+    </div>
+
     <!-- ── Project Header ────────────────────────── -->
     <header class="project-detail-hero">
       <div class="container">
-        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+        <h1 class="project-detail-title" data-animate="fade-up">NEURA Glove</h1>
+        <p class="project-detail-subtitle" data-animate="fade-up" data-delay="1">
+          Real-time 3D hand pose reconstruction for Unity VR using LSTM networks,
+          Kalman filtering, and IMU/flex-sensor fusion.
+        </p>
 
-        <div class="project-badges">
+        <div class="project-badges" data-animate="fade-up" data-delay="2">
           <span class="tag tag-primary">Senior Design</span>
           <span class="tag tag-cyan">Machine Learning</span>
           <span class="tag">Computer Vision</span>
           <span class="tag">Sensor Fusion</span>
         </div>
 
-        <h1 class="project-detail-title">NEURA Glove</h1>
-        <p class="project-detail-subtitle">
-          Real-time 3D hand pose reconstruction for Unity VR using LSTM networks,
-          Kalman filtering, and IMU/flex-sensor fusion.
-        </p>
-
         <div class="project-detail-meta">
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="3">
             <span class="project-meta-label">Duration</span>
             <span class="project-meta-value">Aug – Dec 2025</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="4">
             <span class="project-meta-label">Role</span>
             <span class="project-meta-value">Lead ML Engineer</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="5">
             <span class="project-meta-label">Type</span>
             <span class="project-meta-value">Senior Capstone Project</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up">
             <span class="project-meta-label">Institution</span>
             <span class="project-meta-value">University of Pittsburgh</span>
           </div>
         </div>
+
+        <a class="btn btn-primary" href="#demo" style="margin-top:var(--space-md)">View the demo ↓</a>
       </div>
     </header>
+
+    <!-- ── A real photograph of the thing ──────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/NeuraGlove.jpg" alt="The NEURA Glove prototype wired to its sensor board, on the workbench" width="1200" height="1600" loading="eager">
+      <figcaption class="about-band-caption">The glove, mid-build — sensor board and wiring</figcaption>
+    </figure>
 
     <!-- ── Metrics ────────────────────────────────── -->
     <section class="container">
@@ -142,6 +156,10 @@
               </li>
             </ul>
 
+            <figure style="margin-block:var(--space-lg);border-radius:var(--radius);overflow:hidden;" data-animate="fade-up">
+              <img src="../assets/images/circuit-macro.jpg" alt="Close-up of discrete electronic components on a circuit board" width="1920" height="1280" loading="lazy" style="width:100%;display:block;filter:brightness(0.8) contrast(1.05);">
+            </figure>
+
             <div class="project-tech-section">
               <h4>Tech Stack</h4>
               <div class="project-tech-tags">
@@ -162,23 +180,22 @@
           </div>
 
           <!-- Right: Media -->
-          <div class="project-media-panel" data-animate="fade-left">
+          <div class="project-media-panel" id="demo" data-animate="fade-left">
             <div class="project-media-container">
-              <video class="project-media-img" controls preload="metadata" playsinline aria-label="Robotic hand with sensors — representative of the NEURA Glove project">
+              <video class="project-media-img" controls preload="metadata" playsinline poster="../assets/images/NeuraGlove.jpg" aria-label="The NEURA Glove's Unity VR hand-tracking demo">
                 <source src="../assets/projectFiles/NeuraGlove1.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
-            <!-- <p class="project-media-caption">Replace with a real demo video or screenshot of the glove in action.</p> -->
 
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Pipeline Overview</div>
-              <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:var(--text-xs);font-family:var(--font-mono);color:var(--text-secondary);">
-                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">1. Sensor Acquisition (IMU + Flex)</div>
-                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">2. Stream Synchronization</div>
-                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">3. LSTM Inference</div>
-                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-primary);">4. Kalman Smoothing</div>
-                <div style="background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border-left:2px solid var(--accent-secondary);">5. Unity VR Hand Rig Update</div>
+            <div class="project-ui-panel" data-animate="fade-up">
+              <div class="project-ui-panel-label">Pipeline overview</div>
+              <div class="project-ui-panel-rows">
+                <div>Sensor acquisition (IMU + flex)</div>
+                <div>Stream synchronization</div>
+                <div>LSTM inference</div>
+                <div>Kalman smoothing</div>
+                <div>Unity VR hand rig update</div>
               </div>
             </div>
           </div>
@@ -187,11 +204,17 @@
       </div>
     </section>
 
+    <!-- ── Band: where it was built ───────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/pitt-swanson-engineering.jpg" alt="The Swanson School of Engineering building at the University of Pittsburgh" width="1920" height="1440" loading="lazy">
+      <figcaption class="about-band-caption">University of Pittsburgh — Swanson School of Engineering</figcaption>
+    </figure>
+
     <!-- ── Project Navigation ─────────────────────── -->
     <section class="container">
       <div class="project-nav">
         <div></div><!-- empty left -->
-        <a class="project-nav-link next" href="disease-prediction.html">
+        <a class="project-nav-link next" href="disease-prediction.html" data-animate="fade-up">
           <div class="project-nav-direction">Next Project →</div>
           <div class="project-nav-title">Disease-Symptom Prediction</div>
         </a>

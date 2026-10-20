@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="description" content="Disease-Symptom Prediction Model — benchmarking Random Forest, SVM, and MLP classifiers on symptom text data achieving ≥99% accuracy.">
   <meta name="author" content="Iyan Nekib">
   <title>Disease Prediction — Iyan Nekib</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/css/styles.css">
@@ -20,38 +21,45 @@
 
   <main>
 
+    <!-- ── Back link ──────────────────────────────── -->
+    <div class="back-link-bar">
+      <div class="container">
+        <a class="back-link" href="../projects.html">Back to projects</a>
+      </div>
+    </div>
+
     <!-- ── Project Header ────────────────────────── -->
     <header class="project-detail-hero">
       <div class="container">
-        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+        <h1 class="project-detail-title" data-animate="fade-up">Disease Prediction</h1>
+        <p class="project-detail-subtitle" data-animate="fade-up" data-delay="1">
+          Multi-model ML pipeline achieving ≥99% accuracy on disease prediction
+          from textual symptom data with NLP preprocessing and rigorous cross-validation.
+        </p>
 
-        <div class="project-badges">
+        <div class="project-badges" data-animate="fade-up" data-delay="2">
           <span class="tag tag-primary">Machine Learning</span>
           <span class="tag tag-cyan">NLP</span>
           <span class="tag">Classification</span>
           <span class="tag">Data Science</span>
         </div>
 
-        <h1 class="project-detail-title">Disease-Symptom Prediction Model</h1>
-        <p class="project-detail-subtitle">
-          Multi-model ML pipeline achieving ≥99% accuracy on disease prediction
-          from textual symptom data with NLP preprocessing and rigorous cross-validation.
-        </p>
-
         <div class="project-detail-meta">
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="3">
             <span class="project-meta-label">Duration</span>
             <span class="project-meta-value">Jun – Aug 2025</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="4">
             <span class="project-meta-label">Domain</span>
             <span class="project-meta-value">Medical NLP / ML</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="5">
             <span class="project-meta-label">Type</span>
             <span class="project-meta-value">Personal Project</span>
           </div>
         </div>
+
+        <a class="btn btn-primary" href="#demo" style="margin-top:var(--space-md)">View the results ↓</a>
       </div>
     </header>
 
@@ -72,6 +80,12 @@
         </div>
       </div>
     </section>
+
+    <!-- ── A real picture of the code ──────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/DiseasePred.jpg" alt="Python preprocessing code for the disease-symptom prediction pipeline" width="600" height="559" loading="eager">
+      <figcaption class="about-band-caption">The preprocessing pipeline, in the editor</figcaption>
+    </figure>
 
     <!-- ── Body ──────────────────────────────────── -->
     <section class="section" style="padding-top:0;" aria-label="Project details">
@@ -152,31 +166,22 @@
           </div>
 
           <!-- Right: Media -->
-          <div class="project-media-panel" data-animate="fade-left">
-            <div class="project-media-container">
+          <div class="project-media-panel" id="demo" data-animate="fade-left">
+            <div class="project-media-container" data-ui>
               <img
                 class="project-media-img"
                 src="../assets/projectFiles/DiseasePred1.jpg"
-                alt="Medical data visualization — representative of the disease prediction project"
+                alt="Confusion matrix comparing predicted vs. actual disease classifications, summed over ten validation seeds"
+                width="2270" height="1891"
                 loading="lazy">
             </div>
-            <!-- <p class="project-media-caption">Replace with confusion matrix visualizations or accuracy plots.</p> -->
 
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Model Comparison</div>
-              <div style="display:flex;flex-direction:column;gap:0.5rem;">
-                <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">Random Forest</span>
-                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent-primary);">≥99%</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">SVM</span>
-                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent-primary);">≥99%</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-elevated);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">MLP</span>
-                  <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent-primary);">≥99%</span>
-                </div>
+            <div class="project-ui-panel" data-animate="fade-up">
+              <div class="project-ui-panel-label">Model comparison</div>
+              <div class="project-ui-compare">
+                <div class="project-ui-compare-row"><span>Random Forest</span><span class="metric">≥99%</span></div>
+                <div class="project-ui-compare-row"><span>SVM</span><span class="metric">≥99%</span></div>
+                <div class="project-ui-compare-row"><span>MLP</span><span class="metric">≥99%</span></div>
               </div>
             </div>
           </div>
@@ -186,13 +191,22 @@
     </section>
 
     <!-- ── Project Navigation ─────────────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/pitt-swanson-engineering.jpg" alt="The Swanson School of Engineering building at the University of Pittsburgh" width="1920" height="1440" loading="lazy">
+      <figcaption class="about-band-caption">University of Pittsburgh — Swanson School of Engineering</figcaption>
+    </figure>
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/halifax-harbour.jpg" alt="Halifax harbour at dusk, Iyan's home city" width="1920" height="985" loading="lazy">
+      <figcaption class="about-band-caption align-right">Built between Pittsburgh and Halifax</figcaption>
+    </figure>
+
     <section class="container">
       <div class="project-nav">
-        <a class="project-nav-link" href="neura-glove.html">
+        <a class="project-nav-link" href="neura-glove.html" data-animate="fade-right">
           <div class="project-nav-direction">← Previous Project</div>
           <div class="project-nav-title">NEURA Glove</div>
         </a>
-        <a class="project-nav-link next" href="train-simulation.html">
+        <a class="project-nav-link next" href="train-simulation.html" data-animate="fade-left">
           <div class="project-nav-direction">Next Project →</div>
           <div class="project-nav-title">Train System Simulation</div>
         </a>

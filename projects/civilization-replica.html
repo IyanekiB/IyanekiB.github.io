@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="description" content="Java-based Civilization VI Replica — strategy game with OOP, Extreme Programming, and 90%+ test coverage via TDD.">
   <meta name="author" content="Iyan Nekib">
   <title>Civilization VI Replica — Iyan Nekib</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/css/styles.css">
@@ -20,38 +21,45 @@
 
   <main>
 
+    <!-- ── Back link ──────────────────────────────── -->
+    <div class="back-link-bar">
+      <div class="container">
+        <a class="back-link" href="../projects.html">Back to projects</a>
+      </div>
+    </div>
+
     <!-- ── Project Header ────────────────────────── -->
     <header class="project-detail-hero">
       <div class="container">
-        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+        <h1 class="project-detail-title" data-animate="fade-up">Civilization VI Replica</h1>
+        <p class="project-detail-subtitle" data-animate="fade-up" data-delay="1">
+          Modular strategy game implementing city, unit, and combat mechanics using
+          object-oriented design and Extreme Programming — 90%+ test coverage via TDD.
+        </p>
 
-        <div class="project-badges">
+        <div class="project-badges" data-animate="fade-up" data-delay="2">
           <span class="tag tag-primary">Software Engineering</span>
           <span class="tag tag-cyan">Test-Driven Development</span>
           <span class="tag">OOP</span>
           <span class="tag">Game Development</span>
         </div>
 
-        <h1 class="project-detail-title">Java-based Civilization VI Replica</h1>
-        <p class="project-detail-subtitle">
-          Modular strategy game implementing city, unit, and combat mechanics using
-          object-oriented design and Extreme Programming — 90%+ test coverage via TDD.
-        </p>
-
         <div class="project-detail-meta">
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="3">
             <span class="project-meta-label">Duration</span>
             <span class="project-meta-value">Sept – Dec 2024</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="4">
             <span class="project-meta-label">Methodology</span>
             <span class="project-meta-value">Extreme Programming (XP)</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="5">
             <span class="project-meta-label">Type</span>
             <span class="project-meta-value">Academic Group Project</span>
           </div>
         </div>
+
+        <a class="btn btn-primary" href="#demo" style="margin-top:var(--space-md)">View the demo ↓</a>
       </div>
     </header>
 
@@ -72,6 +80,12 @@
         </div>
       </div>
     </section>
+
+    <!-- ── A real picture of it running ────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/SimCiv.jpg" alt="The Civilization VI replica's game map, running live" width="633" height="533" loading="eager">
+      <figcaption class="about-band-caption">The hex map, mid-game</figcaption>
+    </figure>
 
     <!-- ── Body ──────────────────────────────────── -->
     <section class="section" style="padding-top:0;" aria-label="Project details">
@@ -151,33 +165,22 @@
           </div>
 
           <!-- Right: Media -->
-          <div class="project-media-panel" data-animate="fade-left">
+          <div class="project-media-panel" id="demo" data-animate="fade-left">
             <div class="project-media-container">
-              <video class="project-media-img" controls preload="metadata" playsinline aria-label="Code on screen — representative of the Java Civilization project">
+              <video class="project-media-img" controls preload="metadata" playsinline poster="../assets/images/SimCiv.jpg" aria-label="The Civilization VI replica, running live">
                 <source src="../assets/projectFiles/SimCiv1.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
-            <!-- <p class="project-media-caption">Add a gameplay screenshot or demo GIF here.</p> -->
 
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Core Systems</div>
-              <div style="display:flex;flex-direction:column;gap:0.4rem;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>City System</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>Unit System</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>Combat Engine</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>Tech Tree</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:rgba(108,99,255,0.1);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border:1px solid rgba(108,99,255,0.2);">
-                  <span>Overall Coverage</span><span style="color:var(--accent-primary);font-weight:600">≥ 90%</span>
-                </div>
+            <div class="project-ui-panel" data-animate="fade-up">
+              <div class="project-ui-panel-label">Core systems</div>
+              <div class="project-ui-compare">
+                <div class="project-ui-compare-row"><span>City System</span><span class="metric">Tested</span></div>
+                <div class="project-ui-compare-row"><span>Unit System</span><span class="metric">Tested</span></div>
+                <div class="project-ui-compare-row"><span>Combat Engine</span><span class="metric">Tested</span></div>
+                <div class="project-ui-compare-row"><span>Tech Tree</span><span class="metric">Tested</span></div>
+                <div class="project-ui-compare-row" style="background:rgba(177, 99, 255,0.14)"><span>Overall Coverage</span><span class="metric">≥ 90%</span></div>
               </div>
             </div>
           </div>
@@ -186,14 +189,24 @@
       </div>
     </section>
 
+    <!-- ── Band: where it was built ───────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/pitt-swanson-engineering.jpg" alt="The Swanson School of Engineering building at the University of Pittsburgh" width="1920" height="1440" loading="lazy">
+      <figcaption class="about-band-caption align-right">University of Pittsburgh — Swanson School of Engineering</figcaption>
+    </figure>
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/halifax-harbour.jpg" alt="Halifax harbour at dusk, Iyan's home city" width="1920" height="985" loading="lazy">
+      <figcaption class="about-band-caption">Built between semesters, back home in Halifax</figcaption>
+    </figure>
+
     <!-- ── Project Navigation ─────────────────────── -->
     <section class="container">
       <div class="project-nav">
-        <a class="project-nav-link" href="train-simulation.html">
+        <a class="project-nav-link" href="train-simulation.html" data-animate="fade-right">
           <div class="project-nav-direction">← Previous Project</div>
           <div class="project-nav-title">Train System Simulation</div>
         </a>
-        <a class="project-nav-link next" href="mips-cpu.html">
+        <a class="project-nav-link next" href="mips-cpu.html" data-animate="fade-left">
           <div class="project-nav-direction">Next Project →</div>
           <div class="project-nav-title">32-bit MIPS CPU</div>
         </a>

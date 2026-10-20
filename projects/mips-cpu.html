@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="description" content="32-bit MIPS CPU (Multi-Cycle) — VHDL implementation with FSM-based control, external memory interfacing, and Zynq FPGA synthesis.">
   <meta name="author" content="Iyan Nekib">
   <title>32-bit MIPS CPU — Iyan Nekib</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/css/styles.css">
@@ -20,42 +21,49 @@
 
   <main>
 
+    <!-- ── Back link ──────────────────────────────── -->
+    <div class="back-link-bar">
+      <div class="container">
+        <a class="back-link" href="../projects.html">Back to projects</a>
+      </div>
+    </div>
+
     <!-- ── Project Header ────────────────────────── -->
     <header class="project-detail-hero">
       <div class="container">
-        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+        <h1 class="project-detail-title" data-animate="fade-up">32-bit MIPS CPU</h1>
+        <p class="project-detail-subtitle" data-animate="fade-up" data-delay="1">
+          Multi-cycle MIPS32 processor implemented in VHDL with FSM-based control unit,
+          external memory interfacing, and validation on Zynq FPGA hardware.
+        </p>
 
-        <div class="project-badges">
+        <div class="project-badges" data-animate="fade-up" data-delay="2">
           <span class="tag tag-primary">Computer Architecture</span>
           <span class="tag tag-cyan">FPGA</span>
           <span class="tag">VHDL</span>
           <span class="tag">Digital Design</span>
         </div>
 
-        <h1 class="project-detail-title">32-bit MIPS CPU (Multi-Cycle)</h1>
-        <p class="project-detail-subtitle">
-          Multi-cycle MIPS32 processor implemented in VHDL with FSM-based control unit,
-          external memory interfacing, and validation on Zynq FPGA hardware.
-        </p>
-
         <div class="project-detail-meta">
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="3">
             <span class="project-meta-label">Duration</span>
             <span class="project-meta-value">Sept – Dec 2024</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="4">
             <span class="project-meta-label">Domain</span>
             <span class="project-meta-value">Computer Architecture</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up" data-delay="5">
             <span class="project-meta-label">Type</span>
             <span class="project-meta-value">Academic Project</span>
           </div>
-          <div class="project-meta-item">
+          <div class="project-meta-item" data-animate="fade-up">
             <span class="project-meta-label">Hardware</span>
             <span class="project-meta-value">Zynq FPGA (BRAM)</span>
           </div>
         </div>
+
+        <a class="btn btn-primary" href="#demo" style="margin-top:var(--space-md)">View the hardware ↓</a>
       </div>
     </header>
 
@@ -76,6 +84,12 @@
         </div>
       </div>
     </section>
+
+    <!-- ── A real picture of the waveform ──────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/projectFiles/MIPS321.jpg" alt="A Vivado waveform simulation validating the MIPS32 CPU's instruction timing" width="1012" height="616" loading="eager">
+      <figcaption class="about-band-caption">Instruction timing, in simulation</figcaption>
+    </figure>
 
     <!-- ── Body ──────────────────────────────────── -->
     <section class="section" style="padding-top:0;" aria-label="Project details">
@@ -168,25 +182,25 @@
           </div>
 
           <!-- Right: Media -->
-          <div class="project-media-panel" data-animate="fade-left">
-            <div class="project-media-container">
+          <div class="project-media-panel" id="demo" data-animate="fade-left">
+            <div class="project-media-container" data-ui>
               <img
                 class="project-media-img"
-                src="../assets/projectFiles/MIPS321.jpg"
-                alt="Circuit board close-up — representative of the MIPS CPU FPGA project"
+                src="../assets/images/MIPS32.jpg"
+                alt="Block diagram of the multi-cycle MIPS32 processor built in VHDL"
+                width="1490" height="446"
                 loading="lazy">
             </div>
-            <!-- <p class="project-media-caption">Replace with a Vivado waveform screenshot or RTL schematic.</p> -->
 
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Instruction Support</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;font-family:var(--font-mono);font-size:var(--text-xs);">
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">R-type (ADD, SUB, AND…)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">I-type (ADDI, LW, SW)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Branch (BEQ, BNE)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Jump (J, JAL, JR)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Shifts (SLL, SRL)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Compare (SLT, SLTI)</div>
+            <div class="project-ui-panel" data-animate="fade-up">
+              <div class="project-ui-panel-label">Instruction support</div>
+              <div class="project-ui-grid">
+                <div>R-type (ADD, SUB, AND…)</div>
+                <div>I-type (ADDI, LW, SW)</div>
+                <div>Branch (BEQ, BNE)</div>
+                <div>Jump (J, JAL, JR)</div>
+                <div>Shifts (SLL, SRL)</div>
+                <div>Compare (SLT, SLTI)</div>
               </div>
             </div>
           </div>
@@ -195,10 +209,20 @@
       </div>
     </section>
 
+    <!-- ── Band: where it was built ───────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/pitt-swanson-engineering.jpg" alt="The Swanson School of Engineering building at the University of Pittsburgh" width="1920" height="1440" loading="lazy">
+      <figcaption class="about-band-caption align-right">University of Pittsburgh — Swanson School of Engineering</figcaption>
+    </figure>
+    <figure class="about-band" data-animate="fade-up">
+      <img src="../assets/images/circuit-macro.jpg" alt="Close-up of discrete electronic components on a circuit board" width="1920" height="1280" loading="lazy">
+      <figcaption class="about-band-caption">Silicon, close up</figcaption>
+    </figure>
+
     <!-- ── Project Navigation ─────────────────────── -->
     <section class="container">
       <div class="project-nav">
-        <a class="project-nav-link" href="civilization-replica.html">
+        <a class="project-nav-link" href="civilization-replica.html" data-animate="fade-right">
           <div class="project-nav-direction">← Previous Project</div>
           <div class="project-nav-title">Java Civilization VI Replica</div>
         </a>

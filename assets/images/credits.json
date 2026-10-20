@@ -1,0 +1,74 @@
+[
+ {
+  "file": "assets/images/halifax-harbour.jpg",
+  "media": "image",
+  "ref": "openverse:11b10fe8-c302-4bb2-941c-6631b1dd3f92",
+  "title": "Halifax Harbour Sunset Skyline, Nova Scotia (24237034620)",
+  "creator": "Tony Webster from Minneapolis, Minnesota",
+  "creatorUrl": "https://www.flickr.com/people/87296837@N00",
+  "date": null,
+  "license": "CC BY-SA 2.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/w/index.php?curid=46589733",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Halifax_Harbour_Sunset_Skyline%2C_Nova_Scotia_%2824237034620%29.jpg/1920px-Halifax_Harbour_Sunset_Skyline%2C_Nova_Scotia_%2824237034620%29.jpg",
+  "width": 1920,
+  "height": 985,
+  "bytes": 347395,
+  "credit": "\"Halifax Harbour Sunset Skyline, Nova Scotia (24237034620)\" by Tony Webster from Minneapolis, Minnesota, CC BY-SA 2.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-10-19T23:02:56.466Z"
+ },
+ {
+  "file": "assets/images/pitt-swanson-engineering.jpg",
+  "media": "image",
+  "ref": "openverse:bdb39952-eb93-4cd8-aff7-498acfc95a7d",
+  "title": "Swanson Engineering Building Pitt",
+  "creator": "HoboJones",
+  "creatorUrl": "https://commons.wikimedia.org/wiki/User:HoboJones",
+  "date": null,
+  "license": "CC BY-SA 3.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/w/index.php?curid=7413557",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Swanson_Engineering_Building_Pitt.jpg/1920px-Swanson_Engineering_Building_Pitt.jpg",
+  "width": 1920,
+  "height": 1440,
+  "bytes": 466973,
+  "credit": "\"Swanson Engineering Building Pitt\" by HoboJones, CC BY-SA 3.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-10-19T23:41:02.046Z"
+ },
+ {
+  "file": "assets/images/circuit-macro.jpg",
+  "media": "image",
+  "ref": "openverse:ac52900c-5648-4f96-9fd2-78c639003e55",
+  "title": "Macro circuit board",
+  "creator": "Ingo Dierking",
+  "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Ingo_Dierking&action=edit&redlink=1",
+  "date": null,
+  "license": "CC BY-SA 4.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/w/index.php?curid=44973060",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Macro_circuit_board.JPG/1920px-Macro_circuit_board.JPG",
+  "width": 1920,
+  "height": 1280,
+  "bytes": 369323,
+  "credit": "\"Macro circuit board\" by Ingo Dierking, CC BY-SA 4.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-10-19T23:44:50.465Z"
+ }
+]

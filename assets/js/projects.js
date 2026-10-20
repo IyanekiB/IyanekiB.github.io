@@ -14,9 +14,8 @@ const PROJECTS = [
     date: 'Aug – Dec 2025',
     description: 'ML-powered smart glove achieving 21-point 3D hand pose reconstruction with ≤50ms latency using LSTM networks and Kalman filtering for Unity VR hand tracking.',
     tags: ['Python', 'LSTM', 'Kalman Filter', 'Unity VR', 'MediaPipe', 'IMU'],
-    gradient: 'linear-gradient(135deg, #1a0533 0%, #4a2090 40%, #6c63ff 70%, #00d9ff 100%)',
     image: '/assets/images/NeuraGlove.jpg',
-    icon: '✋',
+    imageDims: [1200, 1600],
     href: 'projects/neura-glove.html',
   },
   {
@@ -26,9 +25,8 @@ const PROJECTS = [
     date: 'Jun – Aug 2025',
     description: 'Multi-model ML pipeline benchmarking Random Forest, SVM, and MLP classifiers on symptom text data, achieving ≥99% accuracy with NLP preprocessing and 10-seed validation.',
     tags: ['Python', 'scikit-learn', 'Random Forest', 'NLP', 'NLTK', 'Pandas'],
-    gradient: 'linear-gradient(135deg, #001a0d 0%, #005533 40%, #00aa66 75%, #00d9ff 100%)',
     image: '/assets/images/DiseasePred.jpg',
-    icon: '🧬',
+    imageDims: [600, 559],
     href: 'projects/disease-prediction.html',
   },
   {
@@ -38,9 +36,8 @@ const PROJECTS = [
     date: 'Jan – Apr 2025',
     description: 'Full-scale rail system simulation with centralized traffic control, wayside signaling, and physics-based train motion using a real-time MVC architecture at 0.1-second control resolution.',
     tags: ['Python', 'PyQt', 'MVC', 'CTC', 'Real-Time Systems', 'Conda'],
-    gradient: 'linear-gradient(135deg, #1a0e00 0%, #7a4500 40%, #c07000 75%, #ffd166 100%)',
     image: '/assets/images/TrainModel.jpg',
-    icon: '🚆',
+    imageDims: [702, 678],
     href: 'projects/train-simulation.html',
   },
   {
@@ -50,9 +47,8 @@ const PROJECTS = [
     date: 'Sept – Dec 2024',
     description: 'Modular Civilization-style strategy game with city, unit, and combat mechanics built using OOP and Extreme Programming, achieving 90%+ test coverage through Test-Driven Development.',
     tags: ['Java', 'JUnit', 'TDD', 'OOP', 'Gradle', 'Git'],
-    gradient: 'linear-gradient(135deg, #1a0300 0%, #6b1500 40%, #b02000 75%, #ff5733 100%)',
     image: '/assets/images/SimCiv.jpg',
-    icon: '⚔️',
+    imageDims: [633, 533],
     href: 'projects/civilization-replica.html',
   },
   {
@@ -62,34 +58,46 @@ const PROJECTS = [
     date: 'Sept – Dec 2024',
     description: 'Multi-cycle 32-bit MIPS processor implemented in VHDL with FSM-based control, external memory interfacing, and validation via Tcl simulation and Zynq/BRAM C/C++ testing on FPGA.',
     tags: ['VHDL', 'Vivado', 'MIPS32', 'FSM', 'Zynq', 'C++'],
-    gradient: 'linear-gradient(135deg, #00001a 0%, #001066 40%, #0033cc 75%, #6c63ff 100%)',
     image: '/assets/images/MIPS32.jpg',
-    icon: '💾',
+    imageDims: [1490, 446],
     href: 'projects/mips-cpu.html',
   },
 ];
 
 /**
- * Renders project cards into a container element.
- * @param {string} containerId — ID of the grid container
+ * Renders projects as a loose scatter of real photographs.
+ * @param {string} containerId — ID of the container
  * @param {string} base — base path prefix ('' or '../')
  */
 function renderProjectCards(containerId, base = './') {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  container.innerHTML = PROJECTS.map((p, i) => `
-    <a class="project-img-card"
+  const placements = ['a', 'b', 'c'];
+  const remarkAfter = 1; // insert a short remark after the second project
+
+  const cards = PROJECTS.map((p, i) => {
+    const placement = placements[i % placements.length];
+    const card = `
+    <a class="work-item work-item-${placement}"
        href="${base}${p.href}"
        data-animate="fade-up"
-       data-delay="${i + 1}"
-       aria-label="${p.title}">
-      <img src="${p.image}" alt="${p.title}" loading="eager">
-      <div class="project-img-overlay">
-        <span class="project-img-title">${p.title}</span>
+       data-delay="${(i % 5) + 1}">
+      <span class="work-item-name">${p.title} — ${p.category}, ${p.date}</span>
+      <div class="work-item-figure">
+        <img src="${p.image}" alt="${p.title}" width="${p.imageDims[0]}" height="${p.imageDims[1]}" loading="${i === 0 ? 'eager' : 'lazy'}">
       </div>
-    </a>
-  `).join('');
+      <span class="work-item-desc">${p.description}</span>
+    </a>`;
+
+    if (i === remarkAfter) {
+      return card + `
+    <p class="work-remark" data-animate="fade-up">Five projects. One habit: open the box, see why it works, change it on purpose.</p>`;
+    }
+    return card;
+  }).join('');
+
+  container.innerHTML = cards;
 }
 
 // Auto-render if grid exists on page load

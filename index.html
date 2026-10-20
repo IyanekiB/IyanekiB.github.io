@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="description" content="Iyan Nekib — Electrical & Computer Engineering graduate specializing in systems software, embedded systems, and ML/AI. Portfolio of projects and experience.">
   <meta name="author" content="Iyan Nekib">
   <meta property="og:type" content="website">
@@ -15,7 +16,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -27,48 +28,56 @@
 
   <main>
 
-    <!-- ── Hero ─────────────────────────────────── -->
+    <!-- ── Hero: name under a photograph of what I actually built ── -->
     <section class="hero" aria-label="Introduction">
-      <div class="hero-bg" aria-hidden="true">
-        <img class="hero-bg-img" src="assets/images/Canada.jpg" alt="">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+      <div class="hero-bg">
+        <img class="hero-bg-img" src="assets/images/NeuraGlove.jpg" alt="The NEURA Glove prototype: a sensor-wired instrumented glove on a workbench" width="1200" height="1600">
       </div>
 
       <div class="container hero-content">
         <h1 class="hero-name">Iyan Nekib</h1>
 
-        <div class="hero-typed-wrapper" aria-live="polite" aria-atomic="true">
-          <span id="typed-text"></span>
-        </div>
+        <div class="hero-row">
+          <div data-animate="fade-right">
+            <div class="hero-typed-wrapper" aria-live="polite" aria-atomic="true">
+              <span id="typed-text"></span>
+            </div>
+            <p class="hero-desc">
+              ECE graduate from the University of Pittsburgh building systems where hardware meets software,
+              from FPGA processors and embedded controllers to distributed cloud-native services and ML pipelines.
+            </p>
+          </div>
 
-        <p class="hero-desc">
-          ECE graduate from the University of Pittsburgh building systems where hardware meets software,
-          from FPGA processors and embedded controllers to distributed cloud-native services and ML pipelines.
-        </p>
-
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="projects.html">View Projects</a>
-          <a class="btn btn-secondary" href="resume.html">View Resume</a>
-          <a class="btn btn-outline"
-             href="https://www.linkedin.com/in/iyan-nekib/"
-             target="_blank"
-             rel="noopener noreferrer">
-            LinkedIn ↗
-          </a>
+          <div class="hero-cta" data-animate="fade-left">
+            <a class="btn btn-primary" href="projects.html">View projects</a>
+            <a class="btn btn-outline" href="resume.html">Resume</a>
+          </div>
         </div>
       </div>
 
-      <div class="hero-scroll-hint" aria-hidden="true">scroll</div>
+      <div class="hero-scroll-hint" aria-hidden="true">Scroll</div>
+    </section>
+
+    <!-- ── Idea statement: photos of what he's built pass a pinned line ── -->
+    <section class="idea-pin" aria-label="Approach">
+      <div class="idea-pin-sticky">
+        <p class="idea-statement">
+          Hardware and software rarely agree. I keep opening the box anyway.
+        </p>
+      </div>
+      <figure class="idea-photo idea-photo-1">
+        <img src="assets/images/DiseasePred.jpg" alt="A dark code editor running the disease-prediction model's preprocessing pipeline" width="600" height="559" loading="lazy">
+      </figure>
+      <figure class="idea-photo idea-photo-2">
+        <img src="assets/projectFiles/MIPS321.jpg" alt="A Vivado waveform simulation validating the MIPS32 CPU's instruction timing" width="1012" height="616" loading="lazy">
+      </figure>
     </section>
 
     <!-- ── Skills Strip ───────────────────────────── -->
     <section class="skills-strip" aria-label="Technical skills">
       <div class="container">
-        <p class="skills-strip-label">Technical Skills</p>
+        <p class="skills-strip-label">Technical skills</p>
         <div class="skills-scroll-track" role="list" aria-label="Skills">
-          <!-- Languages -->
           <span class="tag tag-primary" role="listitem">Python</span>
           <span class="tag tag-primary" role="listitem">C++</span>
           <span class="tag tag-primary" role="listitem">Java</span>
@@ -77,7 +86,6 @@
           <span class="tag tag-primary" role="listitem">JavaScript</span>
           <span class="tag tag-primary" role="listitem">VHDL</span>
           <span class="tag tag-primary" role="listitem">MATLAB</span>
-          <!-- Frameworks / Tools -->
           <span class="tag" role="listitem">PyTorch</span>
           <span class="tag" role="listitem">TensorFlow</span>
           <span class="tag" role="listitem">OpenCV</span>
@@ -86,7 +94,6 @@
           <span class="tag" role="listitem">Prometheus</span>
           <span class="tag" role="listitem">Azure</span>
           <span class="tag" role="listitem">GitHub Actions</span>
-          <!-- Embedded / Architecture -->
           <span class="tag tag-cyan" role="listitem">Arduino</span>
           <span class="tag tag-cyan" role="listitem">ESP32</span>
           <span class="tag tag-cyan" role="listitem">MIPS32</span>
@@ -97,47 +104,82 @@
       </div>
     </section>
 
-    <!-- ── Quick About ────────────────────────────── -->
-    <section class="section" aria-label="About preview" style="padding-block: var(--space-xl)">
+    <!-- ── Featured work: loose scatter of real project photographs ── -->
+    <section class="section" aria-label="Featured work">
       <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" data-animate="fade-up">
-          <div>
-            <span class="section-label">About Me</span>
-            <h2 class="section-title" style="margin-bottom:1rem;">Building at the intersection of hardware &amp; software</h2>
-            <p style="margin-bottom:1rem;">
-              I'm an Electrical and Computer Engineering graduate (University of Pittsburgh, 3.7 GPA, Dean's Honors List)
-              with hands-on experience in systems software, embedded engineering, and ML — from co-ops at
-              <strong>Human Engineering Research Laboratories</strong> and <strong>Westinghouse Electric</strong>,
-              to industry projects with <strong>Microsoft</strong>.
-            </p>
-            <p style="margin-bottom:1.5rem;">
-              Based in Halifax, Nova Scotia — open to full-time opportunities in software engineering,
-              embedded systems, and applied ML.
-            </p>
-            <a class="btn btn-secondary" href="about.html">More About Me</a>
+        <div class="section-header" data-animate="fade-up">
+          <h2 class="section-title">Three things I've built</h2>
+          <p class="section-desc">A wider index of everything, with full write-ups, is on the projects page.</p>
+        </div>
+
+        <div class="work-scatter">
+          <a class="work-item work-item-a" href="projects/neura-glove.html" data-animate="fade-up">
+            <span class="work-item-name">NEURA Glove — Senior Design, 2025</span>
+            <div class="work-item-figure">
+              <video autoplay muted loop playsinline aria-label="The NEURA Glove's Unity VR hand-tracking demo, running live" poster="assets/images/NeuraGlove.jpg">
+                <source src="assets/projectFiles/NeuraGlove1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <span class="work-item-desc">A sensor glove that reconstructs 21-point 3D hand poses in real time for Unity VR — LSTM networks, Kalman filtering, ≤50ms latency.</span>
+          </a>
+
+          <a class="work-item work-item-b" href="projects/mips-cpu.html" data-animate="fade-up" data-delay="1">
+            <span class="work-item-name">32-bit MIPS CPU — 2024</span>
+            <div class="work-item-figure">
+              <img src="assets/projectFiles/MIPS321.jpg" alt="A Vivado waveform simulation validating the MIPS32 CPU's instruction timing" width="1012" height="616" loading="lazy">
+            </div>
+            <span class="work-item-desc">A multi-cycle MIPS32 processor in VHDL, validated on a Zynq FPGA against real C/C++ test programs.</span>
+          </a>
+
+          <a class="work-item work-item-c" href="projects/disease-prediction.html" data-animate="fade-up" data-delay="2">
+            <span class="work-item-name">Disease-Symptom Prediction — 2025</span>
+            <div class="work-item-figure">
+              <img src="assets/images/DiseasePred.jpg" alt="Python preprocessing code for the disease-symptom prediction pipeline" width="600" height="559" loading="lazy">
+            </div>
+            <span class="work-item-desc">Random Forest, SVM and MLP classifiers benchmarked on symptom text, reaching 99%+ accuracy across ten validation seeds.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Proof figure: one real number on a real photograph ── -->
+    <section class="proof-figure" aria-label="A number from the work">
+      <img class="proof-figure-photo" src="assets/images/halifax-harbour.jpg" alt="Halifax harbour at dusk" width="1920" height="985">
+      <span class="proof-figure-heading" data-animate="fade-up">In numbers</span>
+      <div class="proof-figure-body">
+        <div class="proof-figure-value" id="proof-value" data-animate="fade-up">≤50ms</div>
+        <p class="proof-figure-caption" id="proof-caption" data-animate="fade-up" data-delay="1">
+          End-to-end inference latency on the NEURA Glove's LSTM and Kalman pipeline — fast enough to stay inside VR presence thresholds.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Quick about ────────────────────────────── -->
+    <section class="section" aria-label="About preview" style="padding-bottom: var(--space-xl)">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-facts">
+            <div data-animate="fade-right" data-delay="1">
+              <span class="about-fact-label">Studied</span>
+              <span class="about-fact-value">University of Pittsburgh, ECE, 3.7 GPA</span>
+            </div>
+            <div data-animate="fade-right" data-delay="2">
+              <span class="about-fact-label">Worked with</span>
+              <span class="about-fact-value">Microsoft, Westinghouse, HERL</span>
+            </div>
+            <div data-animate="fade-right" data-delay="3">
+              <span class="about-fact-label">Based in</span>
+              <span class="about-fact-value">Halifax, Nova Scotia</span>
+            </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:1rem;">
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;gap:1rem;">
-              <span style="font-size:1.5rem;">🎓</span>
-              <div>
-                <div style="font-family:var(--font-display);font-size:0.95rem;font-weight:600;color:var(--text-primary)">University of Pittsburgh</div>
-                <div style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono)">BS Electrical &amp; Computer Engineering · GPA 3.7 · 2025</div>
-              </div>
-            </div>
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;gap:1rem;">
-              <span style="font-size:1.5rem;">💼</span>
-              <div>
-                <div style="font-family:var(--font-display);font-size:0.95rem;font-weight:600;color:var(--text-primary)">3 Industry Roles</div>
-                <div style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono)">Microsoft · Westinghouse · HERL</div>
-              </div>
-            </div>
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;gap:1rem;">
-              <span style="font-size:1.5rem;">📍</span>
-              <div>
-                <div style="font-family:var(--font-display);font-size:0.95rem;font-weight:600;color:var(--text-primary)">Halifax, Nova Scotia</div>
-                <div style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono)">Open to remote &amp; on-site opportunities</div>
-              </div>
-            </div>
+          <div class="about-bio" data-animate="fade-left">
+            <p>
+              I'm an Electrical and Computer Engineering graduate with hands-on experience in systems software,
+              embedded engineering, and ML — from co-ops at Human Engineering Research Laboratories and
+              Westinghouse Electric, to industry projects with Microsoft. I'm open to full-time roles in
+              software engineering, embedded systems, and applied ML.
+            </p>
+            <a class="btn btn-secondary" href="about.html">More about me</a>
           </div>
         </div>
       </div>

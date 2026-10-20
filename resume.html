@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="description" content="Iyan Nekib's resume — Electrical and Computer Engineering graduate, systems software engineer.">
   <meta name="author" content="Iyan Nekib">
   <title>Resume — Iyan Nekib</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -24,12 +25,11 @@
       <div class="container">
 
         <div class="resume-page-header" data-animate="fade-up">
-          <div>
-            <span class="section-label">Curriculum Vitae</span>
+          <div style="max-width:60ch;">
             <h1 class="section-title" style="margin-bottom:0.25rem;">Resume</h1>
-            <p style="font-size:var(--text-sm);color:var(--text-muted);">Last updated February 2026</p>
+            <p style="font-size:var(--text-base);color:var(--text-secondary);">One page, last updated February 2026 — Electrical &amp; Computer Engineering, systems and ML.</p>
           </div>
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;" data-animate="fade-left">
             <a class="btn btn-primary"
                href="Iyan_Resume_2026.pdf"
                download="Iyan_Nekib_Resume_2026.pdf"
@@ -55,7 +55,7 @@
             aria-label="Iyan Nekib Resume PDF viewer">
             <!-- Fallback for browsers that don't support PDF iframes (e.g. Safari iOS) -->
             <div class="resume-fallback">
-              <p style="margin-bottom:1rem;">Your browser doesn't support embedded PDFs.</p>
+              <p style="margin-bottom:1rem;color:var(--text-primary);">Your browser doesn't support embedded PDFs.</p>
               <a class="btn btn-primary" href="Iyan_Resume_2026.pdf" download="Iyan_Nekib_Resume_2026.pdf">
                 Download PDF ↓
               </a>
@@ -64,12 +64,30 @@
         </div>
 
         <!-- Mobile note -->
-        <p style="font-size:var(--text-xs);color:var(--text-muted);text-align:center;margin-top:0.75rem;font-family:var(--font-mono);">
+        <p style="font-size:var(--text-xs);color:var(--text-secondary);text-align:center;margin-top:0.75rem;max-width:60ch;margin-inline:auto;">
           If the PDF doesn't display, use the Download button above.
         </p>
 
       </div>
     </section>
+
+    <!-- ── Band: where it happened ─────────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="assets/images/pitt-swanson-engineering.jpg" alt="The Swanson School of Engineering building at the University of Pittsburgh" width="1920" height="1440" loading="lazy">
+      <figcaption class="about-band-caption">University of Pittsburgh — Swanson School of Engineering</figcaption>
+    </figure>
+    <figure class="about-band" data-animate="fade-up">
+      <img src="assets/images/halifax-harbour.jpg" alt="Halifax harbour at dusk, Iyan's home city" width="1920" height="985" loading="lazy">
+      <figcaption class="about-band-caption align-right">Halifax, Nova Scotia — home</figcaption>
+    </figure>
+    <figure class="about-band" data-animate="fade-up">
+      <img src="assets/images/NeuraGlove.jpg" alt="The NEURA Glove prototype wired to its sensor board" width="1200" height="1600" loading="lazy">
+      <figcaption class="about-band-caption">NEURA Glove — senior capstone</figcaption>
+    </figure>
+    <figure class="about-band" data-animate="fade-up">
+      <img src="assets/images/circuit-macro.jpg" alt="Close-up of discrete electronic components on a circuit board" width="1920" height="1280" loading="lazy">
+      <figcaption class="about-band-caption align-right">Hardware and software, still arguing</figcaption>
+    </figure>
 
   </main>
 

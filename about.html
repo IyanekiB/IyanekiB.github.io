@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
   <meta name="description" content="About Iyan Nekib: ECE graduate, systems software engineer, ML practitioner. Experience, education, and skills.">
   <meta name="author" content="Iyan Nekib">
   <title>About Iyan Nekib</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -23,133 +24,110 @@
     <!-- ── Page Hero ─────────────────────────────── -->
     <header class="page-hero">
       <div class="container">
-        <span class="section-label">Get to know me</span>
-        <h1 class="page-hero-title">About Me</h1>
-        <!-- <p class="page-hero-subtitle">Engineer, builder, and lifelong learner based in Halifax, NS.</p> -->
+        <h1 class="page-hero-title">About</h1>
+        <p class="page-hero-subtitle">Engineer, builder, and lifelong learner based in Halifax, Nova Scotia.</p>
+        <a class="btn btn-primary" href="#contact" style="margin-top:var(--space-md)">Get in touch</a>
       </div>
     </header>
 
-    <!-- ── Bio + Contact ──────────────────────────── -->
-    <section class="section" style="padding-top: var(--space-md)" aria-label="Bio and contact">
+    <!-- ── Facts + Bio ────────────────────────────── -->
+    <section class="section" style="padding-top: var(--space-lg)" aria-label="Facts and biography">
       <div class="container">
         <div class="about-grid">
 
-          <!-- Bio -->
-          <div class="about-bio" data-animate="fade-right">
+          <aside class="about-facts" data-animate="fade-right">
+            <div>
+              <span class="about-fact-label">Studied</span>
+              <span class="about-fact-value">University of Pittsburgh — BS, Electrical &amp; Computer Engineering</span>
+            </div>
+            <div>
+              <span class="about-fact-label">Result</span>
+              <span class="about-fact-value">3.7 GPA, Dean's Honors List, 2022–2025</span>
+            </div>
+            <div>
+              <span class="about-fact-label">Worked with</span>
+              <span class="about-fact-value">Microsoft, Westinghouse Electric, HERL</span>
+            </div>
+            <div>
+              <span class="about-fact-label">Based in</span>
+              <span class="about-fact-value">Halifax, Nova Scotia, Canada</span>
+            </div>
+            <div>
+              <span class="about-fact-label">Open to</span>
+              <span class="about-fact-value">Software engineering, embedded systems, applied ML</span>
+            </div>
+          </aside>
+
+          <div class="about-bio" data-animate="fade-left">
             <p>
-              Hey! I'm <span class="bio-highlight">Iyan</span>. I recently graduated from the
-              <span class="bio-highlight">University of Pittsburgh</span> with a degree in Electrical
-              and Computer Engineering (3.7 GPA, Dean's Honors List, 2022–2025) and I'm now back home
-              in Halifax, Nova Scotia.
+              Hey! I'm <span class="bio-highlight">Iyan</span>. I recently graduated from the University of
+              Pittsburgh with a degree in Electrical and Computer Engineering and I'm now back home in
+              Halifax, Nova Scotia.
             </p>
             <p>
-              I've been lucky to work on some genuinely interesting problems along the way:
-              integrating depth cameras onto autonomous wheelchairs at the <span class="bio-highlight"> Engineering Research Laboratories </span>,
-              contributing to a distributed storage system at <span class="bio-highlight">Microsoft</span>, and building an
-              ML-powered glove for real-time VR hand tracking as my senior project. I still have a
-              lot to learn, but I enjoy showing up and figuring things out.
+              I've been lucky to work on some genuinely interesting problems along the way: integrating depth
+              cameras onto autonomous wheelchairs at the Human Engineering Research Laboratories, contributing
+              to a distributed storage system at Microsoft, and building an ML-powered glove for real-time VR
+              hand tracking as my senior project. I still have a lot to learn, but I enjoy showing up and
+              figuring things out.
             </p>
             <p>
-              I'm most at home working on systems problems, the kind where hardware and software
-              have to meet each other halfway. Whether that's a <span class="bio-highlight">real-time
-              embedded control loop</span>, a <span class="bio-highlight">VHDL processor on an FPGA</span>,
-              or a <span class="bio-highlight">cloud-native service running in Kubernetes</span>, I like
+              I'm most at home working on systems problems, the kind where hardware and software have to meet
+              each other halfway. Whether that's a <span class="bio-highlight">real-time embedded control
+              loop</span>, a <span class="bio-highlight">VHDL processor on an FPGA</span>, or a
+              <span class="bio-highlight">cloud-native service running in Kubernetes</span>, I like
               understanding why things work the way they do before trying to change them.
             </p>
             <p>
-              Outside of engineering I spend time reading about AI research, working through the
-              occasional competitive programming problem, and slowly trying every coffee shop in Halifax.
-              If you'd like to connect or just chat, feel free to reach out; I'm always happy to talk.
+              Outside of engineering I spend time reading about AI research, working through the occasional
+              competitive programming problem, and slowly trying every coffee shop in Halifax. If you'd like
+              to connect or just chat, feel free to reach out — I'm always happy to talk.
             </p>
           </div>
-
-          <!-- Contact Card -->
-          <aside class="contact-card" data-animate="fade-left" aria-label="Contact information">
-            <h2 class="contact-card-header">Contact</h2>
-
-            <div class="contact-item">
-              <span class="contact-item-icon" aria-hidden="true">✉️</span>
-              <div style="flex:1">
-                <div style="font-size:var(--text-sm);color:var(--text-primary)">iyan.n@outlook.com</div>
-              </div>
-              <button class="btn-copy" data-copy-email aria-label="Copy email address">Copy</button>
-            </div>
-
-            <div class="contact-item">
-              <span class="contact-item-icon" aria-hidden="true">📞</span>
-              <a href="tel:+17822340444" style="font-size:var(--text-sm)">+1 (782) 234-0444</a>
-            </div>
-
-            <div class="contact-item">
-              <span class="contact-item-icon" aria-hidden="true">📍</span>
-              <span style="font-size:var(--text-sm);color:var(--text-secondary)">Halifax, Nova Scotia, Canada</span>
-            </div>
-
-            <div class="divider" style="margin-block:0.5rem;"></div>
-
-            <div class="contact-social-buttons">
-              <a class="btn btn-secondary"
-                 href="https://www.linkedin.com/in/iyan-nekib/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style="justify-content:center;">
-                LinkedIn ↗
-              </a>
-              <a class="btn btn-outline"
-                 href="https://github.com/IyanekiB"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style="justify-content:center;">
-                GitHub ↗
-              </a>
-              <a class="btn btn-secondary"
-                 href="Iyan_Resume_2026.pdf"
-                 download="Iyan_Nekib_Resume_2026.pdf"
-                 style="justify-content:center;">
-                Download CV ↓
-              </a>
-            </div>
-          </aside>
 
         </div>
       </div>
     </section>
 
-    <!-- ── Experience Timeline ────────────────────── -->
-    <section class="section" style="padding-top:0" aria-label="Work experience">
+    <!-- ── Band: home ─────────────────────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="assets/images/halifax-harbour.jpg" alt="Halifax harbour at dusk" width="1920" height="985" loading="lazy">
+      <figcaption class="about-band-caption">Halifax, Nova Scotia — home</figcaption>
+    </figure>
+
+    <!-- ── Experience ─────────────────────────────── -->
+    <section class="section" style="padding-top:var(--space-section)" aria-label="Work experience">
       <div class="container">
         <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Experience</span>
-          <h2 class="section-title">Where I've Worked</h2>
+          <h2 class="section-title">Where I've worked</h2>
         </div>
 
         <div class="timeline">
 
           <!-- Microsoft -->
           <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">Microsoft</div>
-              <div class="timeline-role">Software Engineering Project Contributor</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">Sept 2025 – Dec 2025</span>
-                <span class="timeline-location">Pittsburgh, PA</span>
-              </div>
+            <div class="timeline-meta">
+              <span class="timeline-date">Sept 2025 – Dec 2025</span>
+              <span class="timeline-location">Pittsburgh, PA</span>
             </div>
-            <ul class="timeline-bullets">
-              <li>
-                Contributed reliability-focused control-plane enhancements to
-                <strong>OpenEBS Mayastor</strong>, implementing Rust-based services and
-                REST/OpenAPI-driven metrics endpoints, reducing recurring production alerts by 25%.
-              </li>
-              <li>
-                Investigated and debugged production issues across distributed storage components by
-                analyzing logs and <strong>Prometheus metrics</strong>, validating fixes through peer reviews
-                and post-deployment checks in a Kubernetes-native environment.
-              </li>
-            </ul>
-            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
-              <div class="project-tech-tags">
+            <div>
+              <div class="timeline-header">
+                <div class="timeline-company">Microsoft</div>
+                <div class="timeline-role">Software Engineering Project Contributor</div>
+              </div>
+              <ul class="timeline-bullets">
+                <li>
+                  Contributed reliability-focused control-plane enhancements to
+                  <strong>OpenEBS Mayastor</strong>, implementing Rust-based services and
+                  REST/OpenAPI-driven metrics endpoints, reducing recurring production alerts by 25%.
+                </li>
+                <li>
+                  Investigated and debugged production issues across distributed storage components by
+                  analyzing logs and <strong>Prometheus metrics</strong>, validating fixes through peer reviews
+                  and post-deployment checks in a Kubernetes-native environment.
+                </li>
+              </ul>
+              <div class="project-tech-tags" style="margin-top:var(--space-sm)">
                 <span class="tag tag-cyan">Rust</span>
                 <span class="tag">Kubernetes</span>
                 <span class="tag">OpenEBS</span>
@@ -162,28 +140,27 @@
 
           <!-- Westinghouse -->
           <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">Westinghouse Electric Company</div>
-              <div class="timeline-role">Software Engineering Project Contributor</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">Jan 2025 – Apr 2025</span>
-                <span class="timeline-location">Cranberry Township, PA</span>
-              </div>
+            <div class="timeline-meta">
+              <span class="timeline-date">Jan 2025 – Apr 2025</span>
+              <span class="timeline-location">Cranberry Township, PA</span>
             </div>
-            <ul class="timeline-bullets">
-              <li>
-                Developed a diagnostic tool to parse and visualize <strong>50+ XML-based system
-                configuration files</strong>, supporting requirements traceability, documentation, and
-                engineering analysis, reducing data retrieval time by 40%.
-              </li>
-              <li>
-                Designed hierarchical system views and validation logic to support debugging, design
-                reviews, and cross-functional engineering decision-making.
-              </li>
-            </ul>
-            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
-              <div class="project-tech-tags">
+            <div>
+              <div class="timeline-header">
+                <div class="timeline-company">Westinghouse Electric Company</div>
+                <div class="timeline-role">Software Engineering Project Contributor</div>
+              </div>
+              <ul class="timeline-bullets">
+                <li>
+                  Developed a diagnostic tool to parse and visualize <strong>50+ XML-based system
+                  configuration files</strong>, supporting requirements traceability, documentation, and
+                  engineering analysis, reducing data retrieval time by 40%.
+                </li>
+                <li>
+                  Designed hierarchical system views and validation logic to support debugging, design
+                  reviews, and cross-functional engineering decision-making.
+                </li>
+              </ul>
+              <div class="project-tech-tags" style="margin-top:var(--space-sm)">
                 <span class="tag">Python</span>
                 <span class="tag">XML Parsing</span>
                 <span class="tag">Data Visualization</span>
@@ -194,30 +171,29 @@
 
           <!-- HERL -->
           <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">Human Engineering Research Laboratories</div>
-              <div class="timeline-role">Research Associate Co-op</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">Sept 2023 – Apr 2024</span>
-                <span class="timeline-location">Pittsburgh, PA</span>
-              </div>
+            <div class="timeline-meta">
+              <span class="timeline-date">Sept 2023 – Apr 2024</span>
+              <span class="timeline-location">Pittsburgh, PA</span>
             </div>
-            <ul class="timeline-bullets">
-              <li>
-                Integrated and validated an <strong>automated power wheelchair system</strong> on
-                NVIDIA Jetson AGX Xavier (Linux) using an Intel RealSense depth camera and real-time
-                control logic to enable curb detection and automatic curb climbing, reducing manual user
-                intervention by 35%.
-              </li>
-              <li>
-                Developed and debugged <strong>Python/PyQt software</strong> interfacing with
-                Arduino-based encoders and load cells, validating real-time sensor pipelines to reduce
-                runtime failures by 30%, supporting clinicians and veterans.
-              </li>
-            </ul>
-            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
-              <div class="project-tech-tags">
+            <div>
+              <div class="timeline-header">
+                <div class="timeline-company">Human Engineering Research Laboratories</div>
+                <div class="timeline-role">Research Associate Co-op</div>
+              </div>
+              <ul class="timeline-bullets">
+                <li>
+                  Integrated and validated an <strong>automated power wheelchair system</strong> on
+                  NVIDIA Jetson AGX Xavier (Linux) using an Intel RealSense depth camera and real-time
+                  control logic to enable curb detection and automatic curb climbing, reducing manual user
+                  intervention by 35%.
+                </li>
+                <li>
+                  Developed and debugged <strong>Python/PyQt software</strong> interfacing with
+                  Arduino-based encoders and load cells, validating real-time sensor pipelines to reduce
+                  runtime failures by 30%, supporting clinicians and veterans.
+                </li>
+              </ul>
+              <div class="project-tech-tags" style="margin-top:var(--space-sm)">
                 <span class="tag tag-cyan">NVIDIA Jetson AGX Xavier</span>
                 <span class="tag">Intel RealSense</span>
                 <span class="tag">Python</span>
@@ -233,12 +209,19 @@
       </div>
     </section>
 
+    <!-- ── Band: senior project ───────────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <video autoplay muted loop playsinline poster="assets/images/NeuraGlove.jpg" aria-label="The NEURA Glove's Unity VR hand-tracking demo, running live">
+        <source src="assets/projectFiles/NeuraGlove1.mp4" type="video/mp4">
+      </video>
+      <figcaption class="about-band-caption">NEURA Glove, senior capstone — real-time VR hand tracking</figcaption>
+    </figure>
+
     <!-- ── Education ──────────────────────────────── -->
-    <section class="section" style="padding-top:0" aria-label="Education">
+    <section class="section" style="padding-top:var(--space-section)" aria-label="Education">
       <div class="container">
         <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Education</span>
-          <h2 class="section-title">Academic Background</h2>
+          <h2 class="section-title">Academic background</h2>
         </div>
 
         <div class="education-card" data-animate="fade-up">
@@ -250,8 +233,8 @@
               <span class="tag tag-cyan">Dean's Honors List (2022–2025)</span>
               <span class="tag">Swanson School of Engineering</span>
             </div>
-            <div style="margin-top:1rem;">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem;">Relevant Coursework</div>
+            <div style="margin-top:1.5rem;">
+              <div class="coursework-label">Relevant coursework</div>
               <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
                 <span class="tag">Embedded Systems</span>
                 <span class="tag">Operating Systems</span>
@@ -273,11 +256,16 @@
       </div>
     </section>
 
+    <!-- ── Band: FPGA work ────────────────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="assets/projectFiles/MIPS321.jpg" alt="A Vivado waveform simulation validating the MIPS32 CPU's instruction timing" width="1012" height="616" loading="lazy">
+      <figcaption class="about-band-caption">32-bit MIPS CPU — multi-cycle VHDL processor, validated on FPGA</figcaption>
+    </figure>
+
     <!-- ── Publications ───────────────────────────── -->
-    <section class="section" style="padding-top:0" aria-label="Publications">
+    <section class="section" style="padding-top:var(--space-section)" aria-label="Publications">
       <div class="container">
         <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Research</span>
           <h2 class="section-title">Publications</h2>
         </div>
 
@@ -285,91 +273,108 @@
 
           <!-- Pub 1: RESNA 2025 (first author) -->
           <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">RESNA 2025 Student Scientific Paper Competition</div>
-              <div class="timeline-role">Power wheelchair instrumentation for wheelchair skills assessment: Design and validation</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">2025</span>
-                <span class="timeline-location">Chicago, IL</span>
-              </div>
+            <div class="timeline-meta">
+              <span class="timeline-date">2025</span>
+              <span class="timeline-location">Chicago, IL</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:var(--text-sm);margin-top:0.5rem;">
-              Nekib, I., Mukherjee, K., Satpute, S., &amp; Candiotti, J.
-              Co-authored a student scientific paper examining the real-world need and usability of remotely operating a power wheelchair via a mobile application. Using participatory action design, we engaged wheelchair users and caregivers through interviews and evaluated the system using Wheelchair Skills Test tasks and usability surveys, identifying key limitations and future directions for semi-autonomous designs.
-            </p>
-            <a href="https://www.resna.org/sites/default/files/conference/2025/StudentScientificPapers/39.html"
-               class="btn btn-outline"
-               style="margin-top:0.75rem;display:inline-flex;"
-               target="_blank"
-               rel="noopener noreferrer">
-              View Paper ↗
-            </a>
+            <div>
+              <div class="timeline-header">
+                <div class="timeline-company">RESNA 2025 Student Scientific Paper Competition</div>
+                <div class="timeline-role">Power wheelchair instrumentation for wheelchair skills assessment: Design and validation</div>
+              </div>
+              <p style="color:var(--text-secondary);font-size:var(--text-base);margin-top:0.5rem;max-width:68ch;">
+                Nekib, I., Mukherjee, K., Satpute, S., &amp; Candiotti, J. — Co-authored a student scientific
+                paper examining the real-world need and usability of remotely operating a power wheelchair via
+                a mobile application. Using participatory action design, we engaged wheelchair users and
+                caregivers through interviews and evaluated the system using Wheelchair Skills Test tasks and
+                usability surveys, identifying key limitations and future directions for semi-autonomous designs.
+              </p>
+              <a href="https://www.resna.org/sites/default/files/conference/2025/StudentScientificPapers/39.html"
+                 class="btn btn-outline btn-sm"
+                 style="margin-top:0.75rem;display:inline-flex;"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                View paper ↗
+              </a>
+            </div>
           </div>
 
           <!-- Pub 2: ISS 2024 -->
           <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">International Seating Symposium 2024</div>
-              <div class="timeline-role">Preliminary User Evaluation of a Mobile Application to Remotely Operate a Power Wheelchair</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">2024</span>
-                <span class="timeline-location">Pittsburgh, PA</span>
-              </div>
+            <div class="timeline-meta">
+              <span class="timeline-date">2024</span>
+              <span class="timeline-location">Pittsburgh, PA</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:var(--text-sm);margin-top:0.5rem;">
-              Weaver, M., Styler, B., Candiotti, J., Nekib, I.
-              Contributed to an exploratory study on mobile-based remote power wheelchair operation. Focused on setting up and debugging the Bluetooth Low Energy (BLE) communication between the mobile application and the wheelchair control system, supporting task-based evaluations with wheelchair users and highlighting the importance of robust wireless communication for safe assistive technology.
-            </p>
-            <a href="https://doi.org/10.1080/10400435.2025.2463822"
-               class="btn btn-outline"
-               style="margin-top:0.75rem;display:inline-flex;"
-               target="_blank"
-               rel="noopener noreferrer">
-              View Paper ↗
-            </a>
+            <div>
+              <div class="timeline-header">
+                <div class="timeline-company">International Seating Symposium 2024</div>
+                <div class="timeline-role">Preliminary User Evaluation of a Mobile Application to Remotely Operate a Power Wheelchair</div>
+              </div>
+              <p style="color:var(--text-secondary);font-size:var(--text-base);margin-top:0.5rem;max-width:68ch;">
+                Weaver, M., Styler, B., Candiotti, J., Nekib, I. — Contributed to an exploratory study on
+                mobile-based remote power wheelchair operation. Focused on setting up and debugging the
+                Bluetooth Low Energy (BLE) communication between the mobile application and the wheelchair
+                control system, supporting task-based evaluations with wheelchair users and highlighting the
+                importance of robust wireless communication for safe assistive technology.
+              </p>
+              <a href="https://doi.org/10.1080/10400435.2025.2463822"
+                 class="btn btn-outline btn-sm"
+                 style="margin-top:0.75rem;display:inline-flex;"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                View paper ↗
+              </a>
+            </div>
           </div>
 
           <!-- Pub 3: RESNA 2024 -->
           <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">RESNA 2024 Student Scientific Paper Competition</div>
-              <div class="timeline-role">Stakeholder-driven refinement of a robotic transfer system: A case of participatory action design</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">2024</span>
-                <span class="timeline-location">Virtual</span>
-              </div>
+            <div class="timeline-meta">
+              <span class="timeline-date">2024</span>
+              <span class="timeline-location">Virtual</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:var(--text-sm);margin-top:0.5rem;">
-              Satpute, S., Candiotti, J., Nekib, I., Urioste, A., &amp; Cooper, R.
-              Contributed to user testing and evaluation of the Powered Personal Transfer System (PPTS), a robotic system enabling safer wheelchair-to-bed transfers with minimal caregiver assistance. Testing sessions assessed ease of use, positioning accuracy, and consistency, supporting stakeholder-driven refinement and highlighting the role of user feedback in improving safety in assistive robotics.
-            </p>
-            <a href="https://www.resna.org/About/RESNA-News/RESNA-Blog/resna-2024-student-scientific-paper-competition-winners-and-runners-up-announced"
-               class="btn btn-outline"
-               style="margin-top:0.75rem;display:inline-flex;"
-               target="_blank"
-               rel="noopener noreferrer">
-              View Announcement ↗
-            </a>
+            <div>
+              <div class="timeline-header">
+                <div class="timeline-company">RESNA 2024 Student Scientific Paper Competition</div>
+                <div class="timeline-role">Stakeholder-driven refinement of a robotic transfer system: A case of participatory action design</div>
+              </div>
+              <p style="color:var(--text-secondary);font-size:var(--text-base);margin-top:0.5rem;max-width:68ch;">
+                Satpute, S., Candiotti, J., Nekib, I., Urioste, A., &amp; Cooper, R. — Contributed to user
+                testing and evaluation of the Powered Personal Transfer System (PPTS), a robotic system enabling
+                safer wheelchair-to-bed transfers with minimal caregiver assistance. Testing sessions assessed
+                ease of use, positioning accuracy, and consistency, supporting stakeholder-driven refinement and
+                highlighting the role of user feedback in improving safety in assistive robotics.
+              </p>
+              <a href="https://www.resna.org/About/RESNA-News/RESNA-Blog/resna-2024-student-scientific-paper-competition-winners-and-runners-up-announced"
+                 class="btn btn-outline btn-sm"
+                 style="margin-top:0.75rem;display:inline-flex;"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                View announcement ↗
+              </a>
+            </div>
           </div>
 
         </div>
       </div>
     </section>
 
+    <!-- ── Band: ML work ──────────────────────────── -->
+    <figure class="about-band" data-animate="fade-up">
+      <img src="assets/images/DiseasePred.jpg" alt="Python preprocessing code for the disease-symptom prediction pipeline" width="600" height="559" loading="lazy">
+      <figcaption class="about-band-caption">Disease-Symptom Prediction — Random Forest, SVM and MLP benchmarking</figcaption>
+    </figure>
+
     <!-- ── Skills ─────────────────────────────────── -->
-    <section class="section" style="padding-top:0;padding-bottom:var(--space-2xl);" aria-label="Technical skills">
+    <section class="section" style="padding-top:var(--space-section);" aria-label="Technical skills">
       <div class="container">
         <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Expertise</span>
-          <h2 class="section-title">Technical Skills</h2>
+          <h2 class="section-title">Technical skills</h2>
         </div>
 
         <div class="skills-categories">
 
-          <div class="skill-category" data-animate="fade-up" data-delay="1">
+          <div class="skill-category">
             <div class="skill-category-label">Languages</div>
             <div class="skill-chips">
               <span class="skill-chip">Python</span>
@@ -385,7 +390,7 @@
             </div>
           </div>
 
-          <div class="skill-category" data-animate="fade-up" data-delay="2">
+          <div class="skill-category">
             <div class="skill-category-label">AI / ML</div>
             <div class="skill-chips">
               <span class="skill-chip">PyTorch</span>
@@ -399,7 +404,7 @@
             </div>
           </div>
 
-          <div class="skill-category" data-animate="fade-up" data-delay="3">
+          <div class="skill-category">
             <div class="skill-category-label">DevOps &amp; Cloud</div>
             <div class="skill-chips">
               <span class="skill-chip">Docker</span>
@@ -414,7 +419,7 @@
             </div>
           </div>
 
-          <div class="skill-category" data-animate="fade-up" data-delay="4">
+          <div class="skill-category">
             <div class="skill-category-label">Computer Architecture</div>
             <div class="skill-chips">
               <span class="skill-chip">VHDL</span>
@@ -426,7 +431,7 @@
             </div>
           </div>
 
-          <div class="skill-category" data-animate="fade-up" data-delay="5">
+          <div class="skill-category">
             <div class="skill-category-label">Embedded Systems</div>
             <div class="skill-chips">
               <span class="skill-chip">ESP32</span>
@@ -439,7 +444,7 @@
             </div>
           </div>
 
-          <div class="skill-category" data-animate="fade-up">
+          <div class="skill-category">
             <div class="skill-category-label">Software Engineering</div>
             <div class="skill-chips">
               <span class="skill-chip">Agile / Scrum</span>
@@ -454,6 +459,26 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact close: the email as display type ── -->
+    <section class="contact-close" id="contact" aria-label="Contact">
+      <div class="container">
+        <p class="contact-close-label">Open to full-time roles and good conversations.</p>
+        <a class="contact-close-email" href="mailto:iyan.n@outlook.com">
+          iyan.n@outlook.com
+        </a>
+        <div class="contact-close-rows">
+          <a href="tel:+17822340444">+1 (782) 234-0444</a>
+          <span>Halifax, Nova Scotia, Canada</span>
+          <a href="https://www.linkedin.com/in/iyan-nekib/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/IyanekiB" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
+        <div class="contact-close-actions">
+          <button class="btn-copy" data-copy-email aria-label="Copy email address">Copy email</button>
+          <a class="btn-copy" href="Iyan_Resume_2026.pdf" download="Iyan_Nekib_Resume_2026.pdf">Download CV ↓</a>
         </div>
       </div>
     </section>

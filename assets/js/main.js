@@ -97,16 +97,20 @@ function injectNav(base) {
 }
 
 // ─── Footer injection ─────────────────────────────────────────
-function injectFooter() {
+function injectFooter(base) {
   const footerHTML = `
     <footer id="site-footer">
-      <div class="container footer-inner">
-        <p class="footer-copy">© ${new Date().getFullYear()} Iyan Nekib — Halifax, NS</p>
-        <div class="footer-social">
-          <a href="https://github.com/IyanekiB" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/iyan-nekib/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="mailto:iyan.n@outlook.com">iyan.n@outlook.com</a>
+      <div class="container">
+        <a class="footer-wordmark" href="${base}index.html" data-animate="fade-up">Iyan Nekib</a>
+        <div class="footer-inner" data-animate="fade-up" data-delay="1">
+          <p class="footer-copy">© ${new Date().getFullYear()} — Halifax, NS</p>
+          <div class="footer-social">
+            <a href="https://github.com/IyanekiB" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/iyan-nekib/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:iyan.n@outlook.com">iyan.n@outlook.com</a>
+          </div>
         </div>
+        <p class="footer-credits">Pictures: <a href="https://commons.wikimedia.org/w/index.php?curid=46589733" target="_blank" rel="noopener noreferrer">&ldquo;Halifax Harbour Sunset Skyline, Nova Scotia&rdquo;</a> by Tony Webster, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 2.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=7413557" target="_blank" rel="noopener noreferrer">&ldquo;Swanson Engineering Building Pitt&rdquo;</a> by HoboJones, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=44973060" target="_blank" rel="noopener noreferrer">&ldquo;Macro circuit board&rdquo;</a> by Ingo Dierking, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> — via Wikimedia Commons.</p>
       </div>
     </footer>
   `;
@@ -276,8 +280,8 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0,
+    rootMargin: '0px 0px 400px 0px'
   });
 
   // Observe any elements not already visible
@@ -353,23 +357,35 @@ function initTyped() {
   tick();
 }
 
-// ─── Card 3D tilt ─────────────────────────────────────────────
-function initCardTilt() {
+// ─── Proof figure rotator (the page's one live thing) ─────────
+function initProofFigure() {
+  const valueEl   = document.getElementById('proof-value');
+  const captionEl = document.getElementById('proof-caption');
+  if (!valueEl || !captionEl) return;
+
+  const facts = [
+    { value: '≤50ms', caption: 'End-to-end inference latency on the NEURA Glove’s LSTM and Kalman pipeline — fast enough to stay inside VR presence thresholds.' },
+    { value: '99%', caption: 'Accuracy the Random Forest, SVM and MLP classifiers reached on symptom text, averaged across ten validation seeds.' },
+    { value: '25%', caption: 'Fewer recurring production alerts after the Rust control-plane work shipped to OpenEBS Mayastor at Microsoft.' },
+    { value: '90%+', caption: 'Test coverage on the Java Civilization VI replica, built test-first across a full Extreme Programming cycle.' },
+    { value: '21', caption: 'Hand joints the NEURA Glove tracks in 3D, from raw IMU and flex-sensor data alone.' },
+  ];
+
+  let i = 0;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) return;
 
-  document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width  - 0.5;
-      const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transform = `perspective(700px) rotateY(${x * 9}deg) rotateX(${-y * 9}deg) translateZ(6px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
+  setInterval(() => {
+    i = (i + 1) % facts.length;
+    valueEl.style.opacity = '0';
+    captionEl.style.opacity = '0';
+    setTimeout(() => {
+      valueEl.textContent = facts[i].value;
+      captionEl.textContent = facts[i].caption;
+      valueEl.style.opacity = '1';
+      captionEl.style.opacity = '1';
+    }, 300);
+  }, 4200);
 }
 
 // ─── Smooth scroll for anchor links ──────────────────────────
@@ -409,7 +425,7 @@ function initCopyEmail() {
 
 // ─── Skill chip stagger ───────────────────────────────────────
 function initSkillChips() {
-  document.querySelectorAll('.skill-chip').forEach((chip, i) => {
+  document.querySelectorAll('.skill-chip, .skills-scroll-track .tag').forEach((chip, i) => {
     chip.style.animationDelay = `${i * 40}ms`;
   });
 }
@@ -419,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const base = getBasePath();
 
   injectNav(base);
-  injectFooter();
+  injectFooter(base);
 
   // Must run after nav is injected
   initScrolledNav();
@@ -432,6 +448,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkillChips();
 
   // Page-specific
-  if (document.getElementById('typed-text'))       initTyped();
-  if (document.querySelector('.project-card'))      initCardTilt();
+  if (document.getElementById('typed-text'))   initTyped();
+  initProofFigure();
 });
