@@ -15,6 +15,7 @@
   --t-page:   #24252a;
   --t-bg:     #1d1e23;
   --t-fg:     #e6e7ea;
+  --t-fg2:    #c3c6cd;             /* body prose — --t-dim is metadata only */
   --t-dim:    #8b8d96;
 
   /* accent is a ramp, not a single colour — the two ends are used
@@ -187,7 +188,7 @@ h1, h2 { margin: 0; font-size: inherit; font-weight: inherit; }
    dash pattern is interrupted without measuring the text. It is
    positioned and later in tree order than ::before, so it always
    paints above the border it interrupts. */
-.region-label {
+.box-label {
   position: absolute;
   top: 0;
   left: 2.5ch;
@@ -254,8 +255,14 @@ a.row:hover .row-cmd { color: var(--t-accent); }
   transform-origin: left center;
 }
 
-#out { display: grid; gap: 0.15em; margin-bottom: 0.6em; }
+#out { margin-bottom: 0.6em; }
 #out:empty { display: none; }
+
+/* one block per command, ruled off from the last, so a run of
+   commands reads as separate exchanges rather than one stream */
+.entry { display: grid; gap: 0.15em; padding-block: 0.55em; }
+.entry:first-child { padding-top: 0; }
+.entry + .entry { border-top: var(--hair) solid var(--t-rule); }
 
 .line-echo { color: var(--t-dim); }
 .line-err  { color: var(--t-accent); }
@@ -606,7 +613,261 @@ html[data-boot="go"] .cursor {
   #boot { padding: 7vh 6vw; }
 }
 
-/* --- 12. Reduced motion ----------------------------------- */
+/* ============================================================
+   12. Document pages
+   Interior pages are not windowed terminals — the home screen is
+   the app, these are its output. Full-bleed, scrolling, same grid.
+   ============================================================ */
+
+body.page {
+  display: block;
+  padding: 0;
+  font-size: clamp(0.8125rem, 0.45rem + 0.6vw, 1.0625rem);
+  line-height: 1.6;
+
+  /* one scale factor drives every extruded wordmark. Because the
+     artwork is always 13.6 units tall, deriving width from this
+     keeps all four section headings exactly the same height no
+     matter how many letters they have. The vw term is what keeps
+     the longest word (PUBLICATIONS) on screen at 360px. */
+  --blk: min(0.205ch, 0.35vw);
+  --blk-title: min(0.46ch, 0.80vw);
+}
+
+.doc {
+  width: min(96ch, 100% - 6ch);
+  margin-inline: auto;
+  padding-bottom: 6ch;
+}
+
+/* --- command bar header ----------------------------------- */
+
+.cmdbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6em 3ch;
+  padding-top: 3ch;
+}
+
+.cmdbar-echo .chev { margin-right: 1ch; }
+.cmdbar-nav { display: flex; flex-wrap: wrap; gap: 0 2.5ch; }
+.cmdbar-nav a { color: var(--t-dim); }
+.cmdbar-nav a:hover,
+.cmdbar-nav a:focus-visible { color: var(--t-accent); }
+
+/* --- extruded wordmarks ----------------------------------- */
+
+/* viewBox is 12n − 0.4 wide and always 13.6 tall, so width driven
+   from a shared factor yields an identical height for every word */
+.title-block { width: calc((var(--n) * 12 - 0.4) * var(--blk-title)); }
+.h-block     { width: calc((var(--n) * 12 - 0.4) * var(--blk)); }
+.title-block,
+.h-block { height: auto; display: block; max-width: 100%; }
+
+.page-title { margin-block: 5ch 4.5ch; }
+.sec-head   { margin-block: 7ch 3ch; }
+
+/* --- body copy -------------------------------------------- */
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34ch;
+  gap: 5ch;
+  align-items: start;
+}
+
+.bio { display: grid; gap: 1.15em; max-width: 64ch; line-height: 1.7; }
+.hl { color: var(--t-accent); }
+
+.link { color: var(--t-accent); }
+.link:hover, .link:focus-visible { color: var(--t-fg); text-decoration: underline; }
+
+/* --- contact ---------------------------------------------- */
+
+.contact { padding: 2.75ch 3ch; display: grid; gap: 0.75em; margin: 0; }
+.contact div { display: grid; grid-template-columns: 9ch minmax(0, 1fr); gap: 1ch; }
+.contact dt { color: var(--t-dim); }
+.contact dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+/* --- record lists (experience, publications, education) ---- */
+
+.records { padding: 3.25ch 3ch; display: grid; gap: 4.5ch; }
+
+.item { display: grid; grid-template-columns: 15ch minmax(0, 1fr); gap: 2ch; }
+.item-when { color: var(--t-dim); }
+.item-when span { display: block; }
+.item-body { display: grid; gap: 0.5em; min-width: 0; }
+.item-title { color: var(--t-fg); font-weight: 500; }
+.item-role  { color: var(--t-accent); }
+.item-note  { color: var(--t-fg2); max-width: 64ch; line-height: 1.7; }
+
+.item-list { display: grid; gap: 0.6em; margin: 0; padding: 0; list-style: none; color: var(--t-fg2); max-width: 64ch; line-height: 1.7; }
+.item-list li { padding-left: 2ch; text-indent: -2ch; }
+.item-list li::before { content: "· "; color: var(--t-accent); }
+.item-list strong { color: var(--t-fg); font-weight: 500; }
+
+/* bracketed run rather than bordered pills — chips with radii
+   would re-import the card look this redesign exists to avoid */
+.tags { display: flex; flex-wrap: wrap; gap: 0 2ch; color: var(--t-dim); }
+.tags::before { content: "["; color: var(--t-accent); }
+.tags::after  { content: "]"; color: var(--t-accent); }
+
+/* --- proximity highlight ------------------------------------
+   Prose is split into per-word spans and each word's brightness
+   is driven by --p, its nearness to the pointer. Plain inline
+   spans: only colour changes, so nothing reflows and selection
+   stays unbroken.
+   ------------------------------------------------------------ */
+
+.pw { transition: color 140ms linear; }
+
+@supports (color: color-mix(in oklab, red, blue)) {
+  /* mixes from the INHERITED colour, so a record title, a role and a
+     bullet each brighten from their own base rather than being
+     flattened to one. currentColor inside the `color` property
+     resolves to the inherited value, which is what makes this work. */
+  .pw {
+    color: color-mix(in oklab, currentColor, var(--t-a1) calc(var(--p, 0) * 100%));
+  }
+}
+
+/* --- hover jitter ------------------------------------------
+   The transition is deliberately longer than the 90ms tick that
+   drives it: letters drift continuously rather than snapping
+   between positions, and settle smoothly when the pointer leaves.
+   For an SVG <use>, a CSS translate of 1px is one user unit.
+   ----------------------------------------------------------- */
+
+.jl, .jc {
+  transform: translate(var(--jx, 0px), var(--jy, 0px));
+  transition: transform 120ms linear;
+}
+.jc { display: inline-block; }
+
+/* --- timeline rail -----------------------------------------
+   ::after, not ::before — ::before already carries the dashed
+   border, drawn on a pseudo-element so the reveal can wipe it in.
+   ----------------------------------------------------------- */
+
+.records.timeline {
+  --rail: 3.4ch;
+  --railpad: 7ch;
+  --rail-w: 2px;
+  --dot: 11px;
+  padding-left: var(--railpad);
+}
+
+.records.timeline::after {
+  content: "";
+  position: absolute;
+  left: var(--rail);
+  /* starts on the first dot's centre: the box's own padding, then
+     half a line of the first row of text */
+  top: calc(3.25ch + 0.8em);
+  bottom: 4ch;
+  width: var(--rail-w);
+  background: linear-gradient(to bottom, var(--t-a1), transparent);
+  transform-origin: top center;
+}
+
+.timeline .item { position: relative; }
+
+/* the reset makes every box border-box, so --dot is the dot's whole
+   rendered size, border included — centring is half of that, not
+   half the content box */
+.timeline .item::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--rail) - var(--railpad) + var(--rail-w) / 2 - var(--dot) / 2);
+  top: calc(0.8em - var(--dot) / 2);
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--t-a1);
+  border: 2px solid var(--t-page);
+}
+
+/* --- skills ----------------------------------------------- */
+
+.skills { padding: 3.25ch 3ch; display: grid; gap: 1.5em; margin: 0; }
+.skills div { display: grid; grid-template-columns: 22ch minmax(0, 1fr); gap: 2ch; }
+.skills dt { color: var(--t-accent); }
+.skills dd { margin: 0; min-width: 0; }
+
+/* --- page-load reveal ------------------------------------- */
+
+body.page .doc > .rise {
+  animation: riseIn 620ms var(--t-ease) both;
+  animation-delay: calc(var(--i) * 45ms);
+}
+
+body.page .doc > .page-title.rise {
+  animation: blurIn 1400ms var(--t-ease) 180ms both;
+}
+
+/* --- scroll reveal -----------------------------------------
+   Same vocabulary as the boot sequence: the box draws its own
+   dashed border, the rail grows down, then the records rise in.
+   The closed state is gated on html.js and the observer that
+   opens it is inline in the page, so the pair cannot come apart.
+   ----------------------------------------------------------- */
+
+html.js body.page [data-reveal] .sec-head,
+html.js body.page [data-reveal] .rise        { opacity: 0; }
+html.js body.page [data-reveal] .d-box::before { clip-path: inset(0% 100% 100% 0%); }
+html.js body.page [data-reveal] .timeline::after { transform: scaleY(0); }
+
+/* blurIn rather than riseIn: riseIn rides an expo-out curve that
+   front-loads nearly all its motion into the first quarter of its
+   duration, so the title landed almost instantly however long it
+   ran. A blur resolving is even across its whole run, which is
+   what makes it read at the same pace as the box drawing. */
+body.page [data-reveal].seen .sec-head {
+  animation: blurIn 1200ms var(--t-ease) both;
+}
+body.page [data-reveal].seen .d-box::before {
+  animation: drawBox 1150ms var(--t-ease) 450ms both;
+}
+body.page [data-reveal].seen .timeline::after {
+  animation: railIn 1250ms var(--t-ease) 850ms both;
+}
+body.page [data-reveal].seen .rise {
+  animation: riseIn 900ms var(--t-ease) both;
+  animation-delay: calc(1050ms + var(--i) * 150ms);
+}
+
+@keyframes railIn {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(14px); transform: translateY(0.4rem); }
+  to   { opacity: 1; filter: blur(0);    transform: none; }
+}
+
+@media (max-width: 54rem) {
+  .doc { width: min(96ch, 100% - 4ch); }
+  .intro { grid-template-columns: minmax(0, 1fr); gap: 3ch; }
+  .item,
+  .skills div,
+  .contact div { grid-template-columns: minmax(0, 1fr); gap: 0.25em; }
+  .records.timeline { --rail: 2ch; --railpad: 4.5ch; }
+  .item-when span { display: inline; }
+  .item-when span + span::before { content: " — "; }
+  .sec-head { margin-block: 5ch 2.5ch; }
+}
+
+/* gradients collapse to flat system colours here, which would
+   merge the face into its own extrusion */
+@media (forced-colors: active) {
+  .blk-depth { display: none; }
+  .blk-face { fill: CanvasText; }
+}
+
+/* --- 13. Reduced motion ----------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html[data-boot] #boot { display: none; }

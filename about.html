@@ -2,466 +2,392 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="About Iyan Nekib: ECE graduate, systems software engineer, ML practitioner. Experience, education, and skills.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+  <meta name="description" content="About Iyan Nekib — Electrical and Computer Engineering graduate. Experience at Microsoft, Westinghouse and HERL, publications, and technical skills.">
   <meta name="author" content="Iyan Nekib">
-  <title>About Iyan Nekib</title>
+  <title>About — Iyan Nekib</title>
+
+  <script>document.documentElement.classList.add('js');</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/terminal.css">
 </head>
-<body class="page-interior">
+<body class="page">
 
-  <div id="nav-mount"></div>
+  <!-- Shared block alphabet. Glyphs are 10 wide x 12 tall on a
+       12-unit advance, 2.4-unit stems. fill-rule sits on each path
+       rather than the root svg so the counters survive being
+       referenced from a different svg. Must stay position:absolute
+       with zero size — display:none breaks <use> targets. -->
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0">
+    <defs>
+      <linearGradient id="g-blk" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="var(--t-a1, #7fd4ff)"/>
+        <stop offset="1" stop-color="var(--t-a2, #4a7fe8)"/>
+      </linearGradient>
 
-  <main>
+      <path id="gA" fill-rule="evenodd" d="M0 0H10V12H7.6V7.4H2.4V12H0ZM2.4 2.4V5H7.6V2.4Z"/>
+      <path id="gB" fill-rule="evenodd" d="M0 0H10V12H0ZM2.4 2.4V4.6H7.6V2.4ZM2.4 6.8V9.6H7.6V6.8Z"/>
+      <path id="gC" d="M0 0H10V2.4H2.4V9.6H10V12H0Z"/>
+      <path id="gD" fill-rule="evenodd" d="M0 0H7.2L10 2.8V9.2L7.2 12H0ZM2.4 2.4V9.6H6.2L7.6 8.2V3.8L6.2 2.4Z"/>
+      <path id="gE" d="M0 0H10V2.4H2.4V4.8H8.6V7.2H2.4V9.6H10V12H0Z"/>
+      <path id="gI" d="M0 0H10V2.4H6.2V9.6H10V12H0V9.6H3.8V2.4H0Z"/>
+      <path id="gK" d="M0 0H2.4V4L6.4 0H9.8L3.8 6L9.8 12H6.4L2.4 8V12H0Z"/>
+      <path id="gL" d="M0 0H2.4V9.6H10V12H0Z"/>
+      <path id="gN" d="M0 0H3L7.6 8.2V0H10V12H7L2.4 3.8V12H0Z"/>
+      <path id="gO" fill-rule="evenodd" d="M0 0H10V12H0ZM2.4 2.4V9.6H7.6V2.4Z"/>
+      <path id="gP" fill-rule="evenodd" d="M0 0H10V6.8H2.4V12H0ZM2.4 2.4V4.4H7.6V2.4Z"/>
+      <path id="gR" fill-rule="evenodd" d="M0 0H10V6.8H7L10 12H7.2L4.2 6.8H2.4V12H0ZM2.4 2.4V4.4H7.6V2.4Z"/>
+      <path id="gS" d="M0 0H10V2.4H2.4V4.8H10V12H0V9.6H7.6V7.2H0Z"/>
+      <path id="gT" d="M0 0H10V2.4H6.2V12H3.8V2.4H0Z"/>
+      <path id="gU" d="M0 0H2.4V9.6H7.6V0H10V12H0Z"/>
+      <path id="gX" d="M0 0H3.13L5 3.27L6.88 0H10L6.56 6L10 12H6.88L5 8.73L3.13 12H0L3.44 6Z"/>
 
-    <!-- ── Page Hero ─────────────────────────────── -->
-    <header class="page-hero">
-      <div class="container">
-        <span class="section-label">Get to know me</span>
-        <h1 class="page-hero-title">About Me</h1>
-        <!-- <p class="page-hero-subtitle">Engineer, builder, and lifelong learner based in Halifax, NS.</p> -->
-      </div>
+      <!-- One extruded letter per glyph: eight offset copies make
+           the sides, then a gradient face on top. Letters are placed
+           individually in each heading rather than through a word
+           group, because a <use> expands into a shadow tree and the
+           letters inside one cannot be addressed for the hover jitter. -->
+      <g id="xA"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gA" x="0.2" y="0.2"/><use href="#gA" x="0.4" y="0.4"/><use href="#gA" x="0.6" y="0.6"/><use href="#gA" x="0.8" y="0.8"/><use href="#gA" x="1.0" y="1.0"/><use href="#gA" x="1.2" y="1.2"/><use href="#gA" x="1.4" y="1.4"/><use href="#gA" x="1.6" y="1.6"/></g><use class="blk-face" href="#gA" fill="url(#g-blk)"/></g>
+      <g id="xB"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gB" x="0.2" y="0.2"/><use href="#gB" x="0.4" y="0.4"/><use href="#gB" x="0.6" y="0.6"/><use href="#gB" x="0.8" y="0.8"/><use href="#gB" x="1.0" y="1.0"/><use href="#gB" x="1.2" y="1.2"/><use href="#gB" x="1.4" y="1.4"/><use href="#gB" x="1.6" y="1.6"/></g><use class="blk-face" href="#gB" fill="url(#g-blk)"/></g>
+      <g id="xC"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gC" x="0.2" y="0.2"/><use href="#gC" x="0.4" y="0.4"/><use href="#gC" x="0.6" y="0.6"/><use href="#gC" x="0.8" y="0.8"/><use href="#gC" x="1.0" y="1.0"/><use href="#gC" x="1.2" y="1.2"/><use href="#gC" x="1.4" y="1.4"/><use href="#gC" x="1.6" y="1.6"/></g><use class="blk-face" href="#gC" fill="url(#g-blk)"/></g>
+      <g id="xD"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gD" x="0.2" y="0.2"/><use href="#gD" x="0.4" y="0.4"/><use href="#gD" x="0.6" y="0.6"/><use href="#gD" x="0.8" y="0.8"/><use href="#gD" x="1.0" y="1.0"/><use href="#gD" x="1.2" y="1.2"/><use href="#gD" x="1.4" y="1.4"/><use href="#gD" x="1.6" y="1.6"/></g><use class="blk-face" href="#gD" fill="url(#g-blk)"/></g>
+      <g id="xE"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gE" x="0.2" y="0.2"/><use href="#gE" x="0.4" y="0.4"/><use href="#gE" x="0.6" y="0.6"/><use href="#gE" x="0.8" y="0.8"/><use href="#gE" x="1.0" y="1.0"/><use href="#gE" x="1.2" y="1.2"/><use href="#gE" x="1.4" y="1.4"/><use href="#gE" x="1.6" y="1.6"/></g><use class="blk-face" href="#gE" fill="url(#g-blk)"/></g>
+      <g id="xI"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gI" x="0.2" y="0.2"/><use href="#gI" x="0.4" y="0.4"/><use href="#gI" x="0.6" y="0.6"/><use href="#gI" x="0.8" y="0.8"/><use href="#gI" x="1.0" y="1.0"/><use href="#gI" x="1.2" y="1.2"/><use href="#gI" x="1.4" y="1.4"/><use href="#gI" x="1.6" y="1.6"/></g><use class="blk-face" href="#gI" fill="url(#g-blk)"/></g>
+      <g id="xK"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gK" x="0.2" y="0.2"/><use href="#gK" x="0.4" y="0.4"/><use href="#gK" x="0.6" y="0.6"/><use href="#gK" x="0.8" y="0.8"/><use href="#gK" x="1.0" y="1.0"/><use href="#gK" x="1.2" y="1.2"/><use href="#gK" x="1.4" y="1.4"/><use href="#gK" x="1.6" y="1.6"/></g><use class="blk-face" href="#gK" fill="url(#g-blk)"/></g>
+      <g id="xL"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gL" x="0.2" y="0.2"/><use href="#gL" x="0.4" y="0.4"/><use href="#gL" x="0.6" y="0.6"/><use href="#gL" x="0.8" y="0.8"/><use href="#gL" x="1.0" y="1.0"/><use href="#gL" x="1.2" y="1.2"/><use href="#gL" x="1.4" y="1.4"/><use href="#gL" x="1.6" y="1.6"/></g><use class="blk-face" href="#gL" fill="url(#g-blk)"/></g>
+      <g id="xN"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gN" x="0.2" y="0.2"/><use href="#gN" x="0.4" y="0.4"/><use href="#gN" x="0.6" y="0.6"/><use href="#gN" x="0.8" y="0.8"/><use href="#gN" x="1.0" y="1.0"/><use href="#gN" x="1.2" y="1.2"/><use href="#gN" x="1.4" y="1.4"/><use href="#gN" x="1.6" y="1.6"/></g><use class="blk-face" href="#gN" fill="url(#g-blk)"/></g>
+      <g id="xO"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gO" x="0.2" y="0.2"/><use href="#gO" x="0.4" y="0.4"/><use href="#gO" x="0.6" y="0.6"/><use href="#gO" x="0.8" y="0.8"/><use href="#gO" x="1.0" y="1.0"/><use href="#gO" x="1.2" y="1.2"/><use href="#gO" x="1.4" y="1.4"/><use href="#gO" x="1.6" y="1.6"/></g><use class="blk-face" href="#gO" fill="url(#g-blk)"/></g>
+      <g id="xP"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gP" x="0.2" y="0.2"/><use href="#gP" x="0.4" y="0.4"/><use href="#gP" x="0.6" y="0.6"/><use href="#gP" x="0.8" y="0.8"/><use href="#gP" x="1.0" y="1.0"/><use href="#gP" x="1.2" y="1.2"/><use href="#gP" x="1.4" y="1.4"/><use href="#gP" x="1.6" y="1.6"/></g><use class="blk-face" href="#gP" fill="url(#g-blk)"/></g>
+      <g id="xR"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gR" x="0.2" y="0.2"/><use href="#gR" x="0.4" y="0.4"/><use href="#gR" x="0.6" y="0.6"/><use href="#gR" x="0.8" y="0.8"/><use href="#gR" x="1.0" y="1.0"/><use href="#gR" x="1.2" y="1.2"/><use href="#gR" x="1.4" y="1.4"/><use href="#gR" x="1.6" y="1.6"/></g><use class="blk-face" href="#gR" fill="url(#g-blk)"/></g>
+      <g id="xS"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gS" x="0.2" y="0.2"/><use href="#gS" x="0.4" y="0.4"/><use href="#gS" x="0.6" y="0.6"/><use href="#gS" x="0.8" y="0.8"/><use href="#gS" x="1.0" y="1.0"/><use href="#gS" x="1.2" y="1.2"/><use href="#gS" x="1.4" y="1.4"/><use href="#gS" x="1.6" y="1.6"/></g><use class="blk-face" href="#gS" fill="url(#g-blk)"/></g>
+      <g id="xT"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gT" x="0.2" y="0.2"/><use href="#gT" x="0.4" y="0.4"/><use href="#gT" x="0.6" y="0.6"/><use href="#gT" x="0.8" y="0.8"/><use href="#gT" x="1.0" y="1.0"/><use href="#gT" x="1.2" y="1.2"/><use href="#gT" x="1.4" y="1.4"/><use href="#gT" x="1.6" y="1.6"/></g><use class="blk-face" href="#gT" fill="url(#g-blk)"/></g>
+      <g id="xU"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gU" x="0.2" y="0.2"/><use href="#gU" x="0.4" y="0.4"/><use href="#gU" x="0.6" y="0.6"/><use href="#gU" x="0.8" y="0.8"/><use href="#gU" x="1.0" y="1.0"/><use href="#gU" x="1.2" y="1.2"/><use href="#gU" x="1.4" y="1.4"/><use href="#gU" x="1.6" y="1.6"/></g><use class="blk-face" href="#gU" fill="url(#g-blk)"/></g>
+      <g id="xX"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gX" x="0.2" y="0.2"/><use href="#gX" x="0.4" y="0.4"/><use href="#gX" x="0.6" y="0.6"/><use href="#gX" x="0.8" y="0.8"/><use href="#gX" x="1.0" y="1.0"/><use href="#gX" x="1.2" y="1.2"/><use href="#gX" x="1.4" y="1.4"/><use href="#gX" x="1.6" y="1.6"/></g><use class="blk-face" href="#gX" fill="url(#g-blk)"/></g>
+    </defs>
+  </svg>
+
+  <div class="doc">
+
+    <header class="cmdbar rise" style="--i:0">
+      <p class="cmdbar-echo"><span class="chev" aria-hidden="true">&gt;</span>/about</p>
+      <nav class="cmdbar-nav" aria-label="Site sections">
+        <a class="jt" href="./">/home</a>
+        <a class="jt" href="projects.html">/projects</a>
+        <a class="jt" href="resume.html">/resume</a>
+      </nav>
     </header>
 
-    <!-- ── Bio + Contact ──────────────────────────── -->
-    <section class="section" style="padding-top: var(--space-md)" aria-label="Bio and contact">
-      <div class="container">
-        <div class="about-grid">
+    <hr class="rule">
 
-          <!-- Bio -->
-          <div class="about-bio" data-animate="fade-right">
-            <p>
-              Hey! I'm <span class="bio-highlight">Iyan</span>. I recently graduated from the
-              <span class="bio-highlight">University of Pittsburgh</span> with a degree in Electrical
-              and Computer Engineering (3.7 GPA, Dean's Honors List, 2022–2025) and I'm now back home
-              in Halifax, Nova Scotia.
-            </p>
-            <p>
-              I've been lucky to work on some genuinely interesting problems along the way:
-              integrating depth cameras onto autonomous wheelchairs at the <span class="bio-highlight"> Engineering Research Laboratories </span>,
-              contributing to a distributed storage system at <span class="bio-highlight">Microsoft</span>, and building an
-              ML-powered glove for real-time VR hand tracking as my senior project. I still have a
-              lot to learn, but I enjoy showing up and figuring things out.
-            </p>
-            <p>
-              I'm most at home working on systems problems, the kind where hardware and software
-              have to meet each other halfway. Whether that's a <span class="bio-highlight">real-time
-              embedded control loop</span>, a <span class="bio-highlight">VHDL processor on an FPGA</span>,
-              or a <span class="bio-highlight">cloud-native service running in Kubernetes</span>, I like
-              understanding why things work the way they do before trying to change them.
-            </p>
-            <p>
-              Outside of engineering I spend time reading about AI research, working through the
-              occasional competitive programming problem, and slowly trying every coffee shop in Halifax.
-              If you'd like to connect or just chat, feel free to reach out; I'm always happy to talk.
-            </p>
-          </div>
+    <h1 class="page-title rise" style="--i:1">
+      <span class="vh">About</span>
+      <svg class="title-block jitter" style="--n:5" viewBox="0 0 59.6 13.6" aria-hidden="true" focusable="false">
+        <use class="jl" href="#xA" x="0"/>
+        <use class="jl" href="#xB" x="12"/>
+        <use class="jl" href="#xO" x="24"/>
+        <use class="jl" href="#xU" x="36"/>
+        <use class="jl" href="#xT" x="48"/>
+      </svg>
+    </h1>
 
-          <!-- Contact Card -->
-          <aside class="contact-card" data-animate="fade-left" aria-label="Contact information">
-            <h2 class="contact-card-header">Contact</h2>
+    <section class="intro rise" style="--i:2" aria-label="Introduction">
 
-            <div class="contact-item">
-              <span class="contact-item-icon" aria-hidden="true">✉️</span>
-              <div style="flex:1">
-                <div style="font-size:var(--text-sm);color:var(--text-primary)">iyan.n@outlook.com</div>
-              </div>
-              <button class="btn-copy" data-copy-email aria-label="Copy email address">Copy</button>
-            </div>
-
-            <div class="contact-item">
-              <span class="contact-item-icon" aria-hidden="true">📞</span>
-              <a href="tel:+17822340444" style="font-size:var(--text-sm)">+1 (782) 234-0444</a>
-            </div>
-
-            <div class="contact-item">
-              <span class="contact-item-icon" aria-hidden="true">📍</span>
-              <span style="font-size:var(--text-sm);color:var(--text-secondary)">Halifax, Nova Scotia, Canada</span>
-            </div>
-
-            <div class="divider" style="margin-block:0.5rem;"></div>
-
-            <div class="contact-social-buttons">
-              <a class="btn btn-secondary"
-                 href="https://www.linkedin.com/in/iyan-nekib/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style="justify-content:center;">
-                LinkedIn ↗
-              </a>
-              <a class="btn btn-outline"
-                 href="https://github.com/IyanekiB"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style="justify-content:center;">
-                GitHub ↗
-              </a>
-              <a class="btn btn-secondary"
-                 href="Iyan_Resume_2026.pdf"
-                 download="Iyan_Nekib_Resume_2026.pdf"
-                 style="justify-content:center;">
-                Download CV ↓
-              </a>
-            </div>
-          </aside>
-
-        </div>
+      <div class="bio">
+        <p>
+          Hey! I'm Iyan. I recently graduated from the <span class="hl">University of
+          Pittsburgh</span> with a degree in Electrical and Computer Engineering (3.7 GPA,
+          Dean's Honors List, 2022–2025) and I'm now back home in Halifax, Nova Scotia.
+        </p>
+        <p>
+          I've been lucky to work on some genuinely interesting problems along the way:
+          integrating depth cameras onto autonomous wheelchairs at the <span class="hl">Human
+          Engineering Research Laboratories</span>, contributing to a distributed storage system
+          at <span class="hl">Microsoft</span>, and building an ML-powered glove for real-time VR
+          hand tracking as my senior project. I still have a lot to learn, but I enjoy showing up
+          and figuring things out.
+        </p>
+        <p>
+          I'm most at home working on systems problems, the kind where hardware and software have
+          to meet each other halfway. Whether that's a <span class="hl">real-time embedded control
+          loop</span>, a <span class="hl">VHDL processor on an FPGA</span>, or a <span class="hl">cloud-native
+          service running in Kubernetes</span>, I like understanding why things work the way they
+          do before trying to change them.
+        </p>
+        <p>
+          Outside of engineering I spend time reading about AI research, working through the
+          occasional competitive programming problem, and slowly trying every coffee shop in
+          Halifax. If you'd like to connect or just chat, feel free to reach out; I'm always
+          happy to talk.
+        </p>
       </div>
-    </section>
 
-    <!-- ── Experience Timeline ────────────────────── -->
-    <section class="section" style="padding-top:0" aria-label="Work experience">
-      <div class="container">
-        <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Experience</span>
-          <h2 class="section-title">Where I've Worked</h2>
-        </div>
-
-        <div class="timeline">
-
-          <!-- Microsoft -->
-          <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">Microsoft</div>
-              <div class="timeline-role">Software Engineering Project Contributor</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">Sept 2025 – Dec 2025</span>
-                <span class="timeline-location">Pittsburgh, PA</span>
-              </div>
-            </div>
-            <ul class="timeline-bullets">
-              <li>
-                Contributed reliability-focused control-plane enhancements to
-                <strong>OpenEBS Mayastor</strong>, implementing Rust-based services and
-                REST/OpenAPI-driven metrics endpoints, reducing recurring production alerts by 25%.
-              </li>
-              <li>
-                Investigated and debugged production issues across distributed storage components by
-                analyzing logs and <strong>Prometheus metrics</strong>, validating fixes through peer reviews
-                and post-deployment checks in a Kubernetes-native environment.
-              </li>
-            </ul>
-            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
-              <div class="project-tech-tags">
-                <span class="tag tag-cyan">Rust</span>
-                <span class="tag">Kubernetes</span>
-                <span class="tag">OpenEBS</span>
-                <span class="tag">Prometheus</span>
-                <span class="tag">REST/OpenAPI</span>
-                <span class="tag">Distributed Systems</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Westinghouse -->
-          <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">Westinghouse Electric Company</div>
-              <div class="timeline-role">Software Engineering Project Contributor</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">Jan 2025 – Apr 2025</span>
-                <span class="timeline-location">Cranberry Township, PA</span>
-              </div>
-            </div>
-            <ul class="timeline-bullets">
-              <li>
-                Developed a diagnostic tool to parse and visualize <strong>50+ XML-based system
-                configuration files</strong>, supporting requirements traceability, documentation, and
-                engineering analysis, reducing data retrieval time by 40%.
-              </li>
-              <li>
-                Designed hierarchical system views and validation logic to support debugging, design
-                reviews, and cross-functional engineering decision-making.
-              </li>
-            </ul>
-            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
-              <div class="project-tech-tags">
-                <span class="tag">Python</span>
-                <span class="tag">XML Parsing</span>
-                <span class="tag">Data Visualization</span>
-                <span class="tag">Requirements Traceability</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- HERL -->
-          <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">Human Engineering Research Laboratories</div>
-              <div class="timeline-role">Research Associate Co-op</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">Sept 2023 – Apr 2024</span>
-                <span class="timeline-location">Pittsburgh, PA</span>
-              </div>
-            </div>
-            <ul class="timeline-bullets">
-              <li>
-                Integrated and validated an <strong>automated power wheelchair system</strong> on
-                NVIDIA Jetson AGX Xavier (Linux) using an Intel RealSense depth camera and real-time
-                control logic to enable curb detection and automatic curb climbing, reducing manual user
-                intervention by 35%.
-              </li>
-              <li>
-                Developed and debugged <strong>Python/PyQt software</strong> interfacing with
-                Arduino-based encoders and load cells, validating real-time sensor pipelines to reduce
-                runtime failures by 30%, supporting clinicians and veterans.
-              </li>
-            </ul>
-            <div class="project-tech-section" style="margin-top:var(--space-md);padding-top:var(--space-sm)">
-              <div class="project-tech-tags">
-                <span class="tag tag-cyan">NVIDIA Jetson AGX Xavier</span>
-                <span class="tag">Intel RealSense</span>
-                <span class="tag">Python</span>
-                <span class="tag">PyQt</span>
-                <span class="tag">Arduino</span>
-                <span class="tag">Linux</span>
-                <span class="tag">Embedded</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Education ──────────────────────────────── -->
-    <section class="section" style="padding-top:0" aria-label="Education">
-      <div class="container">
-        <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Education</span>
-          <h2 class="section-title">Academic Background</h2>
-        </div>
-
-        <div class="education-card" data-animate="fade-up">
+      <aside class="d-box" aria-labelledby="l-contact">
+        <span class="box-label" id="l-contact">Contact</span>
+        <dl class="contact">
           <div>
-            <div class="education-school">University of Pittsburgh</div>
-            <div class="education-degree">Bachelor of Science in Electrical and Computer Engineering</div>
-            <div class="education-badges" style="margin-top:0.75rem;">
-              <span class="tag tag-primary">GPA: 3.7 / 4.0</span>
-              <span class="tag tag-cyan">Dean's Honors List (2022–2025)</span>
-              <span class="tag">Swanson School of Engineering</span>
-            </div>
-            <div style="margin-top:1rem;">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem;">Relevant Coursework</div>
-              <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-                <span class="tag">Embedded Systems</span>
-                <span class="tag">Operating Systems</span>
-                <span class="tag">Computer Architecture</span>
-                <span class="tag">Data Structures &amp; Algorithms</span>
-                <span class="tag">Real-Time Operating Systems</span>
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Big Data &amp; Algorithms</span>
-                <span class="tag">Systems Engineering</span>
-                <span class="tag">Software Construction</span>
-              </div>
-            </div>
+            <dt>email</dt>
+            <dd><a class="link" href="mailto:iyan.n@outlook.com">iyan.n@outlook.com</a></dd>
           </div>
-          <div class="education-right">
-            <div class="education-dates">Jan 2022 – Dec 2025</div>
-            <div class="education-location">Pittsburgh, PA</div>
+          <div>
+            <dt>phone</dt>
+            <dd><a class="link" href="tel:+17822340444">+1 (782) 234-0444</a></dd>
           </div>
-        </div>
+          <div>
+            <dt>based</dt>
+            <dd>Halifax, Nova Scotia</dd>
+          </div>
+          <div>
+            <dt>links</dt>
+            <dd>
+              <a class="link jt" href="https://www.linkedin.com/in/iyan-nekib/" target="_blank" rel="noopener noreferrer">LinkedIn</a>,
+              <a class="link jt" href="https://github.com/IyanekiB" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </dd>
+          </div>
+          <div>
+            <dt>cv</dt>
+            <dd><a class="link jt" href="Iyan_Resume_2026.pdf" download="Iyan_Nekib_Resume_2026.pdf">Download PDF</a></dd>
+          </div>
+        </dl>
+      </aside>
+
+    </section>
+
+    <!-- ── Experience ──────────────────────────────── -->
+    <section data-reveal aria-labelledby="h-experience">
+      <h2 class="sec-head" id="h-experience">
+        <span class="vh">Experience</span>
+        <svg class="h-block jitter" style="--n:10" viewBox="0 0 119.6 13.6" aria-hidden="true" focusable="false">
+          <use class="jl" href="#xE" x="0"/>
+          <use class="jl" href="#xX" x="12"/>
+          <use class="jl" href="#xP" x="24"/>
+          <use class="jl" href="#xE" x="36"/>
+          <use class="jl" href="#xR" x="48"/>
+          <use class="jl" href="#xI" x="60"/>
+          <use class="jl" href="#xE" x="72"/>
+          <use class="jl" href="#xN" x="84"/>
+          <use class="jl" href="#xC" x="96"/>
+          <use class="jl" href="#xE" x="108"/>
+        </svg>
+      </h2>
+
+      <div class="records timeline d-box">
+
+        <article class="item rise" style="--i:1">
+          <div class="item-when"><span>Sept – Dec 2025</span><span>Pittsburgh, PA</span></div>
+          <div class="item-body">
+            <p class="item-title">Microsoft</p>
+            <p class="item-role">Software Engineering Project Contributor</p>
+            <ul class="item-list">
+              <li>Contributed reliability-focused control-plane enhancements to <strong>OpenEBS Mayastor</strong>, implementing Rust-based services and REST/OpenAPI-driven metrics endpoints, reducing recurring production alerts by 25%.</li>
+              <li>Investigated and debugged production issues across distributed storage components by analyzing logs and <strong>Prometheus metrics</strong>, validating fixes through peer reviews and post-deployment checks in a Kubernetes-native environment.</li>
+            </ul>
+            <p class="tags"><span>Rust</span><span>Kubernetes</span><span>OpenEBS</span><span>Prometheus</span><span>REST/OpenAPI</span><span>Distributed Systems</span></p>
+          </div>
+        </article>
+
+        <article class="item rise" style="--i:2">
+          <div class="item-when"><span>Jan – Apr 2025</span><span>Cranberry Township, PA</span></div>
+          <div class="item-body">
+            <p class="item-title">Westinghouse Electric Company</p>
+            <p class="item-role">Software Engineering Project Contributor</p>
+            <ul class="item-list">
+              <li>Developed a diagnostic tool to parse and visualize <strong>50+ XML-based system configuration files</strong>, supporting requirements traceability, documentation and engineering analysis, reducing data retrieval time by 40%.</li>
+              <li>Designed hierarchical system views and validation logic to support debugging, design reviews and cross-functional engineering decision-making.</li>
+            </ul>
+            <p class="tags"><span>Python</span><span>XML Parsing</span><span>Data Visualization</span><span>Requirements Traceability</span></p>
+          </div>
+        </article>
+
+        <article class="item rise" style="--i:3">
+          <div class="item-when"><span>Sept 2023 – Apr 2024</span><span>Pittsburgh, PA</span></div>
+          <div class="item-body">
+            <p class="item-title">Human Engineering Research Laboratories</p>
+            <p class="item-role">Research Associate Co-op</p>
+            <ul class="item-list">
+              <li>Integrated and validated an <strong>automated power wheelchair system</strong> on NVIDIA Jetson AGX Xavier using an Intel RealSense depth camera and real-time control logic to enable curb detection and automatic curb climbing, reducing manual user intervention by 35%.</li>
+              <li>Developed and debugged <strong>Python/PyQt software</strong> interfacing with Arduino-based encoders and load cells, validating real-time sensor pipelines to reduce runtime failures by 30%, supporting clinicians and veterans.</li>
+            </ul>
+            <p class="tags"><span>NVIDIA Jetson</span><span>Intel RealSense</span><span>Python</span><span>PyQt</span><span>Arduino</span><span>Linux</span><span>Embedded</span></p>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- ── Publications ───────────────────────────── -->
-    <section class="section" style="padding-top:0" aria-label="Publications">
-      <div class="container">
-        <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Research</span>
-          <h2 class="section-title">Publications</h2>
-        </div>
+    <!-- ── Education ───────────────────────────────── -->
+    <section data-reveal aria-labelledby="h-education">
+      <h2 class="sec-head" id="h-education">
+        <span class="vh">Education</span>
+        <svg class="h-block jitter" style="--n:9" viewBox="0 0 107.6 13.6" aria-hidden="true" focusable="false">
+          <use class="jl" href="#xE" x="0"/>
+          <use class="jl" href="#xD" x="12"/>
+          <use class="jl" href="#xU" x="24"/>
+          <use class="jl" href="#xC" x="36"/>
+          <use class="jl" href="#xA" x="48"/>
+          <use class="jl" href="#xT" x="60"/>
+          <use class="jl" href="#xI" x="72"/>
+          <use class="jl" href="#xO" x="84"/>
+          <use class="jl" href="#xN" x="96"/>
+        </svg>
+      </h2>
 
-        <div class="timeline">
-
-          <!-- Pub 1: RESNA 2025 (first author) -->
-          <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">RESNA 2025 Student Scientific Paper Competition</div>
-              <div class="timeline-role">Power wheelchair instrumentation for wheelchair skills assessment: Design and validation</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">2025</span>
-                <span class="timeline-location">Chicago, IL</span>
-              </div>
-            </div>
-            <p style="color:var(--text-secondary);font-size:var(--text-sm);margin-top:0.5rem;">
-              Nekib, I., Mukherjee, K., Satpute, S., &amp; Candiotti, J.
-              Co-authored a student scientific paper examining the real-world need and usability of remotely operating a power wheelchair via a mobile application. Using participatory action design, we engaged wheelchair users and caregivers through interviews and evaluated the system using Wheelchair Skills Test tasks and usability surveys, identifying key limitations and future directions for semi-autonomous designs.
-            </p>
-            <a href="https://www.resna.org/sites/default/files/conference/2025/StudentScientificPapers/39.html"
-               class="btn btn-outline"
-               style="margin-top:0.75rem;display:inline-flex;"
-               target="_blank"
-               rel="noopener noreferrer">
-              View Paper ↗
-            </a>
+      <div class="records d-box">
+        <article class="item rise" style="--i:1">
+          <div class="item-when"><span>Jan 2022 – Dec 2025</span><span>Pittsburgh, PA</span></div>
+          <div class="item-body">
+            <p class="item-title">University of Pittsburgh</p>
+            <p class="item-role">BSc Electrical and Computer Engineering</p>
+            <p class="item-note">3.7 / 4.0 GPA · Dean's Honors List 2022–2025 · Swanson School of Engineering</p>
+            <p class="tags"><span>Embedded Systems</span><span>Operating Systems</span><span>Computer Architecture</span><span>Data Structures &amp; Algorithms</span><span>Real-Time Operating Systems</span><span>Machine Learning</span><span>Big Data &amp; Algorithms</span><span>Systems Engineering</span><span>Software Construction</span></p>
           </div>
-
-          <!-- Pub 2: ISS 2024 -->
-          <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">International Seating Symposium 2024</div>
-              <div class="timeline-role">Preliminary User Evaluation of a Mobile Application to Remotely Operate a Power Wheelchair</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">2024</span>
-                <span class="timeline-location">Pittsburgh, PA</span>
-              </div>
-            </div>
-            <p style="color:var(--text-secondary);font-size:var(--text-sm);margin-top:0.5rem;">
-              Weaver, M., Styler, B., Candiotti, J., Nekib, I.
-              Contributed to an exploratory study on mobile-based remote power wheelchair operation. Focused on setting up and debugging the Bluetooth Low Energy (BLE) communication between the mobile application and the wheelchair control system, supporting task-based evaluations with wheelchair users and highlighting the importance of robust wireless communication for safe assistive technology.
-            </p>
-            <a href="https://doi.org/10.1080/10400435.2025.2463822"
-               class="btn btn-outline"
-               style="margin-top:0.75rem;display:inline-flex;"
-               target="_blank"
-               rel="noopener noreferrer">
-              View Paper ↗
-            </a>
-          </div>
-
-          <!-- Pub 3: RESNA 2024 -->
-          <div class="timeline-item" data-animate="fade-right">
-            <div class="timeline-dot"></div>
-            <div class="timeline-header">
-              <div class="timeline-company">RESNA 2024 Student Scientific Paper Competition</div>
-              <div class="timeline-role">Stakeholder-driven refinement of a robotic transfer system: A case of participatory action design</div>
-              <div class="timeline-meta">
-                <span class="timeline-date">2024</span>
-                <span class="timeline-location">Virtual</span>
-              </div>
-            </div>
-            <p style="color:var(--text-secondary);font-size:var(--text-sm);margin-top:0.5rem;">
-              Satpute, S., Candiotti, J., Nekib, I., Urioste, A., &amp; Cooper, R.
-              Contributed to user testing and evaluation of the Powered Personal Transfer System (PPTS), a robotic system enabling safer wheelchair-to-bed transfers with minimal caregiver assistance. Testing sessions assessed ease of use, positioning accuracy, and consistency, supporting stakeholder-driven refinement and highlighting the role of user feedback in improving safety in assistive robotics.
-            </p>
-            <a href="https://www.resna.org/About/RESNA-News/RESNA-Blog/resna-2024-student-scientific-paper-competition-winners-and-runners-up-announced"
-               class="btn btn-outline"
-               style="margin-top:0.75rem;display:inline-flex;"
-               target="_blank"
-               rel="noopener noreferrer">
-              View Announcement ↗
-            </a>
-          </div>
-
-        </div>
+        </article>
       </div>
     </section>
 
-    <!-- ── Skills ─────────────────────────────────── -->
-    <section class="section" style="padding-top:0;padding-bottom:var(--space-2xl);" aria-label="Technical skills">
-      <div class="container">
-        <div class="section-header" data-animate="fade-up">
-          <span class="section-label">Expertise</span>
-          <h2 class="section-title">Technical Skills</h2>
-        </div>
+    <!-- ── Publications ────────────────────────────── -->
+    <section data-reveal aria-labelledby="h-publications">
+      <h2 class="sec-head" id="h-publications">
+        <span class="vh">Publications</span>
+        <svg class="h-block jitter" style="--n:12" viewBox="0 0 143.6 13.6" aria-hidden="true" focusable="false">
+          <use class="jl" href="#xP" x="0"/>
+          <use class="jl" href="#xU" x="12"/>
+          <use class="jl" href="#xB" x="24"/>
+          <use class="jl" href="#xL" x="36"/>
+          <use class="jl" href="#xI" x="48"/>
+          <use class="jl" href="#xC" x="60"/>
+          <use class="jl" href="#xA" x="72"/>
+          <use class="jl" href="#xT" x="84"/>
+          <use class="jl" href="#xI" x="96"/>
+          <use class="jl" href="#xO" x="108"/>
+          <use class="jl" href="#xN" x="120"/>
+          <use class="jl" href="#xS" x="132"/>
+        </svg>
+      </h2>
 
-        <div class="skills-categories">
+      <div class="records timeline d-box">
 
-          <div class="skill-category" data-animate="fade-up" data-delay="1">
-            <div class="skill-category-label">Languages</div>
-            <div class="skill-chips">
-              <span class="skill-chip">Python</span>
-              <span class="skill-chip">C++</span>
-              <span class="skill-chip">Java</span>
-              <span class="skill-chip">Rust</span>
-              <span class="skill-chip">Go</span>
-              <span class="skill-chip">JavaScript</span>
-              <span class="skill-chip">C</span>
-              <span class="skill-chip">MATLAB</span>
-              <span class="skill-chip">VHDL</span>
-              <span class="skill-chip">PostgreSQL</span>
-            </div>
+        <article class="item rise" style="--i:1">
+          <div class="item-when"><span>2025</span><span>Chicago, IL</span></div>
+          <div class="item-body">
+            <p class="item-title">Power wheelchair instrumentation for wheelchair skills assessment: Design and validation</p>
+            <p class="item-role">RESNA 2025 Student Scientific Paper Competition</p>
+            <p class="item-note">Nekib, I., Mukherjee, K., Satpute, S., &amp; Candiotti, J. — examined the real-world need and usability of remotely operating a power wheelchair via a mobile application. Using participatory action design we engaged wheelchair users and caregivers through interviews, then evaluated the system against Wheelchair Skills Test tasks and usability surveys to identify limitations and future directions for semi-autonomous designs.</p>
+            <p><a class="link jt" href="https://www.resna.org/sites/default/files/conference/2025/StudentScientificPapers/39.html" target="_blank" rel="noopener noreferrer">Read the paper</a></p>
           </div>
+        </article>
 
-          <div class="skill-category" data-animate="fade-up" data-delay="2">
-            <div class="skill-category-label">AI / ML</div>
-            <div class="skill-chips">
-              <span class="skill-chip">PyTorch</span>
-              <span class="skill-chip">TensorFlow</span>
-              <span class="skill-chip">OpenCV</span>
-              <span class="skill-chip">scikit-learn</span>
-              <span class="skill-chip">LangChain</span>
-              <span class="skill-chip">GPT-4</span>
-              <span class="skill-chip">Agentic Systems</span>
-              <span class="skill-chip">MediaPipe</span>
-            </div>
+        <article class="item rise" style="--i:2">
+          <div class="item-when"><span>2024</span><span>Pittsburgh, PA</span></div>
+          <div class="item-body">
+            <p class="item-title">Preliminary user evaluation of a mobile application to remotely operate a power wheelchair</p>
+            <p class="item-role">International Seating Symposium 2024</p>
+            <p class="item-note">Weaver, M., Styler, B., Candiotti, J., &amp; Nekib, I. — an exploratory study of mobile-based remote wheelchair operation. I set up and debugged the Bluetooth Low Energy link between the mobile application and the wheelchair control system, supporting task-based evaluations with wheelchair users.</p>
+            <p><a class="link jt" href="https://doi.org/10.1080/10400435.2025.2463822" target="_blank" rel="noopener noreferrer">Read the paper</a></p>
           </div>
+        </article>
 
-          <div class="skill-category" data-animate="fade-up" data-delay="3">
-            <div class="skill-category-label">DevOps &amp; Cloud</div>
-            <div class="skill-chips">
-              <span class="skill-chip">Docker</span>
-              <span class="skill-chip">Kubernetes</span>
-              <span class="skill-chip">Azure</span>
-              <span class="skill-chip">GitHub Actions</span>
-              <span class="skill-chip">GitLab</span>
-              <span class="skill-chip">Helm</span>
-              <span class="skill-chip">Prometheus</span>
-              <span class="skill-chip">Grafana</span>
-              <span class="skill-chip">REST APIs</span>
-            </div>
+        <article class="item rise" style="--i:3">
+          <div class="item-when"><span>2024</span><span>Virtual</span></div>
+          <div class="item-body">
+            <p class="item-title">Stakeholder-driven refinement of a robotic transfer system: A case of participatory action design</p>
+            <p class="item-role">RESNA 2024 Student Scientific Paper Competition</p>
+            <p class="item-note">Satpute, S., Candiotti, J., Nekib, I., Urioste, A., &amp; Cooper, R. — user testing and evaluation of the Powered Personal Transfer System, a robot enabling safer wheelchair-to-bed transfers with minimal caregiver assistance. Sessions assessed ease of use, positioning accuracy and consistency.</p>
+            <p><a class="link jt" href="https://www.resna.org/About/RESNA-News/RESNA-Blog/resna-2024-student-scientific-paper-competition-winners-and-runners-up-announced" target="_blank" rel="noopener noreferrer">Read the announcement</a></p>
           </div>
+        </article>
 
-          <div class="skill-category" data-animate="fade-up" data-delay="4">
-            <div class="skill-category-label">Computer Architecture</div>
-            <div class="skill-chips">
-              <span class="skill-chip">VHDL</span>
-              <span class="skill-chip">MIPS32</span>
-              <span class="skill-chip">Multi-cycle CPU Design</span>
-              <span class="skill-chip">Vivado</span>
-              <span class="skill-chip">Intel Quartus</span>
-              <span class="skill-chip">FPGA Synthesis</span>
-            </div>
-          </div>
-
-          <div class="skill-category" data-animate="fade-up" data-delay="5">
-            <div class="skill-category-label">Embedded Systems</div>
-            <div class="skill-chips">
-              <span class="skill-chip">ESP32</span>
-              <span class="skill-chip">ATMega328P</span>
-              <span class="skill-chip">Arduino</span>
-              <span class="skill-chip">UART / I2C</span>
-              <span class="skill-chip">Zynq</span>
-              <span class="skill-chip">NVIDIA Jetson</span>
-              <span class="skill-chip">Intel RealSense</span>
-            </div>
-          </div>
-
-          <div class="skill-category" data-animate="fade-up">
-            <div class="skill-category-label">Software Engineering</div>
-            <div class="skill-chips">
-              <span class="skill-chip">Agile / Scrum</span>
-              <span class="skill-chip">Test-Driven Development</span>
-              <span class="skill-chip">Design Patterns</span>
-              <span class="skill-chip">CI/CD</span>
-              <span class="skill-chip">Version Control</span>
-              <span class="skill-chip">System Architecture</span>
-              <span class="skill-chip">JUnit</span>
-              <span class="skill-chip">pytest</span>
-              <span class="skill-chip">MVC</span>
-            </div>
-          </div>
-
-        </div>
       </div>
     </section>
 
-  </main>
+    <!-- ── Skills ──────────────────────────────────── -->
+    <section data-reveal aria-labelledby="h-skills">
+      <h2 class="sec-head" id="h-skills">
+        <span class="vh">Skills</span>
+        <svg class="h-block jitter" style="--n:6" viewBox="0 0 71.6 13.6" aria-hidden="true" focusable="false">
+          <use class="jl" href="#xS" x="0"/>
+          <use class="jl" href="#xK" x="12"/>
+          <use class="jl" href="#xI" x="24"/>
+          <use class="jl" href="#xL" x="36"/>
+          <use class="jl" href="#xL" x="48"/>
+          <use class="jl" href="#xS" x="60"/>
+        </svg>
+      </h2>
 
-  <div id="footer-mount"></div>
+      <dl class="skills d-box">
+        <div class="rise" style="--i:1">
+          <dt>Languages</dt>
+          <dd class="tags"><span>Python</span><span>C++</span><span>Java</span><span>Rust</span><span>Go</span><span>JavaScript</span><span>C</span><span>MATLAB</span><span>VHDL</span><span>PostgreSQL</span></dd>
+        </div>
+        <div class="rise" style="--i:2">
+          <dt>AI / ML</dt>
+          <dd class="tags"><span>PyTorch</span><span>TensorFlow</span><span>OpenCV</span><span>scikit-learn</span><span>LangChain</span><span>Agentic Systems</span><span>MediaPipe</span></dd>
+        </div>
+        <div class="rise" style="--i:3">
+          <dt>DevOps &amp; Cloud</dt>
+          <dd class="tags"><span>Docker</span><span>Kubernetes</span><span>Azure</span><span>GitHub Actions</span><span>GitLab</span><span>Helm</span><span>Prometheus</span><span>Grafana</span><span>REST APIs</span></dd>
+        </div>
+        <div class="rise" style="--i:4">
+          <dt>Computer Architecture</dt>
+          <dd class="tags"><span>VHDL</span><span>MIPS32</span><span>Multi-cycle CPU Design</span><span>Vivado</span><span>Intel Quartus</span><span>FPGA Synthesis</span></dd>
+        </div>
+        <div class="rise" style="--i:5">
+          <dt>Embedded Systems</dt>
+          <dd class="tags"><span>ESP32</span><span>ATMega328P</span><span>Arduino</span><span>UART / I2C</span><span>Zynq</span><span>NVIDIA Jetson</span><span>Intel RealSense</span></dd>
+        </div>
+        <div class="rise" style="--i:6">
+          <dt>Software Engineering</dt>
+          <dd class="tags"><span>Agile / Scrum</span><span>Test-Driven Development</span><span>Design Patterns</span><span>CI/CD</span><span>System Architecture</span><span>JUnit</span><span>pytest</span><span>MVC</span></dd>
+        </div>
+      </dl>
+    </section>
 
-  <script src="assets/js/main.js"></script>
+    <hr class="rule">
+
+    <div id="out" role="log" aria-live="polite" aria-label="Command output"></div>
+
+    <form id="prompt" class="prompt" action="." method="get">
+      <span class="chev" aria-hidden="true">&gt;</span>
+      <label class="vh" for="cmd">Type a command</label>
+      <span class="prompt-field">
+        <input id="cmd" name="cmd" type="text" autocomplete="off"
+               autocapitalize="off" autocorrect="off" spellcheck="false">
+        <span class="cursor" aria-hidden="true"></span>
+        <span class="hint" id="hint" aria-hidden="true">try "/projects" to see what I've built</span>
+      </span>
+    </form>
+
+  </div>
+
+  <script>
+    /* Scroll reveal. Inline on purpose: the closed state is CSS gated
+       on html.js, so whatever opens it must not depend on a request
+       that could fail and leave sections invisible. */
+    (function () {
+      var secs = document.querySelectorAll('[data-reveal]');
+      function openAll() {
+        [].forEach.call(secs, function (el) { el.classList.add('seen'); });
+      }
+      if (!('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        openAll();
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('seen');
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      [].forEach.call(secs, function (el) { io.observe(el); });
+    })();
+  </script>
+
+  <script src="assets/js/terminal.js"></script>
 </body>
 </html>
