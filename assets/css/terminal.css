@@ -867,10 +867,52 @@ body.page [data-reveal].seen .rise {
   .blk-face { fill: CanvasText; }
 }
 
-/* --- 13. Reduced motion ----------------------------------- */
+/* ============================================================
+   13. Page transitions
+   Cross-document view transitions. Both pages share this sheet so
+   both opt in, and the whole effect is CSS — no link interception,
+   no overlay that can get stuck over the page, and back/forward
+   works for free. Where the API is unsupported navigation simply
+   happens instantly, which is the behaviour this replaces.
+   ============================================================ */
+
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;              /* drop the default cross-fade */
+  mix-blend-mode: normal;
+}
+
+/* an edge sweeping right to left, resolving out of blur: the same
+   clip reveal the window and the boxes use, and the same blur the
+   titles use */
+::view-transition-new(root) {
+  animation: pageIn 620ms var(--t-ease) both;
+  z-index: 1;
+}
+
+::view-transition-old(root) {
+  animation: pageOut 420ms var(--t-ease) both;
+}
+
+@keyframes pageIn {
+  from { clip-path: inset(0 0 0 100%); filter: blur(10px); }
+  to   { clip-path: inset(0 0 0 0);    filter: blur(0); }
+}
+
+@keyframes pageOut {
+  to { opacity: 0; transform: translateX(-3%); }
+}
+
+/* --- 14. Reduced motion ----------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html[data-boot] #boot { display: none; }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
   .cursor { animation: none; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
