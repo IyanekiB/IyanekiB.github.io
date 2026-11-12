@@ -161,7 +161,7 @@
   function initProx() {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-    var PROSE = '.bio p, .item-note, .item-list li, .item-title, .item-role, .tags';
+    var PROSE = '.bio p, .item-note, .item-list li, .item-title, .item-role, .tags, .lede, .work-cat, .work-desc';
     var R = 150;
     var boxes = [];
 
@@ -275,7 +275,201 @@
     if (document.fonts) document.fonts.ready.then(function () { measure(); schedule(); });
   }
 
+  /* The browser window is a read-out, not a second navigation: its
+     tab, screenshot and address follow whichever entry is level
+     with it. The tabs are ordinary anchors, so with the script off
+     they still jump to the right section and every project stays
+     reachable.
+
+     Deliberately not an IntersectionObserver. Collapsing the root
+     to a zero-height band reports several entries in one callback
+     during a fast or a smooth scroll, and callback entries carry
+     no defined order — so "the last intersecting one" was an
+     arbitrary pick among them, which skipped entries going down
+     and froze going up. Scroll position answers the question
+     directly, and identically in both directions. */
+  function initBrowser() {
+    var win = document.querySelector('.browser');
+    var list = document.querySelector('.work-list');
+    if (!win || !list) return;
+
+    var tabs = win.querySelectorAll('.tab');
+    var shots = win.querySelectorAll('.shot');
+    var slug = win.querySelector('.u-slug');
+    var items = list.querySelectorAll('.work-item');
+
+    /* one tab and one screenshot per entry, or the indices below
+       mean nothing — leave the markup as authored instead */
+    if (!items.length ||
+        tabs.length !== items.length ||
+        shots.length !== items.length) return;
+
+    var at = -1;        /* -1 so the first pass always applies */
+    var rows = [];
+    var lock = false;   /* held while a tab click drives the scroll */
+    var quiet = null;
+    var frame = 0;
+
+    list.classList.add('sync');
+
+    function setActive(i) {
+      if (i === at || i < 0 || i >= items.length) return;
+      at = i;
+
+      for (var k = 0; k < items.length; k++) {
+        var on = (k === i);
+        tabs[k].classList.toggle('is-on', on);
+        shots[k].classList.toggle('is-on', on);
+        items[k].classList.toggle('is-on', on);
+        if (on) tabs[k].setAttribute('aria-current', 'true');
+        else tabs[k].removeAttribute('aria-current');
+      }
+
+      if (!slug) return;
+      slug.textContent = items[i].dataset.slug || '';
+      /* restart the blur: new text alone will not replay an
+         animation that has already finished */
+      slug.style.animation = 'none';
+      void slug.offsetWidth;
+      slug.style.animation = '';
+    }
+
+    /* Each entry's TEXT, in document space, so scrolling needs no
+       re-measure. The content group and not the padded box: the box
+       is mostly breathing room, and its centre can sit a long way
+       from the words it belongs to. */
+    function measure() {
+      var y = window.pageYOffset;
+      rows = [].map.call(items, function (el) {
+        var a = el.firstElementChild.getBoundingClientRect();
+        var b = el.lastElementChild.getBoundingClientRect();
+        return { mid: (a.top + b.bottom) / 2 + y };
+      });
+    }
+
+    /* How far down the viewport the live entry should sit.
+
+       Deliberately computed from the window's PINNED geometry — its
+       resolved sticky offset plus half its height — and not from
+       where its rect happens to be right now. Before the sticky
+       engages the window sits far lower, so a line read off the
+       live rect moves as you scroll, and a tab jump aimed with the
+       unpinned value landed a whole entry short.
+
+       Beside the list, the line is the window's own middle, so the
+       lit entry ends up level with the screenshot describing it.
+       Stacked above the list on a narrow screen, that middle is
+       behind the window, so the line drops to the centre of what is
+       left below it. Which case we are in is decided by whether the
+       two columns overlap horizontally — true at any scroll offset,
+       unlike comparing their tops, and it cannot drift away from
+       the CSS breakpoint the way a restated media query would. */
+    function refOffset() {
+      var w = win.getBoundingClientRect();
+      var l = list.getBoundingClientRect();
+      var h = window.innerHeight;
+      var top = parseFloat(window.getComputedStyle(win).top) || 0;
+      var stacked = !(w.right <= l.left + 1 || w.left >= l.right - 1);
+      var mid = stacked
+        ? (top + w.height) + (h - top - w.height) / 2
+        : top + w.height / 2;
+      return Math.min(Math.max(mid, 0), h);
+    }
+
+    function pick() {
+      if (lock || !rows.length) return;
+
+      var y = window.pageYOffset;
+      var h = window.innerHeight;
+      var doc = document.documentElement;
+      var best = 0;
+
+      /* The page ends shortly after the last entry, so that entry's
+         centre can never reach the line. Without these two clamps
+         the last project would be unreachable by scrolling. */
+      if (y <= 0) {
+        best = 0;
+      } else if (y + h >= doc.scrollHeight - 2) {
+        best = rows.length - 1;
+      } else {
+        var line = y + refOffset();
+        var near = Infinity;
+        for (var i = 0; i < rows.length; i++) {
+          var d = Math.abs(rows[i].mid - line);
+          if (d < near) { near = d; best = i; }
+        }
+      }
+
+      setActive(best);
+    }
+
+    function schedule() {
+      if (frame) return;
+      frame = requestAnimationFrame(function () { frame = 0; pick(); });
+    }
+
+    function release() {
+      clearTimeout(quiet);
+      lock = false;
+      pick();
+    }
+
+    /* a programmatic scroll is finished when it stops moving */
+    function armRelease() {
+      clearTimeout(quiet);
+      quiet = setTimeout(release, 180);
+    }
+
+    var soft = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    [].forEach.call(tabs, function (t, i) {
+      t.addEventListener('click', function (e) {
+        e.preventDefault();
+        measure();
+        setActive(i);
+
+        /* scroll by the same formula pick() reads, so where the
+           click lands and where the logic looks are one number and
+           the window cannot snap to a neighbour on arrival */
+        lock = true;
+        var top = Math.max(0, rows[i].mid - refOffset());
+        /* reduced motion gets the same destination, arrived at
+           instantly. Letting the plain anchor jump handle it would
+           land on scroll-margin instead and then re-pick, showing a
+           different project from the one that was clicked. */
+        if ('scrollBehavior' in document.documentElement.style) {
+          window.scrollTo({ top: top, behavior: soft ? 'smooth' : 'auto' });
+        } else {
+          window.scrollTo(0, top);      /* object form is ignored without it */
+        }
+        armRelease();
+      });
+    });
+
+    window.addEventListener('scroll', function () {
+      if (lock) { armRelease(); return; }   /* hold until the jump settles */
+      schedule();
+    }, { passive: true });
+
+    if ('onscrollend' in window) {
+      window.addEventListener('scrollend', function () { if (lock) release(); });
+    }
+
+    window.addEventListener('resize', function () { measure(); schedule(); });
+
+    measure();
+    pick();
+
+    /* the layout is measured in ch, so a late webfont swap moves
+       every entry out from under the positions cached above */
+    if (document.fonts) {
+      document.fonts.ready.then(function () { measure(); schedule(); });
+    }
+    setTimeout(function () { measure(); schedule(); }, 1400);
+  }
+
   function init() {
+    initBrowser();
     initJitter();
     initProx();
 

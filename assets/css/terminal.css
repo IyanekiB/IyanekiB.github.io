@@ -905,7 +905,246 @@ body.page [data-reveal].seen .rise {
   to { opacity: 0; transform: translateX(-3%); }
 }
 
-/* --- 14. Reduced motion ----------------------------------- */
+/* ============================================================
+   14. Projects — a scrolling list with a pinned browser window
+   The list is the content; the window is a read-out of where you
+   are in it. One window, one set of screenshots, and the tab that
+   matches whichever entry is crossing the middle of the screen.
+   Solid chrome and traffic lights, like the home terminal — on
+   this site windows are windows and dashed boxes are the regions
+   inside them, so this does not get a dashed border.
+   ============================================================ */
+
+.doc-wide { width: min(124ch, 100% - 6ch); }
+
+.lede {
+  color: var(--t-fg2);
+  max-width: 62ch;
+  margin-bottom: 6ch;
+  line-height: 1.7;
+}
+
+.work {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 56ch;
+  gap: 0 7ch;
+  align-items: start;
+}
+
+/* placed explicitly, because the window comes first in the source
+   — it has to lead on narrow screens — but belongs on the right */
+/* the tail is runway, not decoration: without it the page ends
+   before the last entry can reach the line that picks the live one,
+   so project 05 could never become current by scrolling */
+.work-list { grid-column: 1; grid-row: 1; min-width: 0; padding-bottom: 16vh; }
+.browser   { grid-column: 2; grid-row: 1; }
+
+/* --- the list --------------------------------------------- */
+
+/* Padding alone sets the rhythm. These were 56vh boxes holding a
+   third of that in text, so more than half the scroll was empty and
+   the window changed while you were looking at a gap. */
+.work-item {
+  display: grid;
+  gap: 0.75em;
+  padding-block: 9ch;
+  scroll-margin-top: 4ch;
+}
+
+/* the first entry sits level with the top of the window beside it */
+.work-item:first-child { padding-top: 0; }
+
+/* dimming is gated on the script actually driving it: with JS off
+   every entry stays at full strength rather than all of them
+   sitting dimmed with nothing able to light them */
+.work-list.sync .work-item {
+  opacity: 0.38;
+  transition: opacity 420ms var(--t-ease);
+}
+.work-list.sync .work-item.is-on { opacity: 1; }
+
+.work-head {
+  display: grid;
+  grid-template-columns: auto minmax(2ch, 1fr) auto;
+  align-items: center;
+  gap: 1.5ch;
+  color: var(--t-dim);
+  font-size: 0.92em;
+}
+.work-n { color: var(--t-accent); }
+
+/* this line is the separator between entries. An actual dashed
+   border on the item sat stranded at the top of a 62vh box, a long
+   way from the text it was meant to introduce; carried inside the
+   head it travels with the content. */
+.work-dash {
+  height: var(--hair);
+  background: var(--t-rule);
+  transform-origin: left center;
+}
+
+.work-title {
+  margin: 0.15em 0 0;
+  font-size: clamp(1.3rem, 0.75rem + 1.5vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.work-title a { color: var(--t-fg); }
+.work-title a:hover,
+.work-title a:focus-visible { color: var(--t-a1); }
+
+.work-cat  { color: var(--t-accent); font-size: 0.95em; }
+.work-desc { color: var(--t-fg2); max-width: 56ch; line-height: 1.75; }
+
+/* --- the window ------------------------------------------- */
+
+.browser {
+  position: sticky;
+  top: 11ch;
+  border-radius: 10px;
+  box-shadow: var(--t-shadow);
+}
+
+/* the wipe lives on an inner element: clip-path clips box-shadow
+   too, so animating it on the shadowed box would slice the shadow
+   off at the wipe edge and never give it back */
+.browser-win {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--t-bg);
+}
+
+html.js .browser-win { animation: screenOpen 820ms var(--t-ease) 420ms both; }
+
+.browser-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 1ch;
+  padding: 0.7rem 0.7rem 0;
+  background: #2b2c33;
+}
+
+.lights { display: flex; gap: 0.42rem; padding-bottom: 0.55rem; }
+.lights i { width: 0.66rem; aspect-ratio: 1; border-radius: 50%; background: var(--dot); }
+.lights i:nth-child(1) { --dot: #ff5f57; }
+.lights i:nth-child(2) { --dot: #febc2e; }
+.lights i:nth-child(3) { --dot: #28c840; }
+
+.tabs { display: flex; flex: 1; min-width: 0; }
+
+/* flex-grow is animatable, so the live tab widens as it takes
+   over. That is the detail that makes this read as Safari rather
+   than as a row of buttons. */
+.tab {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.45rem 0.5ch;
+  border-radius: 6px 6px 0 0;
+  color: var(--t-dim);
+  font-size: 0.78em;
+  text-align: center;
+  transition: flex-grow 420ms var(--t-ease),
+              background-color 320ms var(--t-ease),
+              color 320ms var(--t-ease);
+}
+.tab span {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tab + .tab { box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.07); }
+.tab:hover { color: var(--t-fg2); }
+
+.tab.is-on {
+  flex-grow: 1.8;
+  background: var(--t-bg);
+  color: var(--t-fg);
+  box-shadow: none;
+}
+.tab.is-on + .tab { box-shadow: none; }
+
+.browser-url {
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  padding: 0.55rem 1.6ch;
+  background: var(--t-bg);
+  border-bottom: var(--hair) solid var(--t-rule);
+  color: var(--t-dim);
+  font-size: 0.82em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.u-ico  { color: var(--t-accent); }
+.u-host { overflow: hidden; text-overflow: ellipsis; }
+
+/* the address resolving out of blur reads as a page load. Same
+   keyframe the page titles use; the script restarts it on switch. */
+.u-slug {
+  color: var(--t-fg);
+  font-weight: 500;
+  animation: blurIn 520ms var(--t-ease) both;
+}
+
+.browser-view {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--t-page);
+  overflow: hidden;
+}
+
+/* the screenshots are all stacked in place and only opacity and
+   transform change, so switching tabs costs no layout */
+.shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* these are screenshots as often as photographs, and a UI capture
+     carries its meaning at the top — a centred crop cuts the title
+     bar off and leaves an unreadable middle */
+  object-position: center top;
+  opacity: 0;
+  transform: scale(1.045);
+  transition: opacity 560ms var(--t-ease), transform 760ms var(--t-ease);
+}
+.shot.is-on { opacity: 1; transform: none; }
+
+/* --- scroll reveal for the list --------------------------- */
+
+html.js body.page .work-item[data-reveal] .work-dash { transform: scaleX(0); }
+body.page .work-item[data-reveal].seen .work-dash {
+  animation: ruleIn 760ms var(--t-ease) 120ms both;
+}
+
+/* the generic section reveal holds .rise back a full second while
+   a dashed box draws itself. Nothing draws here but a hairline, so
+   these come in straight away instead. */
+body.page .work-item[data-reveal].seen .rise {
+  animation: riseIn 820ms var(--t-ease) both;
+  animation-delay: calc(var(--i) * 110ms);
+}
+
+@media (max-width: 62rem) {
+  .doc-wide { width: min(96ch, 100% - 4ch); }
+
+  /* block flow rather than grid: that makes .work the window's
+     containing block, so the sticky travels the whole list */
+  .work { display: block; }
+  .browser {
+    top: 0;
+    margin-bottom: 5ch;
+    border-radius: 0 0 10px 10px;
+  }
+  .browser-win { border-radius: 0 0 10px 10px; }
+  .work-item { padding-block: 6ch; scroll-margin-top: 2ch; }
+  .tab { padding-inline: 0.6ch; font-size: 0.74em; }
+}
+
+/* --- 15. Reduced motion ----------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html[data-boot] #boot { display: none; }
