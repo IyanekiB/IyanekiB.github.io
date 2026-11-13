@@ -1,210 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-root="../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
   <meta name="description" content="Java-based Civilization VI Replica — strategy game with OOP, Extreme Programming, and 90%+ test coverage via TDD.">
   <meta name="author" content="Iyan Nekib">
-  <title>Civilization VI Replica — Iyan Nekib</title>
+  <title>Java-based Civilization VI Replica — Iyan Nekib</title>
+
+  <script>
+    document.documentElement.classList.add('js');
+    /* the browser would otherwise drop you where you last were on this
+       page; set before first paint so there is no visible jump */
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    /* a "previous" link asks for the reverse wipe; the choice is made
+       on the page being left, so it arrives via sessionStorage */
+    try {
+      var nav = sessionStorage.getItem('ink.nav');
+      if (nav) {
+        document.documentElement.dataset.nav = nav;
+        sessionStorage.removeItem('ink.nav');
+      }
+    } catch (e) { /* private browsing — the default wipe is fine */ }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/terminal.css">
 </head>
-<body class="page-interior">
+<body class="page">
 
-  <div id="nav-mount"></div>
+  <!-- Only the seven letters of PROJECT: a <use> cannot reach into
+       another document, so with no build step each page carries the
+       glyphs it needs and no more. -->
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0">
+    <defs>
+      <linearGradient id="g-blk" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="var(--t-a1, #7fd4ff)"/>
+        <stop offset="1" stop-color="var(--t-a2, #4a7fe8)"/>
+      </linearGradient>
 
-  <main>
+      <path id="gC" d="M0 0H10V2.4H2.4V9.6H10V12H0Z"/>
+      <path id="gE" d="M0 0H10V2.4H2.4V4.8H8.6V7.2H2.4V9.6H10V12H0Z"/>
+      <path id="gJ" d="M7.6 0H10V9.2L7.2 12H2.8L0 9.2V6.6H2.4V8.2L3.8 9.6H6.2L7.6 8.2Z"/>
+      <path id="gO" fill-rule="evenodd" d="M0 0H10V12H0ZM2.4 2.4V9.6H7.6V2.4Z"/>
+      <path id="gP" fill-rule="evenodd" d="M0 0H10V6.8H2.4V12H0ZM2.4 2.4V4.4H7.6V2.4Z"/>
+      <path id="gR" fill-rule="evenodd" d="M0 0H10V6.8H7L10 12H7.2L4.2 6.8H2.4V12H0ZM2.4 2.4V4.4H7.6V2.4Z"/>
+      <path id="gT" d="M0 0H10V2.4H6.2V12H3.8V2.4H0Z"/>
 
-    <!-- ── Project Header ────────────────────────── -->
-    <header class="project-detail-hero">
-      <div class="container">
-        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+      <g id="xC"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gC" x="0.2" y="0.2"/><use href="#gC" x="0.4" y="0.4"/><use href="#gC" x="0.6" y="0.6"/><use href="#gC" x="0.8" y="0.8"/><use href="#gC" x="1.0" y="1.0"/><use href="#gC" x="1.2" y="1.2"/><use href="#gC" x="1.4" y="1.4"/><use href="#gC" x="1.6" y="1.6"/></g><use class="blk-face" href="#gC" fill="url(#g-blk)"/></g>
+      <g id="xE"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gE" x="0.2" y="0.2"/><use href="#gE" x="0.4" y="0.4"/><use href="#gE" x="0.6" y="0.6"/><use href="#gE" x="0.8" y="0.8"/><use href="#gE" x="1.0" y="1.0"/><use href="#gE" x="1.2" y="1.2"/><use href="#gE" x="1.4" y="1.4"/><use href="#gE" x="1.6" y="1.6"/></g><use class="blk-face" href="#gE" fill="url(#g-blk)"/></g>
+      <g id="xJ"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gJ" x="0.2" y="0.2"/><use href="#gJ" x="0.4" y="0.4"/><use href="#gJ" x="0.6" y="0.6"/><use href="#gJ" x="0.8" y="0.8"/><use href="#gJ" x="1.0" y="1.0"/><use href="#gJ" x="1.2" y="1.2"/><use href="#gJ" x="1.4" y="1.4"/><use href="#gJ" x="1.6" y="1.6"/></g><use class="blk-face" href="#gJ" fill="url(#g-blk)"/></g>
+      <g id="xO"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gO" x="0.2" y="0.2"/><use href="#gO" x="0.4" y="0.4"/><use href="#gO" x="0.6" y="0.6"/><use href="#gO" x="0.8" y="0.8"/><use href="#gO" x="1.0" y="1.0"/><use href="#gO" x="1.2" y="1.2"/><use href="#gO" x="1.4" y="1.4"/><use href="#gO" x="1.6" y="1.6"/></g><use class="blk-face" href="#gO" fill="url(#g-blk)"/></g>
+      <g id="xP"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gP" x="0.2" y="0.2"/><use href="#gP" x="0.4" y="0.4"/><use href="#gP" x="0.6" y="0.6"/><use href="#gP" x="0.8" y="0.8"/><use href="#gP" x="1.0" y="1.0"/><use href="#gP" x="1.2" y="1.2"/><use href="#gP" x="1.4" y="1.4"/><use href="#gP" x="1.6" y="1.6"/></g><use class="blk-face" href="#gP" fill="url(#g-blk)"/></g>
+      <g id="xR"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gR" x="0.2" y="0.2"/><use href="#gR" x="0.4" y="0.4"/><use href="#gR" x="0.6" y="0.6"/><use href="#gR" x="0.8" y="0.8"/><use href="#gR" x="1.0" y="1.0"/><use href="#gR" x="1.2" y="1.2"/><use href="#gR" x="1.4" y="1.4"/><use href="#gR" x="1.6" y="1.6"/></g><use class="blk-face" href="#gR" fill="url(#g-blk)"/></g>
+      <g id="xT"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gT" x="0.2" y="0.2"/><use href="#gT" x="0.4" y="0.4"/><use href="#gT" x="0.6" y="0.6"/><use href="#gT" x="0.8" y="0.8"/><use href="#gT" x="1.0" y="1.0"/><use href="#gT" x="1.2" y="1.2"/><use href="#gT" x="1.4" y="1.4"/><use href="#gT" x="1.6" y="1.6"/></g><use class="blk-face" href="#gT" fill="url(#g-blk)"/></g>
+    </defs>
+  </svg>
 
-        <div class="project-badges">
-          <span class="tag tag-primary">Software Engineering</span>
-          <span class="tag tag-cyan">Test-Driven Development</span>
-          <span class="tag">OOP</span>
-          <span class="tag">Game Development</span>
-        </div>
+  <div class="doc">
 
-        <h1 class="project-detail-title">Java-based Civilization VI Replica</h1>
-        <p class="project-detail-subtitle">
-          Modular strategy game implementing city, unit, and combat mechanics using
-          object-oriented design and Extreme Programming — 90%+ test coverage via TDD.
-        </p>
-
-        <div class="project-detail-meta">
-          <div class="project-meta-item">
-            <span class="project-meta-label">Duration</span>
-            <span class="project-meta-value">Sept – Dec 2024</span>
-          </div>
-          <div class="project-meta-item">
-            <span class="project-meta-label">Methodology</span>
-            <span class="project-meta-value">Extreme Programming (XP)</span>
-          </div>
-          <div class="project-meta-item">
-            <span class="project-meta-label">Type</span>
-            <span class="project-meta-value">Academic Group Project</span>
-          </div>
-        </div>
-      </div>
+    <header class="cmdbar rise" style="--i:0">
+      <p class="cmdbar-echo"><span class="chev" aria-hidden="true">&gt;</span>/projects/civilization-replica</p>
+      <nav class="cmdbar-nav" aria-label="Site sections">
+        <a class="jt" href="../">/home</a>
+        <a class="jt" href="../about.html">/about</a>
+        <a class="jt" href="../projects.html">/projects</a>
+        <a class="jt" href="../resume.html">/resume</a>
+      </nav>
     </header>
 
-    <!-- ── Metrics ────────────────────────────────── -->
-    <section class="container">
-      <div class="project-highlights">
-        <div class="highlight-card" data-animate="scale" data-delay="1">
-          <div class="highlight-value">90%+</div>
-          <div class="highlight-label">Test Coverage</div>
+    <hr class="rule">
+
+    <header class="proj-head rise" style="--i:1">
+      <span class="vh">Project</span>
+      <svg class="kick-block jitter" style="--n:7" viewBox="0 0 83.6 13.6"
+           aria-hidden="true" focusable="false">
+        <use class="jl" href="#xP" x="0"/>
+        <use class="jl" href="#xR" x="12"/>
+        <use class="jl" href="#xO" x="24"/>
+        <use class="jl" href="#xJ" x="36"/>
+        <use class="jl" href="#xE" x="48"/>
+        <use class="jl" href="#xC" x="60"/>
+        <use class="jl" href="#xT" x="72"/>
+      </svg>
+      <h1 class="proj-title jt">Java-based Civilization VI Replica</h1>
+      <p class="proj-sub">Modular strategy game implementing city, unit, and combat mechanics using object-oriented design and Extreme Programming — 90%+ test coverage via TDD.</p>
+      <p class="tags"><span>Software Engineering</span><span>Test-Driven Development</span><span>OOP</span><span>Game Development</span></p>
+    </header>
+
+    <div class="proj-facts rise" style="--i:2">
+      <dl class="contact d-box" aria-label="Project details">
+        <span class="box-label">Details</span>
+        <div>
+          <dt>duration</dt>
+          <dd>Sept – Dec 2024</dd>
         </div>
-        <div class="highlight-card" data-animate="scale" data-delay="2">
-          <div class="highlight-value">TDD</div>
-          <div class="highlight-label">Development Method</div>
+        <div>
+          <dt>method</dt>
+          <dd>Extreme Programming (XP)</dd>
         </div>
-        <div class="highlight-card" data-animate="scale" data-delay="3">
-          <div class="highlight-value">XP</div>
-          <div class="highlight-label">Engineering Practice</div>
+        <div>
+          <dt>type</dt>
+          <dd>Academic Group Project</dd>
         </div>
+      </dl>
+      <div class="stats d-box" aria-label="Key figures">
+        <span class="box-label">Numbers</span>
+        <div><span class="stat-n">90%+</span><span class="stat-l">Test Coverage</span></div>
+        <div><span class="stat-n">TDD</span><span class="stat-l">Development Method</span></div>
+        <div><span class="stat-n">XP</span><span class="stat-l">Engineering Practice</span></div>
       </div>
-    </section>
+    </div>
 
-    <!-- ── Body ──────────────────────────────────── -->
-    <section class="section" style="padding-top:0;" aria-label="Project details">
-      <div class="container">
-        <div class="project-detail-body">
+      <section data-reveal aria-labelledby="h-project-overview">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-project-overview">Project Overview</h2>
+        <div class="prose rise" style="--i:1">
+          <p class="item-note">A full-featured clone of the core Civilization VI game loop — built as a semester-long software engineering project. The goal was not just to ship a working game, but to practice disciplined software engineering: rigorous test coverage, iterative development, and clean object-oriented design throughout.</p>
+        </div>
+      </section>
 
-          <div class="project-description" data-animate="fade-right">
+      <section data-reveal aria-labelledby="h-game-features-implemented">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-game-features-implemented">Game Features Implemented</h2>
+        <ul class="item-list rise" style="--i:1">
+          <li><strong>City system:</strong> City founding, growth, tile claiming, building construction, and production queues — each with separate model and state management classes.</li>
+          <li><strong>Unit system:</strong> Multiple unit types (military, civilian, builder) with movement range, action points, and turn management.</li>
+          <li><strong>Combat system:</strong> Turn-based combat resolution with strength modifiers, terrain bonuses, and HP tracking — following Civilization's formula closely.</li>
+          <li><strong>Technology tree:</strong> A directed graph of unlockable technologies gating unit/building availability.</li>
+          <li><strong>Hex tile map:</strong> Procedurally generated map with terrain types, resources, and yields affecting city growth.</li>
+        </ul>
+      </section>
 
-            <h3>Project Overview</h3>
-            <p>
-              A full-featured clone of the core Civilization VI game loop — built as a semester-long
-              software engineering project. The goal was not just to ship a working game, but to
-              practice disciplined software engineering: rigorous test coverage, iterative development,
-              and clean object-oriented design throughout.
-            </p>
+      <section data-reveal aria-labelledby="h-engineering-practices">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-engineering-practices">Engineering Practices</h2>
+        <ul class="item-list rise" style="--i:1">
+          <li><strong>Test-Driven Development (TDD):</strong> Every feature was preceded by failing unit tests. JUnit 5 test suites for all domain logic — achieving 90%+ line and branch coverage.</li>
+          <li><strong>Extreme Programming (XP):</strong> Weekly sprints, pair programming sessions, continuous integration via Gradle builds, and collective code ownership.</li>
+          <li><strong>Design patterns:</strong> Observer pattern for game event system, Strategy pattern for combat calculations, Factory pattern for unit creation.</li>
+          <li><strong>Version control discipline:</strong> Feature branches, pull request reviews, and commit message conventions enforced via team agreement.</li>
+        </ul>
+      </section>
 
-            <h3>Game Features Implemented</h3>
-            <ul>
-              <li>
-                <strong>City system:</strong> City founding, growth, tile claiming, building construction,
-                and production queues — each with separate model and state management classes.
-              </li>
-              <li>
-                <strong>Unit system:</strong> Multiple unit types (military, civilian, builder) with
-                movement range, action points, and turn management.
-              </li>
-              <li>
-                <strong>Combat system:</strong> Turn-based combat resolution with strength modifiers,
-                terrain bonuses, and HP tracking — following Civilization's formula closely.
-              </li>
-              <li>
-                <strong>Technology tree:</strong> A directed graph of unlockable technologies
-                gating unit/building availability.
-              </li>
-              <li>
-                <strong>Hex tile map:</strong> Procedurally generated map with terrain types,
-                resources, and yields affecting city growth.
-              </li>
-            </ul>
-
-            <h3>Engineering Practices</h3>
-            <ul>
-              <li>
-                <strong>Test-Driven Development (TDD):</strong> Every feature was preceded by
-                failing unit tests. JUnit 5 test suites for all domain logic — achieving
-                90%+ line and branch coverage.
-              </li>
-              <li>
-                <strong>Extreme Programming (XP):</strong> Weekly sprints, pair programming sessions,
-                continuous integration via Gradle builds, and collective code ownership.
-              </li>
-              <li>
-                <strong>Design patterns:</strong> Observer pattern for game event system,
-                Strategy pattern for combat calculations, Factory pattern for unit creation.
-              </li>
-              <li>
-                <strong>Version control discipline:</strong> Feature branches, pull request reviews,
-                and commit message conventions enforced via team agreement.
-              </li>
-            </ul>
-
-            <div class="project-tech-section">
-              <h4>Tech Stack</h4>
-              <div class="project-tech-tags">
-                <span class="tag tag-primary">Java</span>
-                <span class="tag tag-primary">JUnit 5</span>
-                <span class="tag tag-cyan">Gradle</span>
-                <span class="tag tag-cyan">TDD</span>
-                <span class="tag">OOP</span>
-                <span class="tag">Design Patterns</span>
-                <span class="tag">Git</span>
-                <span class="tag">Extreme Programming</span>
-                <span class="tag">JavaFX</span>
-              </div>
-            </div>
-
+      <section data-reveal aria-labelledby="h-media">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-media">Media</h2>
+        <div class="media-grid rise" style="--i:1">
+          <div class="media-box d-box">
+            <span class="box-label">SimCiv1.mp4</span>
+            <video controls playsinline preload="none" poster="../assets/images/SimCiv.jpg"
+                   aria-label="Code on screen — representative of the Java Civilization project">
+              <source src="../assets/projectFiles/SimCiv1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
           </div>
-
-          <!-- Right: Media -->
-          <div class="project-media-panel" data-animate="fade-left">
-            <div class="project-media-container">
-              <video class="project-media-img" controls preload="metadata" playsinline aria-label="Code on screen — representative of the Java Civilization project">
-                <source src="../assets/projectFiles/SimCiv1.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-            </div>
-            <!-- <p class="project-media-caption">Add a gameplay screenshot or demo GIF here.</p> -->
-
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Core Systems</div>
-              <div style="display:flex;flex-direction:column;gap:0.4rem;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-secondary);">
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>City System</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>Unit System</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>Combat Engine</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:var(--bg-elevated);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);">
-                  <span>Tech Tree</span><span style="color:var(--accent-primary)">✓ Tested</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;background:rgba(108,99,255,0.1);padding:0.45rem 0.75rem;border-radius:var(--radius-sm);border:1px solid rgba(108,99,255,0.2);">
-                  <span>Overall Coverage</span><span style="color:var(--accent-primary);font-weight:600">≥ 90%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <dl class="spec d-box">
+            <span class="box-label">Core Systems</span>
+            <div><dt>City System</dt><dd>✓ Tested</dd></div>
+            <div><dt>Unit System</dt><dd>✓ Tested</dd></div>
+            <div><dt>Combat Engine</dt><dd>✓ Tested</dd></div>
+            <div><dt>Tech Tree</dt><dd>✓ Tested</dd></div>
+            <div><dt>Overall Coverage</dt><dd>≥ 90%</dd></div>
+          </dl>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ── Project Navigation ─────────────────────── -->
-    <section class="container">
-      <div class="project-nav">
-        <a class="project-nav-link" href="train-simulation.html">
-          <div class="project-nav-direction">← Previous Project</div>
-          <div class="project-nav-title">Train System Simulation</div>
-        </a>
-        <a class="project-nav-link next" href="mips-cpu.html">
-          <div class="project-nav-direction">Next Project →</div>
-          <div class="project-nav-title">32-bit MIPS CPU</div>
-        </a>
-      </div>
-    </section>
+      <section data-reveal aria-labelledby="h-stack">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-stack">Stack</h2>
+        <div class="rise" style="--i:1"><p class="tags"><span>Java</span><span>JUnit 5</span><span>Gradle</span><span>TDD</span><span>OOP</span><span>Design Patterns</span><span>Git</span><span>Extreme Programming</span><span>JavaFX</span></p></div>
+      </section>
 
-  </main>
+    <nav class="proj-nav" aria-label="Project navigation">
+      <a class="proj-step d-box" data-nav="back" href="train-simulation.html">
+        <span class="nav-dir">&larr; previous</span>
+        <span class="nav-name">Integrated Train System Simulation</span>
+      </a>
+      <a class="proj-step d-box" href="../projects.html">
+        <span class="nav-dir">index</span>
+        <span class="nav-name">All projects</span>
+      </a>
+      <a class="proj-step d-box" href="mips-cpu.html">
+        <span class="nav-dir">next &rarr;</span>
+        <span class="nav-name">32-bit MIPS CPU (Multi-Cycle)</span>
+      </a>
+    </nav>
 
-  <div id="footer-mount"></div>
+    <hr class="rule">
 
-  <script src="../assets/js/main.js"></script>
+    <div id="out" role="log" aria-live="polite" aria-label="Command output"></div>
+
+    <form id="prompt" class="prompt" action="." method="get">
+      <span class="chev" aria-hidden="true">&gt;</span>
+      <label class="vh" for="cmd">Type a command</label>
+      <span class="prompt-field">
+        <input id="cmd" name="cmd" type="text" autocomplete="off"
+               autocapitalize="off" autocorrect="off" spellcheck="false">
+        <span class="cursor" aria-hidden="true"></span>
+        <span class="hint" id="hint" aria-hidden="true">try "/projects" for the rest</span>
+      </span>
+    </form>
+
+  </div>
+
+  <script>
+    /* Scroll reveal. Inline on purpose: the closed state is CSS gated
+       on html.js, so whatever opens it must not depend on a request
+       that could fail and leave sections invisible. */
+    (function () {
+      var secs = document.querySelectorAll('[data-reveal]');
+      function openAll() {
+        [].forEach.call(secs, function (el) { el.classList.add('seen'); });
+      }
+      if (!('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        openAll();
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('seen');
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      [].forEach.call(secs, function (el) { io.observe(el); });
+    })();
+  </script>
+
+  <script src="../assets/js/terminal.js"></script>
 </body>
 </html>
-

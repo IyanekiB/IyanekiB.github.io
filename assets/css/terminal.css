@@ -1,0 +1,1371 @@
+/* ============================================================
+   iyan-nekib — terminal UI
+   The whole site: boot splash, home screen, the three top-level
+   document pages and the five project pages. The legacy styles.css
+   this once had to coexist with is gone, but the --t-* token
+   namespace stays — it costs nothing and keeps the origin legible.
+   ============================================================ */
+
+/* --- 1. Tokens ------------------------------------------- */
+
+:root {
+  color-scheme: dark;
+
+  /* the ground is neutralised a touch from the reference's warm
+     grey so the blue accent sits on it without clashing */
+  --t-page:   #24252a;
+  --t-bg:     #1d1e23;
+  --t-fg:     #e6e7ea;
+  --t-fg2:    #c3c6cd;             /* body prose — --t-dim is metadata only */
+  --t-dim:    #8b8d96;
+
+  /* accent is a ramp, not a single colour — the two ends are used
+     directly by the SVG marks and the dashed borders */
+  --t-a1:     #7fd4ff;
+  --t-a2:     #4a7fe8;
+  --t-accent: #68aef5;             /* flat mid, for small text */
+  --t-grad:   linear-gradient(135deg, var(--t-a1), var(--t-a2));
+
+  --t-depth:  #25487c;             /* extruded sides of the wordmark */
+
+  --t-info:   #9fb8d9;
+  --t-rule:   #34363d;
+
+  --t-mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular,
+            "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+
+  /* heavy deceleration — everything in the reveal uses this */
+  --t-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --t-shadow: 0 18px 50px rgb(0 0 0 / 0.38);
+
+  /* dash geometry — kept in px so dashes stay even as the
+     grid font-size scales with the viewport */
+  --dash: 5px;
+  --dash-gap: 4px;
+  --hair: 1px;
+}
+
+/* --- 2. Reset -------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 2.5rem 1.5rem;
+  background: var(--t-page);
+  color: var(--t-fg);
+  font-family: var(--t-mono);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+h1, h2 { margin: 0; font-size: inherit; font-weight: inherit; }
+
+.vh {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 2px solid var(--t-accent);
+  outline-offset: 2px;
+}
+
+/* --- 3. Dashed edges -------------------------------------
+   repeating-linear-gradient instead of border-style:dashed —
+   browsers each pick their own dash length for `dashed` and
+   resolve corner joins differently. Gradients give exact,
+   identical dashes and clean corners.
+
+   They live on a ::before rather than the host so the reveal
+   can wipe them in with clip-path. Animating background-size
+   instead would re-rasterise four gradients across the whole
+   element every frame.
+   --------------------------------------------------------- */
+
+.d-box, .d-l, .d-t { position: relative; }
+
+.d-box::before,
+.d-l::before,
+.d-t::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* the accent ramp fills the whole box; the dash pattern is a
+     mask cut out of it. Painting the dashes as the background
+     instead would make every dash a flat colour. */
+  background-image: var(--t-grad);
+  --mh: repeating-linear-gradient(90deg,  #000 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--dash-gap)));
+  --mv: repeating-linear-gradient(180deg, #000 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--dash-gap)));
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+}
+
+.d-box::before {
+  -webkit-mask-image: var(--mh), var(--mh), var(--mv), var(--mv);
+          mask-image: var(--mh), var(--mh), var(--mv), var(--mv);
+  -webkit-mask-size: 100% var(--hair), 100% var(--hair), var(--hair) 100%, var(--hair) 100%;
+          mask-size: 100% var(--hair), 100% var(--hair), var(--hair) 100%, var(--hair) 100%;
+  -webkit-mask-position: 0 0, 0 100%, 0 0, 100% 0;
+          mask-position: 0 0, 0 100%, 0 0, 100% 0;
+}
+
+.d-l::before {
+  -webkit-mask-image: var(--mv);
+          mask-image: var(--mv);
+  -webkit-mask-size: var(--hair) 100%;
+          mask-size: var(--hair) 100%;
+  -webkit-mask-position: 0 0;
+          mask-position: 0 0;
+}
+
+.d-t::before {
+  -webkit-mask-image: var(--mh);
+          mask-image: var(--mh);
+  -webkit-mask-size: 100% var(--hair);
+          mask-size: 100% var(--hair);
+  -webkit-mask-position: 0 0;
+          mask-position: 0 0;
+}
+
+/* --- 4. Window shell ------------------------------------- */
+
+#screen {
+  /* the grid's base unit: every ch measurement below derives
+     from this, so the whole layout scales as one piece */
+  font-size: clamp(0.8125rem, 0.45rem + 0.6vw, 1.0625rem);
+  line-height: 1.55;
+
+  width: min(100ch, 100%);
+  background: var(--t-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--t-shadow);
+}
+
+.titlebar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  background: #2b2c33;
+}
+
+.titlebar i {
+  width: 0.72rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--dot);
+}
+.titlebar i:nth-child(1) { --dot: #ff5f57; }
+.titlebar i:nth-child(2) { --dot: #febc2e; }
+.titlebar i:nth-child(3) { --dot: #28c840; }
+
+.term { padding: 3ch 3ch 2.5ch; }
+
+/* --- 5. Region + interrupted label ------------------------ */
+
+.region {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42ch;
+  margin-top: 0.75em;
+}
+
+/* the label paints its own background over the top edge, so the
+   dash pattern is interrupted without measuring the text. It is
+   positioned and later in tree order than ::before, so it always
+   paints above the border it interrupts. */
+.box-label {
+  position: absolute;
+  top: 0;
+  left: 2.5ch;
+  transform: translateY(-50%);
+  padding-inline: 1ch;
+  background: var(--t-bg);
+  color: var(--t-accent);
+  line-height: 1;
+}
+
+.pane { padding: 2.5ch 3ch; min-width: 0; }
+
+/* --- 6. Left pane ----------------------------------------- */
+
+.pane-id {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5ch;
+  text-align: center;
+  align-items: center;
+}
+
+.welcome { color: var(--t-fg); }
+
+.mark { width: 8ch; height: auto; display: block; }
+
+.meta { color: var(--t-dim); font-size: 0.92em; }
+.meta span { display: block; }
+
+/* --- 7. Right column -------------------------------------- */
+
+.col { display: grid; grid-template-rows: auto auto; }
+
+.box-title { color: var(--t-accent); margin-bottom: 0.4em; }
+
+.rows { display: grid; gap: 0.1em; }
+
+.row {
+  display: grid;
+  grid-template-columns: 11ch minmax(0, 1fr);
+  gap: 1ch;
+  padding: 0.12em 1ch;
+  margin-inline: -1ch;
+  border-radius: 3px;
+}
+
+.row-cmd { color: var(--t-fg); }
+.row-desc { color: var(--t-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+a.row:hover,
+a.row:focus-visible { background: #282a31; }
+a.row:hover .row-cmd { color: var(--t-accent); }
+
+.box-foot { color: var(--t-dim); margin-top: 0.45em; }
+
+/* --- 8. Output log + prompt ------------------------------- */
+
+.rule {
+  height: var(--hair);
+  background: var(--t-rule);
+  border: 0;
+  margin: 2.5ch 0 1.5ch;
+  transform-origin: left center;
+}
+
+#out { margin-bottom: 0.6em; }
+#out:empty { display: none; }
+
+/* one block per command, ruled off from the last, so a run of
+   commands reads as separate exchanges rather than one stream */
+.entry { display: grid; gap: 0.15em; padding-block: 0.55em; }
+.entry:first-child { padding-top: 0; }
+.entry + .entry { border-top: var(--hair) solid var(--t-rule); }
+
+.line-echo { color: var(--t-dim); }
+.line-err  { color: var(--t-accent); }
+.line-out  { color: var(--t-fg); }
+
+.prompt {
+  display: flex;
+  align-items: baseline;
+  gap: 1ch;
+  cursor: text;
+}
+
+.chev { color: var(--t-accent); flex: none; }
+
+.prompt-field {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+}
+
+#cmd {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--t-fg);
+  font: inherit;
+}
+
+/* with JS the width is set in ch from the value length, so the
+   block cursor that follows sits flush against the last character */
+html.js #cmd { flex: 0 1 auto; width: 0; caret-color: transparent; }
+
+/* without JS the command bar cannot do anything, so it is not
+   offered at all — the nav rows are real links and carry the page */
+html:not(.js) .prompt,
+html:not(.js) .rule,
+html:not(.js) .box-foot { display: none; }
+
+.hint {
+  color: var(--t-dim);
+  margin-left: 1ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hint[hidden] { display: none; }
+
+/* block cursor — sized to exactly one grid cell and sat on the
+   text's own line box, so it never drifts off the baseline */
+.cursor {
+  flex: none;
+  width: 1ch;
+  height: 1.15em;
+  background: var(--t-fg);
+  translate: 0 0.2em;
+  animation: blink 1.1s steps(1, end) infinite;
+}
+.prompt-field:focus-within .cursor { background: var(--t-accent); }
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- 9. Boot splash --------------------------------------- */
+
+#boot {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--t-page);
+  padding: 8vh 7vw;
+  display: none;
+  align-content: start;
+  gap: 5vh;
+}
+
+/* painted only for a fresh session; the inline head script sets
+   the attribute before first paint, so revisits never flash */
+html[data-boot] #boot { display: grid; }
+
+.boot-badge {
+  justify-self: start;
+  border: var(--hair) solid var(--t-accent);
+  border-radius: 7px;
+  padding: 0.6em 1.1em;
+  color: var(--t-fg);
+}
+.boot-badge b { font-weight: 600; }
+
+.sparkle { color: var(--t-accent); }
+
+.banner {
+  width: min(100%, 60ch);
+  height: auto;
+  display: block;
+  justify-self: start;
+}
+
+.boot-go {
+  justify-self: start;
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  color: var(--t-info);
+  cursor: pointer;
+}
+.boot-go .sparkle { color: var(--t-a1); }
+.boot-go kbd { font: inherit; font-weight: 600; color: var(--t-fg); }
+
+/* the hint swaps by input type, in CSS, so there is no JS flash */
+.boot-go .tap { display: none; }
+@media (hover: none) {
+  .boot-go .key { display: none; }
+  .boot-go .tap { display: inline; }
+}
+
+/* --- 10. Reveal sequence ----------------------------------
+   Closed state is scoped to html[data-boot], so a revisit, a
+   reduced-motion visitor and a no-JS visitor all get the
+   finished terminal with no animation at all.
+   --------------------------------------------------------- */
+
+html[data-boot] #screen {
+  clip-path: inset(50% 0% 50% 0%);
+  box-shadow: 0 0 0 rgb(0 0 0 / 0);
+}
+html[data-boot] .d-box::before { clip-path: inset(0% 100% 100% 0%); }
+html[data-boot] .d-l::before   { clip-path: inset(0% 0% 100% 0%); }
+html[data-boot] .d-t::before   { clip-path: inset(0% 100% 0% 0%); }
+html[data-boot] .rise          { opacity: 0; }
+html[data-boot] .rule          { transform: scaleX(0); }
+html[data-boot] .prompt        { opacity: 0; }
+html[data-boot="1"] .cursor    { animation: none; }
+
+/* --i must have a fallback: an undefined custom property is
+   invalid at computed-value time and would silently collapse
+   the entire stagger to a single delay */
+.rise { --i: 0; }
+
+/* the splash assembles on arrival too, so it does not just appear */
+html[data-boot] .boot-badge,
+html[data-boot] .banner,
+html[data-boot] .banner-face,
+html[data-boot] .banner-depth,
+html[data-boot] .boot-go {
+  animation-timing-function: var(--t-ease);
+  animation-fill-mode: both;
+  animation-duration: 620ms;
+}
+
+/* the flat letters land first, then the extrusion builds behind
+   them — opacity only on the <g>s, since CSS transforms on SVG
+   children resolve in user units and would jump */
+html[data-boot] .boot-badge   { animation-name: riseIn; animation-delay: 60ms; }
+html[data-boot] .banner       { animation-name: riseIn; animation-delay: 200ms; }
+html[data-boot] .banner-face  { animation-name: fadeIn; animation-delay: 240ms; }
+html[data-boot] .banner-depth { animation-name: fadeIn; animation-delay: 400ms; animation-duration: 760ms; }
+html[data-boot] .boot-go      { animation-name: riseIn; animation-delay: 640ms; }
+
+html[data-boot="go"] #boot,
+html[data-boot="go"] #screen,
+html[data-boot="go"] .d-box::before,
+html[data-boot="go"] .d-l::before,
+html[data-boot="go"] .d-t::before,
+html[data-boot="go"] .rise,
+html[data-boot="go"] .rule,
+html[data-boot="go"] .prompt,
+html[data-boot="go"] .cursor {
+  animation-timing-function: var(--t-ease);
+  animation-fill-mode: both;
+}
+
+html[data-boot="go"] #boot {
+  animation-name: bootOut;
+  animation-duration: 420ms;
+  pointer-events: none;
+}
+
+html[data-boot="go"] #screen {
+  animation-name: screenOpen, shadowIn;
+  animation-duration: 820ms, 600ms;
+  animation-delay: 320ms, 900ms;
+}
+
+html[data-boot="go"] .d-box::before {
+  animation-name: drawBox;
+  animation-duration: 650ms;
+  animation-delay: 650ms;
+}
+
+html[data-boot="go"] .d-l::before {
+  animation-name: drawV;
+  animation-duration: 450ms;
+  animation-delay: 900ms;
+}
+
+html[data-boot="go"] .d-t::before {
+  animation-name: drawH;
+  animation-duration: 420ms;
+  animation-delay: 1000ms;
+}
+
+html[data-boot="go"] .rise {
+  animation-name: riseIn;
+  animation-duration: 550ms;
+  animation-delay: calc(950ms + var(--i) * 40ms);
+}
+
+html[data-boot="go"] .rule {
+  animation-name: ruleIn;
+  animation-duration: 450ms;
+  animation-delay: 1450ms;
+}
+
+html[data-boot="go"] .prompt {
+  animation-name: fadeIn;
+  animation-duration: 450ms;
+  animation-delay: 1520ms;
+}
+
+html[data-boot="go"] .cursor {
+  animation-name: blink;
+  animation-duration: 1.1s;
+  animation-timing-function: steps(1, end);
+  animation-iteration-count: infinite;
+  animation-delay: 1970ms;
+}
+
+@keyframes bootOut {
+  to { opacity: 0; transform: translateY(-2rem); }
+}
+
+/* no `round` in the inset: #screen already clips its own corners
+   with overflow+border-radius, and Safari draws clip-path corner
+   arcs unantialiased. Both keyframes state four values in the
+   same unit, since mismatched inset() arity interpolates badly. */
+@keyframes screenOpen {
+  from { clip-path: inset(50% 0% 50% 0%); }
+  to   { clip-path: inset(0% 0% 0% 0%); }
+}
+
+/* clip-path clips box-shadow too, so the shadow cannot simply sit
+   there during the wipe — it arrives once the window is open */
+@keyframes shadowIn {
+  from { box-shadow: 0 0 0 rgb(0 0 0 / 0); }
+  to   { box-shadow: var(--t-shadow); }
+}
+
+@keyframes drawBox {
+  0%   { clip-path: inset(0% 100% 100% 0%); }
+  45%  { clip-path: inset(0% 0% 100% 0%); }
+  100% { clip-path: inset(0% 0% 0% 0%); }
+}
+
+@keyframes drawV {
+  from { clip-path: inset(0% 0% 100% 0%); }
+  to   { clip-path: inset(0% 0% 0% 0%); }
+}
+
+@keyframes drawH {
+  from { clip-path: inset(0% 100% 0% 0%); }
+  to   { clip-path: inset(0% 0% 0% 0%); }
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(0.6rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes ruleIn {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* --- 11. Responsive --------------------------------------- */
+
+@media (max-width: 54rem) {
+  body { padding: 0; place-items: stretch; }
+
+  #screen {
+    width: 100%;
+    min-height: 100svh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  html[data-boot] #screen { box-shadow: none; }
+  html[data-boot="go"] #screen {
+    animation-name: screenOpen;
+    animation-duration: 820ms;
+    animation-delay: 320ms;
+  }
+
+  .titlebar { display: none; }
+  .term { padding: 2.5ch 2ch 2ch; }
+
+  .region { grid-template-columns: minmax(0, 1fr); }
+
+  /* stacked: the divider between the panes rotates from a left
+     edge to a top edge, and draws in the same way */
+  .d-l::before { content: none; }
+
+  .col > .pane:first-child { position: relative; }
+  .col > .pane:first-child::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: var(--t-grad);
+    --mh: repeating-linear-gradient(90deg, #000 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--dash-gap)));
+    -webkit-mask-image: var(--mh);
+            mask-image: var(--mh);
+    -webkit-mask-size: 100% var(--hair);
+            mask-size: 100% var(--hair);
+    -webkit-mask-position: 0 0;
+            mask-position: 0 0;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+  }
+  html[data-boot] .col > .pane:first-child::before {
+    clip-path: inset(0% 100% 0% 0%);
+  }
+  html[data-boot="go"] .col > .pane:first-child::before {
+    animation-name: drawH;
+    animation-duration: 450ms;
+    animation-delay: 900ms;
+    animation-timing-function: var(--t-ease);
+    animation-fill-mode: both;
+  }
+
+  .pane-id { text-align: left; align-items: flex-start; }
+}
+
+@media (max-width: 30rem) {
+  .row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .row-desc { font-size: 0.92em; }
+  #boot { padding: 7vh 6vw; }
+}
+
+/* ============================================================
+   12. Document pages
+   Interior pages are not windowed terminals — the home screen is
+   the app, these are its output. Full-bleed, scrolling, same grid.
+   ============================================================ */
+
+body.page {
+  display: block;
+  padding: 0;
+  font-size: clamp(0.8125rem, 0.45rem + 0.6vw, 1.0625rem);
+  line-height: 1.6;
+
+  /* one scale factor drives every extruded wordmark. Because the
+     artwork is always 13.6 units tall, deriving width from this
+     keeps all four section headings exactly the same height no
+     matter how many letters they have. The vw term is what keeps
+     the longest word (PUBLICATIONS) on screen at 360px. */
+  --blk: min(0.205ch, 0.35vw);
+  --blk-title: min(0.46ch, 0.80vw);
+}
+
+.doc {
+  width: min(96ch, 100% - 6ch);
+  margin-inline: auto;
+  padding-bottom: 6ch;
+}
+
+/* --- command bar header ----------------------------------- */
+
+.cmdbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6em 3ch;
+  padding-top: 3ch;
+}
+
+.cmdbar-echo .chev { margin-right: 1ch; }
+.cmdbar-nav { display: flex; flex-wrap: wrap; gap: 0 2.5ch; }
+.cmdbar-nav a { color: var(--t-dim); }
+.cmdbar-nav a:hover,
+.cmdbar-nav a:focus-visible { color: var(--t-accent); }
+
+/* you are here: lit, and inert, because the link goes nowhere */
+.cmdbar-nav a[aria-current="page"],
+a.row[aria-current="page"] .row-cmd { color: var(--t-accent); }
+.cmdbar-nav a[aria-current="page"],
+a.row[aria-current="page"] { cursor: default; }
+a.row[aria-current="page"]:hover { background: none; }
+
+/* --- extruded wordmarks ----------------------------------- */
+
+/* viewBox is 12n − 0.4 wide and always 13.6 tall, so width driven
+   from a shared factor yields an identical height for every word */
+.title-block { width: calc((var(--n) * 12 - 0.4) * var(--blk-title)); }
+.h-block     { width: calc((var(--n) * 12 - 0.4) * var(--blk)); }
+.title-block,
+.h-block { height: auto; display: block; max-width: 100%; }
+
+.page-title { margin-block: 5ch 4.5ch; }
+.sec-head   { margin-block: 7ch 3ch; }
+
+/* --- body copy -------------------------------------------- */
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34ch;
+  gap: 5ch;
+  align-items: start;
+}
+
+.bio { display: grid; gap: 1.15em; max-width: 64ch; line-height: 1.7; }
+.hl { color: var(--t-accent); }
+
+.link { color: var(--t-accent); }
+.link:hover, .link:focus-visible { color: var(--t-fg); text-decoration: underline; }
+
+/* --- contact ---------------------------------------------- */
+
+.contact { padding: 2.75ch 3ch; display: grid; gap: 0.75em; margin: 0; }
+.contact div { display: grid; grid-template-columns: 9ch minmax(0, 1fr); gap: 1ch; }
+.contact dt { color: var(--t-dim); }
+.contact dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+/* --- record lists (experience, publications, education) ---- */
+
+.records { padding: 3.25ch 3ch; display: grid; gap: 4.5ch; }
+
+.item { display: grid; grid-template-columns: 15ch minmax(0, 1fr); gap: 2ch; }
+.item-when { color: var(--t-dim); }
+.item-when span { display: block; }
+.item-body { display: grid; gap: 0.5em; min-width: 0; }
+.item-title { color: var(--t-fg); font-weight: 500; }
+.item-role  { color: var(--t-accent); }
+.item-note  { color: var(--t-fg2); max-width: 64ch; line-height: 1.7; }
+
+.item-list { display: grid; gap: 0.6em; margin: 0; padding: 0; list-style: none; color: var(--t-fg2); max-width: 64ch; line-height: 1.7; }
+.item-list li { padding-left: 2ch; text-indent: -2ch; }
+.item-list li::before { content: "· "; color: var(--t-accent); }
+.item-list strong { color: var(--t-fg); font-weight: 500; }
+
+/* bracketed run rather than bordered pills — chips with radii
+   would re-import the card look this redesign exists to avoid */
+.tags { display: flex; flex-wrap: wrap; gap: 0 2ch; color: var(--t-dim); }
+.tags::before { content: "["; color: var(--t-accent); }
+.tags::after  { content: "]"; color: var(--t-accent); }
+
+/* --- proximity highlight ------------------------------------
+   Prose is split into per-word spans and each word's brightness
+   is driven by --p, its nearness to the pointer. Plain inline
+   spans: only colour changes, so nothing reflows and selection
+   stays unbroken.
+   ------------------------------------------------------------ */
+
+.pw { transition: color 140ms linear; }
+
+@supports (color: color-mix(in oklab, red, blue)) {
+  /* mixes from the INHERITED colour, so a record title, a role and a
+     bullet each brighten from their own base rather than being
+     flattened to one. currentColor inside the `color` property
+     resolves to the inherited value, which is what makes this work. */
+  .pw {
+    color: color-mix(in oklab, currentColor, var(--t-a1) calc(var(--p, 0) * 100%));
+  }
+}
+
+/* --- hover jitter ------------------------------------------
+   The transition is deliberately longer than the 90ms tick that
+   drives it: letters drift continuously rather than snapping
+   between positions, and settle smoothly when the pointer leaves.
+   For an SVG <use>, a CSS translate of 1px is one user unit.
+   ----------------------------------------------------------- */
+
+.jl, .jc {
+  transform: translate(var(--jx, 0px), var(--jy, 0px));
+  transition: transform 120ms linear;
+}
+.jc { display: inline-block; }
+
+/* the nowrap unit is the word, not the label: a line may break at the
+   spaces between words but never between two characters of one */
+.jw { white-space: nowrap; }
+
+/* --- timeline rail -----------------------------------------
+   ::after, not ::before — ::before already carries the dashed
+   border, drawn on a pseudo-element so the reveal can wipe it in.
+   ----------------------------------------------------------- */
+
+.records.timeline {
+  --rail: 3.4ch;
+  --railpad: 7ch;
+  --rail-w: 2px;
+  --dot: 11px;
+  padding-left: var(--railpad);
+}
+
+.records.timeline::after {
+  content: "";
+  position: absolute;
+  left: var(--rail);
+  /* starts on the first dot's centre: the box's own padding, then
+     half a line of the first row of text */
+  top: calc(3.25ch + 0.8em);
+  bottom: 4ch;
+  width: var(--rail-w);
+  background: linear-gradient(to bottom, var(--t-a1), transparent);
+  transform-origin: top center;
+}
+
+.timeline .item { position: relative; }
+
+/* the reset makes every box border-box, so --dot is the dot's whole
+   rendered size, border included — centring is half of that, not
+   half the content box */
+.timeline .item::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--rail) - var(--railpad) + var(--rail-w) / 2 - var(--dot) / 2);
+  top: calc(0.8em - var(--dot) / 2);
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--t-a1);
+  border: 2px solid var(--t-page);
+}
+
+/* --- skills ----------------------------------------------- */
+
+.skills { padding: 3.25ch 3ch; display: grid; gap: 1.5em; margin: 0; }
+.skills div { display: grid; grid-template-columns: 22ch minmax(0, 1fr); gap: 2ch; }
+.skills dt { color: var(--t-accent); }
+.skills dd { margin: 0; min-width: 0; }
+
+/* --- page-load reveal ------------------------------------- */
+
+body.page .doc > .rise {
+  animation: riseIn 620ms var(--t-ease) both;
+  animation-delay: calc(var(--i) * 45ms);
+}
+
+body.page .doc > .page-title.rise {
+  animation: blurIn 1400ms var(--t-ease) 180ms both;
+}
+
+/* --- scroll reveal -----------------------------------------
+   Same vocabulary as the boot sequence: the box draws its own
+   dashed border, the rail grows down, then the records rise in.
+   The closed state is gated on html.js and the observer that
+   opens it is inline in the page, so the pair cannot come apart.
+   ----------------------------------------------------------- */
+
+html.js body.page [data-reveal] .sec-head,
+html.js body.page [data-reveal] .rise        { opacity: 0; }
+html.js body.page [data-reveal] .d-box::before { clip-path: inset(0% 100% 100% 0%); }
+html.js body.page [data-reveal] .timeline::after { transform: scaleY(0); }
+
+/* blurIn rather than riseIn: riseIn rides an expo-out curve that
+   front-loads nearly all its motion into the first quarter of its
+   duration, so the title landed almost instantly however long it
+   ran. A blur resolving is even across its whole run, which is
+   what makes it read at the same pace as the box drawing. */
+body.page [data-reveal].seen .sec-head {
+  animation: blurIn 820ms var(--t-ease) both;
+}
+body.page [data-reveal].seen .d-box::before {
+  animation: drawBox 760ms var(--t-ease) 260ms both;
+}
+body.page [data-reveal].seen .timeline::after {
+  animation: railIn 820ms var(--t-ease) 540ms both;
+}
+body.page [data-reveal].seen .rise {
+  animation: riseIn 620ms var(--t-ease) both;
+  animation-delay: calc(640ms + var(--i) * 100ms);
+}
+
+@keyframes railIn {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(14px); transform: translateY(0.4rem); }
+  to   { opacity: 1; filter: blur(0);    transform: none; }
+}
+
+@media (max-width: 54rem) {
+  .doc { width: min(96ch, 100% - 4ch); }
+  .intro { grid-template-columns: minmax(0, 1fr); gap: 3ch; }
+  .item,
+  .skills div,
+  .contact div { grid-template-columns: minmax(0, 1fr); gap: 0.25em; }
+  .records.timeline { --rail: 2ch; --railpad: 4.5ch; }
+  .item-when span { display: inline; }
+  .item-when span + span::before { content: " — "; }
+  .sec-head { margin-block: 5ch 2.5ch; }
+}
+
+/* gradients collapse to flat system colours here, which would
+   merge the face into its own extrusion */
+@media (forced-colors: active) {
+  .blk-depth { display: none; }
+  .blk-face { fill: CanvasText; }
+}
+
+/* ============================================================
+   13. Page transitions
+   Cross-document view transitions. Both pages share this sheet so
+   both opt in, and the whole effect is CSS — no link interception,
+   no overlay that can get stuck over the page, and back/forward
+   works for free. Where the API is unsupported navigation simply
+   happens instantly, which is the behaviour this replaces.
+   ============================================================ */
+
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;              /* drop the default cross-fade */
+  mix-blend-mode: normal;
+}
+
+/* an edge sweeping right to left, resolving out of blur: the same
+   clip reveal the window and the boxes use, and the same blur the
+   titles use */
+::view-transition-new(root) {
+  animation: pageIn 620ms var(--t-ease) both;
+  z-index: 1;
+}
+
+::view-transition-old(root) {
+  animation: pageOut 420ms var(--t-ease) both;
+}
+
+@keyframes pageIn {
+  from { clip-path: inset(0 0 0 100%); filter: blur(10px); }
+  to   { clip-path: inset(0 0 0 0);    filter: blur(0); }
+}
+
+@keyframes pageOut {
+  to { opacity: 0; transform: translateX(-3%); }
+}
+
+/* Going back a step wipes the other way, so the motion matches the
+   direction you asked to travel. Only the animation name is replaced;
+   duration, easing and fill come from the shorthand above. */
+html[data-nav="back"]::view-transition-new(root) { animation-name: pageInBack; }
+html[data-nav="back"]::view-transition-old(root) { animation-name: pageOutBack; }
+
+@keyframes pageInBack {
+  from { clip-path: inset(0 0 0 100%); filter: blur(10px); }
+  to   { clip-path: inset(0 0 0 0);    filter: blur(0); }
+}
+
+@keyframes pageOutBack {
+  to { opacity: 0; transform: translateX(3%); }
+}
+
+/* ============================================================
+   14. Projects — a scrolling list with a pinned browser window
+   The list is the content; the window is a read-out of where you
+   are in it. One window, one set of screenshots, and the tab that
+   matches whichever entry is crossing the middle of the screen.
+   Solid chrome and traffic lights, like the home terminal — on
+   this site windows are windows and dashed boxes are the regions
+   inside them, so this does not get a dashed border.
+   ============================================================ */
+
+.doc-wide { width: min(124ch, 100% - 6ch); }
+
+.lede {
+  color: var(--t-fg2);
+  max-width: 62ch;
+  margin-bottom: 6ch;
+  line-height: 1.7;
+}
+
+.work {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 56ch;
+  gap: 0 7ch;
+  align-items: start;
+}
+
+/* placed explicitly, because the window comes first in the source
+   — it has to lead on narrow screens — but belongs on the right.
+   Scoped to .work: the chrome below is shared with the resume page,
+   where the same window is an ordinary block. */
+/* the tail is runway, not decoration: without it the page ends
+   before the last entry can reach the line that picks the live one,
+   so project 05 could never become current by scrolling */
+.work-list { grid-column: 1; grid-row: 1; min-width: 0; padding-bottom: 16vh; }
+.work .browser { grid-column: 2; grid-row: 1; position: sticky; top: 11ch; }
+
+/* --- the list --------------------------------------------- */
+
+/* Padding alone sets the rhythm. These were 56vh boxes holding a
+   third of that in text, so more than half the scroll was empty and
+   the window changed while you were looking at a gap. */
+.work-item {
+  display: grid;
+  gap: 0.75em;
+  padding-block: 9ch;
+  scroll-margin-top: 4ch;
+}
+
+/* the first entry sits level with the top of the window beside it */
+.work-item:first-child { padding-top: 0; }
+
+/* dimming is gated on the script actually driving it: with JS off
+   every entry stays at full strength rather than all of them
+   sitting dimmed with nothing able to light them */
+.work-list.sync .work-item {
+  opacity: 0.38;
+  transition: opacity 420ms var(--t-ease);
+}
+.work-list.sync .work-item.is-on { opacity: 1; }
+
+.work-head {
+  display: grid;
+  grid-template-columns: auto minmax(2ch, 1fr) auto;
+  align-items: center;
+  gap: 1.5ch;
+  color: var(--t-dim);
+  font-size: 0.92em;
+}
+.work-n { color: var(--t-accent); }
+
+/* this line is the separator between entries. An actual dashed
+   border on the item sat stranded at the top of a 62vh box, a long
+   way from the text it was meant to introduce; carried inside the
+   head it travels with the content. */
+.work-dash {
+  height: var(--hair);
+  background: var(--t-rule);
+  transform-origin: left center;
+}
+
+.work-title {
+  margin: 0.15em 0 0;
+  font-size: clamp(1.3rem, 0.75rem + 1.5vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.work-title a { color: var(--t-fg); }
+.work-title a:hover,
+.work-title a:focus-visible { color: var(--t-a1); }
+
+.work-cat  { color: var(--t-accent); font-size: 0.95em; }
+.work-desc { color: var(--t-fg2); max-width: 56ch; line-height: 1.75; }
+
+/* --- the window ------------------------------------------- */
+
+.browser {
+  border-radius: 10px;
+  box-shadow: var(--t-shadow);
+}
+
+/* the wipe lives on an inner element: clip-path clips box-shadow
+   too, so animating it on the shadowed box would slice the shadow
+   off at the wipe edge and never give it back */
+.browser-win {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--t-bg);
+}
+
+html.js .browser-win { animation: screenOpen 820ms var(--t-ease) 420ms both; }
+
+.browser-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 1ch;
+  padding: 0.7rem 0.7rem 0;
+  background: #2b2c33;
+}
+
+.lights { display: flex; gap: 0.42rem; padding-bottom: 0.55rem; }
+.lights i { width: 0.66rem; aspect-ratio: 1; border-radius: 50%; background: var(--dot); }
+.lights i:nth-child(1) { --dot: #ff5f57; }
+.lights i:nth-child(2) { --dot: #febc2e; }
+.lights i:nth-child(3) { --dot: #28c840; }
+
+.tabs { display: flex; flex: 1; min-width: 0; }
+
+/* flex-grow is animatable, so the live tab widens as it takes
+   over. That is the detail that makes this read as Safari rather
+   than as a row of buttons. */
+.tab {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.45rem 0.5ch;
+  border-radius: 6px 6px 0 0;
+  color: var(--t-dim);
+  font-size: 0.78em;
+  text-align: center;
+  transition: flex-grow 420ms var(--t-ease),
+              background-color 320ms var(--t-ease),
+              color 320ms var(--t-ease);
+}
+.tab span {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tab + .tab { box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.07); }
+.tab:hover { color: var(--t-fg2); }
+
+.tab.is-on {
+  flex-grow: 1.8;
+  background: var(--t-bg);
+  color: var(--t-fg);
+  box-shadow: none;
+}
+.tab.is-on + .tab { box-shadow: none; }
+
+.browser-url {
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  padding: 0.55rem 1.6ch;
+  background: var(--t-bg);
+  border-bottom: var(--hair) solid var(--t-rule);
+  color: var(--t-dim);
+  font-size: 0.82em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.u-ico  { color: var(--t-accent); }
+.u-host { overflow: hidden; text-overflow: ellipsis; }
+
+/* the address resolving out of blur reads as a page load. Same
+   keyframe the page titles use; the script restarts it on switch. */
+.u-slug {
+  color: var(--t-fg);
+  font-weight: 500;
+  animation: blurIn 520ms var(--t-ease) both;
+}
+
+.browser-view {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--t-page);
+  overflow: hidden;
+}
+
+/* the screenshots are all stacked in place and only opacity and
+   transform change, so switching tabs costs no layout */
+.shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* these are screenshots as often as photographs, and a UI capture
+     carries its meaning at the top — a centred crop cuts the title
+     bar off and leaves an unreadable middle */
+  object-position: center top;
+  opacity: 0;
+  transform: scale(1.045);
+  transition: opacity 560ms var(--t-ease), transform 760ms var(--t-ease);
+}
+.shot.is-on { opacity: 1; transform: none; }
+
+/* --- scroll reveal for the list --------------------------- */
+
+html.js body.page .work-item[data-reveal] .work-dash { transform: scaleX(0); }
+body.page .work-item[data-reveal].seen .work-dash {
+  animation: ruleIn 760ms var(--t-ease) 120ms both;
+}
+
+/* the generic section reveal holds .rise back a full second while
+   a dashed box draws itself. Nothing draws here but a hairline, so
+   these come in straight away instead. */
+body.page .work-item[data-reveal].seen .rise {
+  animation: riseIn 820ms var(--t-ease) both;
+  animation-delay: calc(var(--i) * 110ms);
+}
+
+@media (max-width: 62rem) {
+  .doc-wide { width: min(96ch, 100% - 4ch); }
+
+  /* block flow rather than grid: that makes .work the window's
+     containing block, so the sticky travels the whole list */
+  .work { display: block; }
+  .work .browser {
+    top: 0;
+    margin-bottom: 5ch;
+    border-radius: 0 0 10px 10px;
+  }
+  .work .browser-win { border-radius: 0 0 10px 10px; }
+  .work-item { padding-block: 6ch; scroll-margin-top: 2ch; }
+  .tab { padding-inline: 0.6ch; font-size: 0.74em; }
+}
+
+/* ============================================================
+   15. Resume — the document in a window
+   The same window as the projects page, holding the PDF itself
+   rather than screenshots. About already carries the experience
+   and skills in prose, so this page's job is narrower: show the
+   document, and hand over the file.
+   ============================================================ */
+
+/* The two boxes sit above the document, where the old page put its
+   download and LinkedIn buttons. */
+.sheet { display: grid; gap: 4.5ch; }
+
+.sheet aside {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+  gap: 3ch;
+  align-items: start;
+}
+
+/* The document is a plain iframe of the PDF, with no fragment
+   parameters, so the browser's own viewer behaves exactly as it does
+   standalone: scroll, zoom, text selection, print. No window chrome
+   around it either -- a viewer with its own toolbar inside a fake
+   title bar is two sets of controls doing one job. */
+.doc-view {
+  display: block;
+  width: 100%;
+  height: min(74vh, 860px);
+  border: var(--hair) solid var(--t-rule);
+  border-radius: 6px;
+  background: var(--t-page);
+}
+
+/* the one place that can speak when the viewer cannot: a sandboxed
+   frame, or a browser with no PDF support, shows an empty iframe and
+   no error of its own */
+.doc-note {
+  margin-top: 1.4ch;
+  color: var(--t-dim);
+  font-size: 0.9em;
+}
+
+.doc-note strong { color: var(--t-fg2); font-weight: 500; }
+
+.file-box { padding: 2.75ch 3ch; }
+.file-box .row { grid-template-columns: 11ch minmax(0, 1fr); }
+
+/* This block has to live here, after the rules it overrides, and not
+   up with the other responsive rules in section 12: .sheet and
+   .doc-view are declared below that block, and at equal specificity
+   the later declaration wins, so the columns simply never stacked. */
+@media (max-width: 54rem) {
+  .sheet { gap: 3.5ch; }
+  .doc-view { height: min(68vh, 700px); }
+}
+
+/* ============================================================
+   16. Project pages
+   Long-form reading, one directory down. Top-level pages carry a big
+   extruded wordmark as their title; a project name cannot — "32-bit
+   MIPS CPU" has digits and the block alphabet has no numerals. So
+   these take a small extruded PROJECT kicker for the family
+   resemblance and keep their headings as quiet text, which also suits
+   a page you actually read rather than scan.
+   ============================================================ */
+
+body.page { --blk-kick: min(0.15ch, 0.25vw); }
+
+.kick-block {
+  width: calc((var(--n) * 12 - 0.4) * var(--blk-kick));
+  height: auto;
+  display: block;
+  max-width: 100%;
+  margin-bottom: 2ch;
+}
+
+.proj-title {
+  margin: 0 0 0.4em;
+  font-size: clamp(1.55rem, 0.9rem + 1.9vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.proj-sub {
+  color: var(--t-fg2);
+  max-width: 66ch;
+  line-height: 1.7;
+  margin-bottom: 1.5em;
+}
+
+.proj-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(32ch, 1fr));
+  gap: 3ch;
+  align-items: start;
+  margin-top: 5ch;
+}
+
+/* "institution" is 11 characters and the shared 9ch label column
+   clipped it straight into the value */
+.proj-facts .contact div { grid-template-columns: 12ch minmax(0, 1fr); }
+
+.stats { padding: 2.75ch 3ch; display: grid; gap: 1.5em; }
+.stats div { display: grid; gap: 0.15em; }
+.stat-n { color: var(--t-a1); font-size: 1.45em; line-height: 1.1; }
+.stat-l { color: var(--t-dim); font-size: 0.9em; }
+
+/* a heading that gets out of the way: the rule does the separating */
+.sec-text {
+  display: flex;
+  align-items: center;
+  gap: 2.5ch;
+  color: var(--t-accent);
+  font-size: 0.95em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.sec-text::after {
+  content: "";
+  flex: 1;
+  height: var(--hair);
+  background: var(--t-rule);
+}
+
+.prose { display: grid; gap: 1.15em; max-width: 68ch; }
+
+.media-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34ch;
+  gap: 3ch;
+  align-items: start;
+}
+
+.media-box { padding: 2.5ch; }
+.media-box video,
+.media-box img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  background: var(--t-page);
+}
+
+/* the poster is a still whose shape need not match the footage, and a
+   portrait one stretched the box to twice the page. A fixed frame with
+   contain keeps the layout predictable and crops neither. */
+.media-box video {
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+}
+
+.media-note {
+  margin-top: 1.4ch;
+  color: var(--t-dim);
+  font-size: 0.9em;
+}
+
+.spec { padding: 2.75ch 3ch; display: grid; gap: 0.75em; margin: 0; }
+.spec div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2ch; }
+.spec dt { color: var(--t-fg2); min-width: 0; }
+.spec dd { margin: 0; color: var(--t-dim); }
+.spec .step { color: var(--t-fg2); }
+
+.proj-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26ch, 1fr));
+  gap: 2.5ch;
+  margin-top: 8ch;
+}
+
+.proj-step { display: grid; gap: 0.3em; padding: 2ch 2.5ch; }
+.nav-dir { color: var(--t-dim); font-size: 0.88em; }
+.nav-name { color: var(--t-fg); }
+a.proj-step:hover .nav-name,
+a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
+
+@media (max-width: 54rem) {
+  .media-grid { grid-template-columns: minmax(0, 1fr); }
+  .proj-nav { margin-top: 5ch; }
+}
+
+/* --- 17. Reduced motion ----------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-boot] #boot { display: none; }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+  .cursor { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

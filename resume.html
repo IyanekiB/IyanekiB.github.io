@@ -2,79 +2,174 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Iyan Nekib's resume — Electrical and Computer Engineering graduate, systems software engineer.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+  <meta name="description" content="Resume of Iyan Nekib — Electrical and Computer Engineering graduate. One-page PDF, updated February 2026.">
   <meta name="author" content="Iyan Nekib">
   <title>Resume — Iyan Nekib</title>
 
+  <script>
+    document.documentElement.classList.add('js');
+    /* the browser would otherwise drop you where you last were on this
+       page; set before first paint so there is no visible jump */
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    /* a "previous" link asks for the reverse wipe; the choice is made
+       on the page being left, so it arrives via sessionStorage */
+    try {
+      var nav = sessionStorage.getItem('ink.nav');
+      if (nav) {
+        document.documentElement.dataset.nav = nav;
+        sessionStorage.removeItem('ink.nav');
+      }
+    } catch (e) { /* private browsing — the default wipe is fine */ }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/terminal.css">
 </head>
-<body class="page-interior">
+<body class="page">
 
-  <div id="nav-mount"></div>
+  <!-- Shared block alphabet. Glyphs are 10 wide x 12 tall on a
+       12-unit advance, 2.4-unit stems. fill-rule sits on each path
+       rather than the root svg so the counters survive being
+       referenced from a different svg. Must stay position:absolute
+       with zero size — display:none breaks <use> targets. -->
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0">
+    <defs>
+      <linearGradient id="g-blk" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="var(--t-a1, #7fd4ff)"/>
+        <stop offset="1" stop-color="var(--t-a2, #4a7fe8)"/>
+      </linearGradient>
 
-  <main>
+      <path id="gE" d="M0 0H10V2.4H2.4V4.8H8.6V7.2H2.4V9.6H10V12H0Z"/>
+      <!-- M: two stems and a V between them, built like the existing N -->
+      <path id="gM" d="M0 0H3L5 4.2L7 0H10V12H7.6V4.6L5.6 8.6H4.4L2.4 4.6V12H0Z"/>
+      <path id="gR" fill-rule="evenodd" d="M0 0H10V6.8H7L10 12H7.2L4.2 6.8H2.4V12H0ZM2.4 2.4V4.4H7.6V2.4Z"/>
+      <path id="gS" d="M0 0H10V2.4H2.4V4.8H10V12H0V9.6H7.6V7.2H0Z"/>
+      <path id="gU" d="M0 0H2.4V9.6H7.6V0H10V12H0Z"/>
 
-    <section class="section" aria-label="Resume">
-      <div class="container">
+      <!-- One extruded letter per glyph: eight offset copies make
+           the sides, then a gradient face on top. Letters are placed
+           individually in the heading rather than through a word
+           group, because a <use> expands into a shadow tree and the
+           letters inside one cannot be addressed for the hover jitter. -->
+      <g id="xE"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gE" x="0.2" y="0.2"/><use href="#gE" x="0.4" y="0.4"/><use href="#gE" x="0.6" y="0.6"/><use href="#gE" x="0.8" y="0.8"/><use href="#gE" x="1.0" y="1.0"/><use href="#gE" x="1.2" y="1.2"/><use href="#gE" x="1.4" y="1.4"/><use href="#gE" x="1.6" y="1.6"/></g><use class="blk-face" href="#gE" fill="url(#g-blk)"/></g>
+      <g id="xM"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gM" x="0.2" y="0.2"/><use href="#gM" x="0.4" y="0.4"/><use href="#gM" x="0.6" y="0.6"/><use href="#gM" x="0.8" y="0.8"/><use href="#gM" x="1.0" y="1.0"/><use href="#gM" x="1.2" y="1.2"/><use href="#gM" x="1.4" y="1.4"/><use href="#gM" x="1.6" y="1.6"/></g><use class="blk-face" href="#gM" fill="url(#g-blk)"/></g>
+      <g id="xR"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gR" x="0.2" y="0.2"/><use href="#gR" x="0.4" y="0.4"/><use href="#gR" x="0.6" y="0.6"/><use href="#gR" x="0.8" y="0.8"/><use href="#gR" x="1.0" y="1.0"/><use href="#gR" x="1.2" y="1.2"/><use href="#gR" x="1.4" y="1.4"/><use href="#gR" x="1.6" y="1.6"/></g><use class="blk-face" href="#gR" fill="url(#g-blk)"/></g>
+      <g id="xS"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gS" x="0.2" y="0.2"/><use href="#gS" x="0.4" y="0.4"/><use href="#gS" x="0.6" y="0.6"/><use href="#gS" x="0.8" y="0.8"/><use href="#gS" x="1.0" y="1.0"/><use href="#gS" x="1.2" y="1.2"/><use href="#gS" x="1.4" y="1.4"/><use href="#gS" x="1.6" y="1.6"/></g><use class="blk-face" href="#gS" fill="url(#g-blk)"/></g>
+      <g id="xU"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gU" x="0.2" y="0.2"/><use href="#gU" x="0.4" y="0.4"/><use href="#gU" x="0.6" y="0.6"/><use href="#gU" x="0.8" y="0.8"/><use href="#gU" x="1.0" y="1.0"/><use href="#gU" x="1.2" y="1.2"/><use href="#gU" x="1.4" y="1.4"/><use href="#gU" x="1.6" y="1.6"/></g><use class="blk-face" href="#gU" fill="url(#g-blk)"/></g>
+    </defs>
+  </svg>
 
-        <div class="resume-page-header" data-animate="fade-up">
-          <div>
-            <span class="section-label">Curriculum Vitae</span>
-            <h1 class="section-title" style="margin-bottom:0.25rem;">Resume</h1>
-            <p style="font-size:var(--text-sm);color:var(--text-muted);">Last updated February 2026</p>
-          </div>
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-            <a class="btn btn-primary"
-               href="Iyan_Resume_2026.pdf"
-               download="Iyan_Nekib_Resume_2026.pdf"
-               aria-label="Download resume PDF">
-              Download PDF ↓
+  <div class="doc">
+
+    <header class="cmdbar rise" style="--i:0">
+      <p class="cmdbar-echo"><span class="chev" aria-hidden="true">&gt;</span>/resume</p>
+      <nav class="cmdbar-nav" aria-label="Site sections">
+        <a class="jt" href="./">/home</a>
+        <a class="jt" href="about.html">/about</a>
+        <a class="jt" href="projects.html">/projects</a>
+      </nav>
+    </header>
+
+    <hr class="rule">
+
+    <h1 class="page-title rise" style="--i:1">
+      <span class="vh">Resume</span>
+      <svg class="title-block jitter" style="--n:6" viewBox="0 0 71.6 13.6" aria-hidden="true" focusable="false">
+        <use class="jl" href="#xR" x="0"/>
+        <use class="jl" href="#xE" x="12"/>
+        <use class="jl" href="#xS" x="24"/>
+        <use class="jl" href="#xU" x="36"/>
+        <use class="jl" href="#xM" x="48"/>
+        <use class="jl" href="#xE" x="60"/>
+      </svg>
+    </h1>
+
+    <p class="lede rise" style="--i:2">
+      One page — professional experience, education and project work, and the
+      stack I work in. The long version lives on
+      <a class="link jt" href="about.html">/about</a>.
+    </p>
+
+    <div class="sheet rise" style="--i:3">
+
+      <aside>
+
+        <div class="d-box file-box" aria-labelledby="l-file">
+          <span class="box-label" id="l-file">File</span>
+          <div class="rows">
+            <a class="row" href="Iyan_Resume_2026.pdf" download="Iyan_Nekib_Resume_2026.pdf">
+              <span class="row-cmd">/download</span><span class="row-desc">PDF &middot; 162 KB</span>
             </a>
-            <a class="btn btn-outline"
-               href="https://www.linkedin.com/in/iyan-nekib/"
-               target="_blank"
-               rel="noopener noreferrer">
-              LinkedIn ↗
+            <a class="row" href="https://www.linkedin.com/in/iyan-nekib/" target="_blank" rel="noopener noreferrer">
+              <span class="row-cmd">/linkedin</span><span class="row-desc">in/iyan-nekib</span>
+            </a>
+            <a class="row" href="mailto:iyan.n@outlook.com">
+              <span class="row-cmd">/email</span><span class="row-desc">iyan.n@outlook.com</span>
             </a>
           </div>
+          <p class="box-foot">&hellip; or type a command below</p>
         </div>
 
-        <!-- PDF Embed -->
-        <div class="resume-iframe-wrapper" data-animate="fade-up" data-delay="1">
-          <iframe
-            src="Iyan_Resume_2026.pdf"
-            title="Iyan Nekib Resume 2026"
-            width="100%"
-            loading="lazy"
-            aria-label="Iyan Nekib Resume PDF viewer">
-            <!-- Fallback for browsers that don't support PDF iframes (e.g. Safari iOS) -->
-            <div class="resume-fallback">
-              <p style="margin-bottom:1rem;">Your browser doesn't support embedded PDFs.</p>
-              <a class="btn btn-primary" href="Iyan_Resume_2026.pdf" download="Iyan_Nekib_Resume_2026.pdf">
-                Download PDF ↓
-              </a>
+        <div class="d-box" aria-labelledby="l-details">
+          <span class="box-label" id="l-details">Details</span>
+          <dl class="contact">
+            <div>
+              <dt>file</dt>
+              <dd>Iyan_Nekib_Resume_2026.pdf</dd>
             </div>
-          </iframe>
+            <div>
+              <dt>format</dt>
+              <dd>PDF, one page</dd>
+            </div>
+            <div>
+              <dt>updated</dt>
+              <dd>November 2026</dd>
+            </div>
+            <div>
+              <dt>based</dt>
+              <dd>Halifax, Nova Scotia</dd>
+            </div>
+          </dl>
         </div>
 
-        <!-- Mobile note -->
-        <p style="font-size:var(--text-xs);color:var(--text-muted);text-align:center;margin-top:0.75rem;font-family:var(--font-mono);">
-          If the PDF doesn't display, use the Download button above.
+      </aside>
+
+      <section aria-label="Resume document">
+        <!-- Plain iframe, no fragment parameters: the browser's own PDF
+             viewer, behaving exactly as it does standalone — scroll,
+             zoom, text selection, print. #toolbar=0 is what stripped
+             those controls off an earlier version of this page. -->
+        <iframe class="doc-view" src="Iyan_Resume_2026.pdf"
+                title="Iyan Nekib resume, one page"></iframe>
+        <p class="doc-note">
+          If the PDF does not display here, use <strong>/download</strong> above.
         </p>
+      </section>
 
-      </div>
-    </section>
+    </div>
 
-  </main>
+    <hr class="rule">
 
-  <div id="footer-mount"></div>
+    <div id="out" role="log" aria-live="polite" aria-label="Command output"></div>
 
-  <script src="assets/js/main.js"></script>
+    <form id="prompt" class="prompt" action="." method="get">
+      <span class="chev" aria-hidden="true">&gt;</span>
+      <label class="vh" for="cmd">Type a command</label>
+      <span class="prompt-field">
+        <input id="cmd" name="cmd" type="text" autocomplete="off"
+               autocapitalize="off" autocorrect="off" spellcheck="false">
+        <span class="cursor" aria-hidden="true"></span>
+        <span class="hint" id="hint" aria-hidden="true">try "/projects" to see what I've built</span>
+      </span>
+    </form>
+
+  </div>
+
+  <script src="assets/js/terminal.js"></script>
 </body>
 </html>

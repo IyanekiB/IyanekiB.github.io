@@ -1,215 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-root="../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
   <meta name="description" content="32-bit MIPS CPU (Multi-Cycle) — VHDL implementation with FSM-based control, external memory interfacing, and Zynq FPGA synthesis.">
   <meta name="author" content="Iyan Nekib">
-  <title>32-bit MIPS CPU — Iyan Nekib</title>
+  <title>32-bit MIPS CPU (Multi-Cycle) — Iyan Nekib</title>
+
+  <script>
+    document.documentElement.classList.add('js');
+    /* the browser would otherwise drop you where you last were on this
+       page; set before first paint so there is no visible jump */
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    /* a "previous" link asks for the reverse wipe; the choice is made
+       on the page being left, so it arrives via sessionStorage */
+    try {
+      var nav = sessionStorage.getItem('ink.nav');
+      if (nav) {
+        document.documentElement.dataset.nav = nav;
+        sessionStorage.removeItem('ink.nav');
+      }
+    } catch (e) { /* private browsing — the default wipe is fine */ }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/terminal.css">
 </head>
-<body class="page-interior">
+<body class="page">
 
-  <div id="nav-mount"></div>
+  <!-- Only the seven letters of PROJECT: a <use> cannot reach into
+       another document, so with no build step each page carries the
+       glyphs it needs and no more. -->
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0">
+    <defs>
+      <linearGradient id="g-blk" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="var(--t-a1, #7fd4ff)"/>
+        <stop offset="1" stop-color="var(--t-a2, #4a7fe8)"/>
+      </linearGradient>
 
-  <main>
+      <path id="gC" d="M0 0H10V2.4H2.4V9.6H10V12H0Z"/>
+      <path id="gE" d="M0 0H10V2.4H2.4V4.8H8.6V7.2H2.4V9.6H10V12H0Z"/>
+      <path id="gJ" d="M7.6 0H10V9.2L7.2 12H2.8L0 9.2V6.6H2.4V8.2L3.8 9.6H6.2L7.6 8.2Z"/>
+      <path id="gO" fill-rule="evenodd" d="M0 0H10V12H0ZM2.4 2.4V9.6H7.6V2.4Z"/>
+      <path id="gP" fill-rule="evenodd" d="M0 0H10V6.8H2.4V12H0ZM2.4 2.4V4.4H7.6V2.4Z"/>
+      <path id="gR" fill-rule="evenodd" d="M0 0H10V6.8H7L10 12H7.2L4.2 6.8H2.4V12H0ZM2.4 2.4V4.4H7.6V2.4Z"/>
+      <path id="gT" d="M0 0H10V2.4H6.2V12H3.8V2.4H0Z"/>
 
-    <!-- ── Project Header ────────────────────────── -->
-    <header class="project-detail-hero">
-      <div class="container">
-        <a class="back-link" href="../index.html#projects">Back to Projects</a>
+      <g id="xC"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gC" x="0.2" y="0.2"/><use href="#gC" x="0.4" y="0.4"/><use href="#gC" x="0.6" y="0.6"/><use href="#gC" x="0.8" y="0.8"/><use href="#gC" x="1.0" y="1.0"/><use href="#gC" x="1.2" y="1.2"/><use href="#gC" x="1.4" y="1.4"/><use href="#gC" x="1.6" y="1.6"/></g><use class="blk-face" href="#gC" fill="url(#g-blk)"/></g>
+      <g id="xE"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gE" x="0.2" y="0.2"/><use href="#gE" x="0.4" y="0.4"/><use href="#gE" x="0.6" y="0.6"/><use href="#gE" x="0.8" y="0.8"/><use href="#gE" x="1.0" y="1.0"/><use href="#gE" x="1.2" y="1.2"/><use href="#gE" x="1.4" y="1.4"/><use href="#gE" x="1.6" y="1.6"/></g><use class="blk-face" href="#gE" fill="url(#g-blk)"/></g>
+      <g id="xJ"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gJ" x="0.2" y="0.2"/><use href="#gJ" x="0.4" y="0.4"/><use href="#gJ" x="0.6" y="0.6"/><use href="#gJ" x="0.8" y="0.8"/><use href="#gJ" x="1.0" y="1.0"/><use href="#gJ" x="1.2" y="1.2"/><use href="#gJ" x="1.4" y="1.4"/><use href="#gJ" x="1.6" y="1.6"/></g><use class="blk-face" href="#gJ" fill="url(#g-blk)"/></g>
+      <g id="xO"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gO" x="0.2" y="0.2"/><use href="#gO" x="0.4" y="0.4"/><use href="#gO" x="0.6" y="0.6"/><use href="#gO" x="0.8" y="0.8"/><use href="#gO" x="1.0" y="1.0"/><use href="#gO" x="1.2" y="1.2"/><use href="#gO" x="1.4" y="1.4"/><use href="#gO" x="1.6" y="1.6"/></g><use class="blk-face" href="#gO" fill="url(#g-blk)"/></g>
+      <g id="xP"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gP" x="0.2" y="0.2"/><use href="#gP" x="0.4" y="0.4"/><use href="#gP" x="0.6" y="0.6"/><use href="#gP" x="0.8" y="0.8"/><use href="#gP" x="1.0" y="1.0"/><use href="#gP" x="1.2" y="1.2"/><use href="#gP" x="1.4" y="1.4"/><use href="#gP" x="1.6" y="1.6"/></g><use class="blk-face" href="#gP" fill="url(#g-blk)"/></g>
+      <g id="xR"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gR" x="0.2" y="0.2"/><use href="#gR" x="0.4" y="0.4"/><use href="#gR" x="0.6" y="0.6"/><use href="#gR" x="0.8" y="0.8"/><use href="#gR" x="1.0" y="1.0"/><use href="#gR" x="1.2" y="1.2"/><use href="#gR" x="1.4" y="1.4"/><use href="#gR" x="1.6" y="1.6"/></g><use class="blk-face" href="#gR" fill="url(#g-blk)"/></g>
+      <g id="xT"><g fill="var(--t-depth, #25487c)" class="blk-depth"><use href="#gT" x="0.2" y="0.2"/><use href="#gT" x="0.4" y="0.4"/><use href="#gT" x="0.6" y="0.6"/><use href="#gT" x="0.8" y="0.8"/><use href="#gT" x="1.0" y="1.0"/><use href="#gT" x="1.2" y="1.2"/><use href="#gT" x="1.4" y="1.4"/><use href="#gT" x="1.6" y="1.6"/></g><use class="blk-face" href="#gT" fill="url(#g-blk)"/></g>
+    </defs>
+  </svg>
 
-        <div class="project-badges">
-          <span class="tag tag-primary">Computer Architecture</span>
-          <span class="tag tag-cyan">FPGA</span>
-          <span class="tag">VHDL</span>
-          <span class="tag">Digital Design</span>
-        </div>
+  <div class="doc">
 
-        <h1 class="project-detail-title">32-bit MIPS CPU (Multi-Cycle)</h1>
-        <p class="project-detail-subtitle">
-          Multi-cycle MIPS32 processor implemented in VHDL with FSM-based control unit,
-          external memory interfacing, and validation on Zynq FPGA hardware.
-        </p>
-
-        <div class="project-detail-meta">
-          <div class="project-meta-item">
-            <span class="project-meta-label">Duration</span>
-            <span class="project-meta-value">Sept – Dec 2024</span>
-          </div>
-          <div class="project-meta-item">
-            <span class="project-meta-label">Domain</span>
-            <span class="project-meta-value">Computer Architecture</span>
-          </div>
-          <div class="project-meta-item">
-            <span class="project-meta-label">Type</span>
-            <span class="project-meta-value">Academic Project</span>
-          </div>
-          <div class="project-meta-item">
-            <span class="project-meta-label">Hardware</span>
-            <span class="project-meta-value">Zynq FPGA (BRAM)</span>
-          </div>
-        </div>
-      </div>
+    <header class="cmdbar rise" style="--i:0">
+      <p class="cmdbar-echo"><span class="chev" aria-hidden="true">&gt;</span>/projects/mips-cpu</p>
+      <nav class="cmdbar-nav" aria-label="Site sections">
+        <a class="jt" href="../">/home</a>
+        <a class="jt" href="../about.html">/about</a>
+        <a class="jt" href="../projects.html">/projects</a>
+        <a class="jt" href="../resume.html">/resume</a>
+      </nav>
     </header>
 
-    <!-- ── Metrics ────────────────────────────────── -->
-    <section class="container">
-      <div class="project-highlights">
-        <div class="highlight-card" data-animate="scale" data-delay="1">
-          <div class="highlight-value">32-bit</div>
-          <div class="highlight-label">Architecture Width</div>
+    <hr class="rule">
+
+    <header class="proj-head rise" style="--i:1">
+      <span class="vh">Project</span>
+      <svg class="kick-block jitter" style="--n:7" viewBox="0 0 83.6 13.6"
+           aria-hidden="true" focusable="false">
+        <use class="jl" href="#xP" x="0"/>
+        <use class="jl" href="#xR" x="12"/>
+        <use class="jl" href="#xO" x="24"/>
+        <use class="jl" href="#xJ" x="36"/>
+        <use class="jl" href="#xE" x="48"/>
+        <use class="jl" href="#xC" x="60"/>
+        <use class="jl" href="#xT" x="72"/>
+      </svg>
+      <h1 class="proj-title jt">32-bit MIPS CPU (Multi-Cycle)</h1>
+      <p class="proj-sub">Multi-cycle MIPS32 processor implemented in VHDL with FSM-based control unit, external memory interfacing, and validation on Zynq FPGA hardware.</p>
+      <p class="tags"><span>Computer Architecture</span><span>FPGA</span><span>VHDL</span><span>Digital Design</span></p>
+    </header>
+
+    <div class="proj-facts rise" style="--i:2">
+      <dl class="contact d-box" aria-label="Project details">
+        <span class="box-label">Details</span>
+        <div>
+          <dt>duration</dt>
+          <dd>Sept – Dec 2024</dd>
         </div>
-        <div class="highlight-card" data-animate="scale" data-delay="2">
-          <div class="highlight-value">FSM</div>
-          <div class="highlight-label">Control Strategy</div>
+        <div>
+          <dt>domain</dt>
+          <dd>Computer Architecture</dd>
         </div>
-        <div class="highlight-card" data-animate="scale" data-delay="3">
-          <div class="highlight-value">FPGA</div>
-          <div class="highlight-label">Hardware Validated</div>
+        <div>
+          <dt>type</dt>
+          <dd>Academic Project</dd>
         </div>
+        <div>
+          <dt>hardware</dt>
+          <dd>Zynq FPGA (BRAM)</dd>
+        </div>
+      </dl>
+      <div class="stats d-box" aria-label="Key figures">
+        <span class="box-label">Numbers</span>
+        <div><span class="stat-n">32-bit</span><span class="stat-l">Architecture Width</span></div>
+        <div><span class="stat-n">FSM</span><span class="stat-l">Control Strategy</span></div>
+        <div><span class="stat-n">FPGA</span><span class="stat-l">Hardware Validated</span></div>
       </div>
-    </section>
+    </div>
 
-    <!-- ── Body ──────────────────────────────────── -->
-    <section class="section" style="padding-top:0;" aria-label="Project details">
-      <div class="container">
-        <div class="project-detail-body">
+      <section data-reveal aria-labelledby="h-project-overview">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-project-overview">Project Overview</h2>
+        <div class="prose rise" style="--i:1">
+          <p class="item-note">A complete multi-cycle MIPS32 processor designed from scratch in VHDL, synthesized and validated on Xilinx Zynq FPGA hardware. The project spans RTL design, simulation, synthesis, and hardware testing — covering the full digital design workflow.</p>
+        </div>
+      </section>
 
-          <div class="project-description" data-animate="fade-right">
+      <section data-reveal aria-labelledby="h-architecture">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-architecture">Architecture</h2>
+        <ul class="item-list rise" style="--i:1">
+          <li><strong>Multi-cycle datapath:</strong> Instructions execute over multiple clock cycles — fetch, decode, execute, memory access, writeback — sharing hardware resources across stages rather than using dedicated pipelined units.</li>
+          <li><strong>FSM-based control unit:</strong> A Moore FSM drives control signals cycle-by-cycle, transitioning between states for each instruction class (R-type, load/store, branch, jump).</li>
+          <li><strong>ALU:</strong> Supports arithmetic (ADD, SUB, ADDI), logical (AND, OR, SLT), shift, and comparison operations with a zero-detection output for branch control.</li>
+          <li><strong>External memory interface:</strong> Interfaces with Zynq block RAM (BRAM) for instruction and data memory — requires careful address and timing alignment for synchronous reads.</li>
+          <li><strong>Register file:</strong> 32 × 32-bit general purpose registers with simultaneous dual-read and single-write capability, with $0 hardwired to zero.</li>
+        </ul>
+      </section>
 
-            <h3>Project Overview</h3>
-            <p>
-              A complete multi-cycle MIPS32 processor designed from scratch in VHDL, synthesized
-              and validated on Xilinx Zynq FPGA hardware. The project spans RTL design, simulation,
-              synthesis, and hardware testing — covering the full digital design workflow.
-            </p>
+      <section data-reveal aria-labelledby="h-verification-strategy">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-verification-strategy">Verification Strategy</h2>
+        <ul class="item-list rise" style="--i:1">
+          <li><strong>Tcl simulation testbenches:</strong> Automated VHDL testbenches driven by Tcl scripts in Vivado simulator — testing each instruction with expected register file and memory state assertions.</li>
+          <li><strong>C/C++ MIPS cross-compilation:</strong> Programs compiled with <code>mips-elf-gcc</code>, loaded into Zynq BRAM via memory initialization files, and executed on hardware — output verified against expected register dumps.</li>
+          <li><strong>Waveform analysis:</strong> Control signal traces validated in Vivado to confirm FSM state transitions matched the intended cycle diagrams.</li>
+        </ul>
+      </section>
 
-            <h3>Architecture</h3>
-            <ul>
-              <li>
-                <strong>Multi-cycle datapath:</strong> Instructions execute over multiple clock
-                cycles — fetch, decode, execute, memory access, writeback — sharing hardware
-                resources across stages rather than using dedicated pipelined units.
-              </li>
-              <li>
-                <strong>FSM-based control unit:</strong> A Moore FSM drives control signals
-                cycle-by-cycle, transitioning between states for each instruction class
-                (R-type, load/store, branch, jump).
-              </li>
-              <li>
-                <strong>ALU:</strong> Supports arithmetic (ADD, SUB, ADDI), logical (AND, OR, SLT),
-                shift, and comparison operations with a zero-detection output for branch control.
-              </li>
-              <li>
-                <strong>External memory interface:</strong> Interfaces with Zynq block RAM (BRAM)
-                for instruction and data memory — requires careful address and timing alignment
-                for synchronous reads.
-              </li>
-              <li>
-                <strong>Register file:</strong> 32 × 32-bit general purpose registers with
-                simultaneous dual-read and single-write capability, with $0 hardwired to zero.
-              </li>
-            </ul>
+      <section data-reveal aria-labelledby="h-challenges-overcome">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-challenges-overcome">Challenges Overcome</h2>
+        <ul class="item-list rise" style="--i:1">
+          <li>Synchronous BRAM timing caused a one-cycle read latency that required inserting an extra wait state in the fetch FSM state — discovered through waveform analysis.</li>
+          <li>Branch resolution required forwarding the computed PC to the instruction register a cycle early, handled by careful FSM state ordering rather than a dedicated forwarding unit.</li>
+        </ul>
+      </section>
 
-            <h3>Verification Strategy</h3>
-            <ul>
-              <li>
-                <strong>Tcl simulation testbenches:</strong> Automated VHDL testbenches driven
-                by Tcl scripts in Vivado simulator — testing each instruction with expected
-                register file and memory state assertions.
-              </li>
-              <li>
-                <strong>C/C++ MIPS cross-compilation:</strong> Programs compiled with
-                <code>mips-elf-gcc</code>, loaded into Zynq BRAM via memory initialization
-                files, and executed on hardware — output verified against expected register dumps.
-              </li>
-              <li>
-                <strong>Waveform analysis:</strong> Control signal traces validated in Vivado
-                to confirm FSM state transitions matched the intended cycle diagrams.
-              </li>
-            </ul>
-
-            <h3>Challenges Overcome</h3>
-            <ul>
-              <li>
-                Synchronous BRAM timing caused a one-cycle read latency that required inserting
-                an extra wait state in the fetch FSM state — discovered through waveform analysis.
-              </li>
-              <li>
-                Branch resolution required forwarding the computed PC to the instruction register
-                a cycle early, handled by careful FSM state ordering rather than a dedicated
-                forwarding unit.
-              </li>
-            </ul>
-
-            <div class="project-tech-section">
-              <h4>Tech Stack</h4>
-              <div class="project-tech-tags">
-                <span class="tag tag-primary">VHDL</span>
-                <span class="tag tag-primary">Vivado</span>
-                <span class="tag tag-cyan">MIPS32</span>
-                <span class="tag tag-cyan">Zynq FPGA</span>
-                <span class="tag">FSM</span>
-                <span class="tag">BRAM</span>
-                <span class="tag">Tcl</span>
-                <span class="tag">C / C++</span>
-                <span class="tag">RTL Design</span>
-                <span class="tag">Digital Logic</span>
-              </div>
-            </div>
-
+      <section data-reveal aria-labelledby="h-media">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-media">Media</h2>
+        <div class="media-grid rise" style="--i:1">
+          <div class="media-box d-box">
+            <span class="box-label">MIPS321.jpg</span>
+            <img src="../assets/projectFiles/MIPS321.jpg" alt="Circuit board close-up — representative of the MIPS CPU FPGA project" loading="lazy" decoding="async">
           </div>
-
-          <!-- Right: Media -->
-          <div class="project-media-panel" data-animate="fade-left">
-            <div class="project-media-container">
-              <img
-                class="project-media-img"
-                src="../assets/projectFiles/MIPS321.jpg"
-                alt="Circuit board close-up — representative of the MIPS CPU FPGA project"
-                loading="lazy">
-            </div>
-            <!-- <p class="project-media-caption">Replace with a Vivado waveform screenshot or RTL schematic.</p> -->
-
-            <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-sm);">
-              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Instruction Support</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;font-family:var(--font-mono);font-size:var(--text-xs);">
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">R-type (ADD, SUB, AND…)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">I-type (ADDI, LW, SW)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Branch (BEQ, BNE)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Jump (J, JAL, JR)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Shifts (SLL, SRL)</div>
-                <div style="background:var(--bg-elevated);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);color:var(--text-secondary);">Compare (SLT, SLTI)</div>
-              </div>
-            </div>
-          </div>
-
+          <dl class="spec d-box">
+            <span class="box-label">Instruction Support</span>
+            <div><dt class="step">R-type (ADD, SUB, AND…)</dt></div>
+            <div><dt class="step">I-type (ADDI, LW, SW)</dt></div>
+            <div><dt class="step">Branch (BEQ, BNE)</dt></div>
+            <div><dt class="step">Jump (J, JAL, JR)</dt></div>
+            <div><dt class="step">Shifts (SLL, SRL)</dt></div>
+            <div><dt class="step">Compare (SLT, SLTI)</dt></div>
+          </dl>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ── Project Navigation ─────────────────────── -->
-    <section class="container">
-      <div class="project-nav">
-        <a class="project-nav-link" href="civilization-replica.html">
-          <div class="project-nav-direction">← Previous Project</div>
-          <div class="project-nav-title">Java Civilization VI Replica</div>
-        </a>
-        <div></div><!-- empty right -->
-      </div>
-    </section>
+      <section data-reveal aria-labelledby="h-stack">
+        <h2 class="sec-head sec-text rise" style="--i:0" id="h-stack">Stack</h2>
+        <div class="rise" style="--i:1"><p class="tags"><span>VHDL</span><span>Vivado</span><span>MIPS32</span><span>Zynq FPGA</span><span>FSM</span><span>BRAM</span><span>Tcl</span><span>C / C++</span><span>RTL Design</span><span>Digital Logic</span></p></div>
+      </section>
 
-  </main>
+    <nav class="proj-nav" aria-label="Project navigation">
+      <a class="proj-step d-box" data-nav="back" href="civilization-replica.html">
+        <span class="nav-dir">&larr; previous</span>
+        <span class="nav-name">Java-based Civilization VI Replica</span>
+      </a>
+      <a class="proj-step d-box" href="../projects.html">
+        <span class="nav-dir">index</span>
+        <span class="nav-name">All projects</span>
+      </a>
+    </nav>
 
-  <div id="footer-mount"></div>
+    <hr class="rule">
 
-  <script src="../assets/js/main.js"></script>
+    <div id="out" role="log" aria-live="polite" aria-label="Command output"></div>
+
+    <form id="prompt" class="prompt" action="." method="get">
+      <span class="chev" aria-hidden="true">&gt;</span>
+      <label class="vh" for="cmd">Type a command</label>
+      <span class="prompt-field">
+        <input id="cmd" name="cmd" type="text" autocomplete="off"
+               autocapitalize="off" autocorrect="off" spellcheck="false">
+        <span class="cursor" aria-hidden="true"></span>
+        <span class="hint" id="hint" aria-hidden="true">try "/projects" for the rest</span>
+      </span>
+    </form>
+
+  </div>
+
+  <script>
+    /* Scroll reveal. Inline on purpose: the closed state is CSS gated
+       on html.js, so whatever opens it must not depend on a request
+       that could fail and leave sections invisible. */
+    (function () {
+      var secs = document.querySelectorAll('[data-reveal]');
+      function openAll() {
+        [].forEach.call(secs, function (el) { el.classList.add('seen'); });
+      }
+      if (!('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        openAll();
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('seen');
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      [].forEach.call(secs, function (el) { io.observe(el); });
+    })();
+  </script>
+
+  <script src="../assets/js/terminal.js"></script>
 </body>
 </html>
