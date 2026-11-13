@@ -150,6 +150,34 @@
     if (el) el.textContent = 'iyan-nekib v' + VERSION;
   }
 
+  /* A video that will not load leaves its poster up and says nothing,
+     so it reads as a still image rather than a broken one. These files
+     are large, and a host that cannot serve byte ranges cannot stream
+     them at all, so the failure is worth naming. The <source> error
+     does not bubble, hence the capture listener. */
+  function initMedia() {
+    [].forEach.call(document.querySelectorAll('.media-box video'), function (v) {
+      v.addEventListener('error', function () {
+        if (v.dataset.failed) return;
+        v.dataset.failed = '1';
+
+        var src = v.querySelector('source');
+        var note = document.createElement('p');
+        note.className = 'media-note';
+        note.textContent = 'The demo video could not load here. ';
+
+        if (src) {
+          var link = document.createElement('a');
+          link.className = 'link';
+          link.href = src.getAttribute('src');
+          link.textContent = 'Open the file directly';
+          note.appendChild(link);
+        }
+        v.parentNode.appendChild(note);
+      }, true);
+    });
+  }
+
   function size() {
     cmd.style.width = cmd.value.length + 'ch';
     hint.hidden = cmd.value.length > 0;
@@ -542,6 +570,7 @@
     stampVersion();
     initCurrent();
     initNavDirection();
+    initMedia();
     initBrowser();
     initJitter();
     initProx();

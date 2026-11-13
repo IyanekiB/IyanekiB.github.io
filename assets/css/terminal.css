@@ -837,17 +837,17 @@ html.js body.page [data-reveal] .timeline::after { transform: scaleY(0); }
    ran. A blur resolving is even across its whole run, which is
    what makes it read at the same pace as the box drawing. */
 body.page [data-reveal].seen .sec-head {
-  animation: blurIn 1200ms var(--t-ease) both;
+  animation: blurIn 820ms var(--t-ease) both;
 }
 body.page [data-reveal].seen .d-box::before {
-  animation: drawBox 1150ms var(--t-ease) 450ms both;
+  animation: drawBox 760ms var(--t-ease) 260ms both;
 }
 body.page [data-reveal].seen .timeline::after {
-  animation: railIn 1250ms var(--t-ease) 850ms both;
+  animation: railIn 820ms var(--t-ease) 540ms both;
 }
 body.page [data-reveal].seen .rise {
-  animation: riseIn 900ms var(--t-ease) both;
-  animation-delay: calc(1050ms + var(--i) * 150ms);
+  animation: riseIn 620ms var(--t-ease) both;
+  animation-delay: calc(640ms + var(--i) * 100ms);
 }
 
 @keyframes railIn {
@@ -1322,6 +1322,12 @@ body.page { --blk-kick: min(0.15ch, 0.25vw); }
 .media-box video {
   aspect-ratio: 16 / 10;
   object-fit: contain;
+}
+
+.media-note {
+  margin-top: 1.4ch;
+  color: var(--t-dim);
+  font-size: 0.9em;
 }
 
 .spec { padding: 2.75ch 3ch; display: grid; gap: 0.75em; margin: 0; }
