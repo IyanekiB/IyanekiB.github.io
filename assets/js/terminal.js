@@ -29,7 +29,46 @@
     out.appendChild(current);
   }
 
-  function go(href) { window.location.href = ROOT + href; }
+  /* index.html and the directory that serves it are the same page */
+  function samePath(href) {
+    var probe = document.createElement('a');
+    probe.href = href;
+    var tidy = function (p) { return p.replace(/index\.html$/, ''); };
+    return tidy(probe.pathname) === tidy(window.location.pathname);
+  }
+
+  function go(href) {
+    var url = ROOT + href;
+    /* navigating to the page you are already on reloads it, which
+       replays the entrance for no reason and loses the output log */
+    if (samePath(url)) { print('Already here.'); return; }
+    window.location.href = url;
+  }
+
+  /* Same idea for links. The nav bars already omit the current page,
+     but the home screen lists /home among its own rows. */
+  function initCurrent() {
+    [].forEach.call(document.querySelectorAll('.cmdbar-nav a, a.row'), function (a) {
+      if (!samePath(a.href)) return;
+      a.setAttribute('aria-current', 'page');
+      a.addEventListener('click', function (e) { e.preventDefault(); });
+    });
+  }
+
+  /* Which way the page transition should wipe. The choice is made on
+     the page being left, but the animation belongs to the page being
+     entered, so it travels in sessionStorage and is read back by that
+     page's head script -- before first paint, or the transition is
+     already configured by the time we get a say. */
+  function initNavDirection() {
+    [].forEach.call(document.querySelectorAll('a[data-nav]'), function (a) {
+      a.addEventListener('click', function () {
+        try {
+          sessionStorage.setItem('ink.nav', a.getAttribute('data-nav'));
+        } catch (e) { /* private browsing — the default wipe is fine */ }
+      });
+    });
+  }
   function openTab(href) { window.open(href, '_blank', 'noopener'); }
 
   function reboot() {
@@ -501,6 +540,8 @@
 
   function init() {
     stampVersion();
+    initCurrent();
+    initNavDirection();
     initBrowser();
     initJitter();
     initProx();

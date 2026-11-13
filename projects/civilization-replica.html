@@ -12,6 +12,15 @@
     /* the browser would otherwise drop you where you last were on this
        page; set before first paint so there is no visible jump */
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    /* a "previous" link asks for the reverse wipe; the choice is made
+       on the page being left, so it arrives via sessionStorage */
+    try {
+      var nav = sessionStorage.getItem('ink.nav');
+      if (nav) {
+        document.documentElement.dataset.nav = nav;
+        sessionStorage.removeItem('ink.nav');
+      }
+    } catch (e) { /* private browsing — the default wipe is fine */ }
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -162,7 +171,7 @@
       </section>
 
     <nav class="proj-nav" aria-label="Project navigation">
-      <a class="proj-step d-box" href="train-simulation.html">
+      <a class="proj-step d-box" data-nav="back" href="train-simulation.html">
         <span class="nav-dir">&larr; previous</span>
         <span class="nav-name">Integrated Train System Simulation</span>
       </a>

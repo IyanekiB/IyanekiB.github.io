@@ -17,6 +17,15 @@
       /* the browser would otherwise drop you where you last were on
          this page; set before first paint so there is no jump */
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      /* a "previous" link asks for the reverse wipe; the choice is made
+         on the page being left, so it arrives via sessionStorage */
+      try {
+        var nav = sessionStorage.getItem('ink.nav');
+        if (nav) {
+          document.documentElement.dataset.nav = nav;
+          sessionStorage.removeItem('ink.nav');
+        }
+      } catch (e) { /* private browsing — the default wipe is fine */ }
       try {
         if (sessionStorage.getItem('ink.booted')) return;
       } catch (e) { /* private browsing — fall through and show it */ }

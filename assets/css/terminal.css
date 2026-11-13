@@ -658,6 +658,13 @@ body.page {
 .cmdbar-nav a:hover,
 .cmdbar-nav a:focus-visible { color: var(--t-accent); }
 
+/* you are here: lit, and inert, because the link goes nowhere */
+.cmdbar-nav a[aria-current="page"],
+a.row[aria-current="page"] .row-cmd { color: var(--t-accent); }
+.cmdbar-nav a[aria-current="page"],
+a.row[aria-current="page"] { cursor: default; }
+a.row[aria-current="page"]:hover { background: none; }
+
 /* --- extruded wordmarks ----------------------------------- */
 
 /* viewBox is 12n − 0.4 wide and always 13.6 tall, so width driven
@@ -908,6 +915,21 @@ body.page [data-reveal].seen .rise {
 
 @keyframes pageOut {
   to { opacity: 0; transform: translateX(-3%); }
+}
+
+/* Going back a step wipes the other way, so the motion matches the
+   direction you asked to travel. Only the animation name is replaced;
+   duration, easing and fill come from the shorthand above. */
+html[data-nav="back"]::view-transition-new(root) { animation-name: pageInBack; }
+html[data-nav="back"]::view-transition-old(root) { animation-name: pageOutBack; }
+
+@keyframes pageInBack {
+  from { clip-path: inset(0 0 0 100%); filter: blur(10px); }
+  to   { clip-path: inset(0 0 0 0);    filter: blur(0); }
+}
+
+@keyframes pageOutBack {
+  to { opacity: 0; transform: translateX(3%); }
 }
 
 /* ============================================================
