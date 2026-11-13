@@ -1,8 +1,9 @@
 /* ============================================================
    iyan-nekib — terminal UI
-   Pass 1: boot splash + home screen.
-   Tokens are namespaced --t-* so this can coexist with the
-   legacy styles.css while the other pages are migrated.
+   The whole site: boot splash, home screen, the three top-level
+   document pages and the five project pages. The legacy styles.css
+   this once had to coexist with is gone, but the --t-* token
+   namespace stays — it costs nothing and keeps the origin legible.
    ============================================================ */
 
 /* --- 1. Tokens ------------------------------------------- */
@@ -746,6 +747,10 @@ body.page {
 }
 .jc { display: inline-block; }
 
+/* the nowrap unit is the word, not the label: a line may break at the
+   spaces between words but never between two characters of one */
+.jw { white-space: nowrap; }
+
 /* --- timeline rail -----------------------------------------
    ::after, not ::before — ::before already carries the dashed
    border, drawn on a pseudo-element so the reveal can wipe it in.
@@ -932,12 +937,14 @@ body.page [data-reveal].seen .rise {
 }
 
 /* placed explicitly, because the window comes first in the source
-   — it has to lead on narrow screens — but belongs on the right */
+   — it has to lead on narrow screens — but belongs on the right.
+   Scoped to .work: the chrome below is shared with the resume page,
+   where the same window is an ordinary block. */
 /* the tail is runway, not decoration: without it the page ends
    before the last entry can reach the line that picks the live one,
    so project 05 could never become current by scrolling */
 .work-list { grid-column: 1; grid-row: 1; min-width: 0; padding-bottom: 16vh; }
-.browser   { grid-column: 2; grid-row: 1; }
+.work .browser { grid-column: 2; grid-row: 1; position: sticky; top: 11ch; }
 
 /* --- the list --------------------------------------------- */
 
@@ -1000,8 +1007,6 @@ body.page [data-reveal].seen .rise {
 /* --- the window ------------------------------------------- */
 
 .browser {
-  position: sticky;
-  top: 11ch;
   border-radius: 10px;
   box-shadow: var(--t-shadow);
 }
@@ -1134,17 +1139,194 @@ body.page .work-item[data-reveal].seen .rise {
   /* block flow rather than grid: that makes .work the window's
      containing block, so the sticky travels the whole list */
   .work { display: block; }
-  .browser {
+  .work .browser {
     top: 0;
     margin-bottom: 5ch;
     border-radius: 0 0 10px 10px;
   }
-  .browser-win { border-radius: 0 0 10px 10px; }
+  .work .browser-win { border-radius: 0 0 10px 10px; }
   .work-item { padding-block: 6ch; scroll-margin-top: 2ch; }
   .tab { padding-inline: 0.6ch; font-size: 0.74em; }
 }
 
-/* --- 15. Reduced motion ----------------------------------- */
+/* ============================================================
+   15. Resume — the document in a window
+   The same window as the projects page, holding the PDF itself
+   rather than screenshots. About already carries the experience
+   and skills in prose, so this page's job is narrower: show the
+   document, and hand over the file.
+   ============================================================ */
+
+/* The two boxes sit above the document, where the old page put its
+   download and LinkedIn buttons. */
+.sheet { display: grid; gap: 4.5ch; }
+
+.sheet aside {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+  gap: 3ch;
+  align-items: start;
+}
+
+/* The document is a plain iframe of the PDF, with no fragment
+   parameters, so the browser's own viewer behaves exactly as it does
+   standalone: scroll, zoom, text selection, print. No window chrome
+   around it either -- a viewer with its own toolbar inside a fake
+   title bar is two sets of controls doing one job. */
+.doc-view {
+  display: block;
+  width: 100%;
+  height: min(74vh, 860px);
+  border: var(--hair) solid var(--t-rule);
+  border-radius: 6px;
+  background: var(--t-page);
+}
+
+/* the one place that can speak when the viewer cannot: a sandboxed
+   frame, or a browser with no PDF support, shows an empty iframe and
+   no error of its own */
+.doc-note {
+  margin-top: 1.4ch;
+  color: var(--t-dim);
+  font-size: 0.9em;
+}
+
+.doc-note strong { color: var(--t-fg2); font-weight: 500; }
+
+.file-box { padding: 2.75ch 3ch; }
+.file-box .row { grid-template-columns: 11ch minmax(0, 1fr); }
+
+/* This block has to live here, after the rules it overrides, and not
+   up with the other responsive rules in section 12: .sheet and
+   .doc-view are declared below that block, and at equal specificity
+   the later declaration wins, so the columns simply never stacked. */
+@media (max-width: 54rem) {
+  .sheet { gap: 3.5ch; }
+  .doc-view { height: min(68vh, 700px); }
+}
+
+/* ============================================================
+   16. Project pages
+   Long-form reading, one directory down. Top-level pages carry a big
+   extruded wordmark as their title; a project name cannot — "32-bit
+   MIPS CPU" has digits and the block alphabet has no numerals. So
+   these take a small extruded PROJECT kicker for the family
+   resemblance and keep their headings as quiet text, which also suits
+   a page you actually read rather than scan.
+   ============================================================ */
+
+body.page { --blk-kick: min(0.15ch, 0.25vw); }
+
+.kick-block {
+  width: calc((var(--n) * 12 - 0.4) * var(--blk-kick));
+  height: auto;
+  display: block;
+  max-width: 100%;
+  margin-bottom: 2ch;
+}
+
+.proj-title {
+  margin: 0 0 0.4em;
+  font-size: clamp(1.55rem, 0.9rem + 1.9vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.proj-sub {
+  color: var(--t-fg2);
+  max-width: 66ch;
+  line-height: 1.7;
+  margin-bottom: 1.5em;
+}
+
+.proj-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(32ch, 1fr));
+  gap: 3ch;
+  align-items: start;
+  margin-top: 5ch;
+}
+
+/* "institution" is 11 characters and the shared 9ch label column
+   clipped it straight into the value */
+.proj-facts .contact div { grid-template-columns: 12ch minmax(0, 1fr); }
+
+.stats { padding: 2.75ch 3ch; display: grid; gap: 1.5em; }
+.stats div { display: grid; gap: 0.15em; }
+.stat-n { color: var(--t-a1); font-size: 1.45em; line-height: 1.1; }
+.stat-l { color: var(--t-dim); font-size: 0.9em; }
+
+/* a heading that gets out of the way: the rule does the separating */
+.sec-text {
+  display: flex;
+  align-items: center;
+  gap: 2.5ch;
+  color: var(--t-accent);
+  font-size: 0.95em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.sec-text::after {
+  content: "";
+  flex: 1;
+  height: var(--hair);
+  background: var(--t-rule);
+}
+
+.prose { display: grid; gap: 1.15em; max-width: 68ch; }
+
+.media-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34ch;
+  gap: 3ch;
+  align-items: start;
+}
+
+.media-box { padding: 2.5ch; }
+.media-box video,
+.media-box img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  background: var(--t-page);
+}
+
+/* the poster is a still whose shape need not match the footage, and a
+   portrait one stretched the box to twice the page. A fixed frame with
+   contain keeps the layout predictable and crops neither. */
+.media-box video {
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+}
+
+.spec { padding: 2.75ch 3ch; display: grid; gap: 0.75em; margin: 0; }
+.spec div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2ch; }
+.spec dt { color: var(--t-fg2); min-width: 0; }
+.spec dd { margin: 0; color: var(--t-dim); }
+.spec .step { color: var(--t-fg2); }
+
+.proj-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26ch, 1fr));
+  gap: 2.5ch;
+  margin-top: 8ch;
+}
+
+.proj-step { display: grid; gap: 0.3em; padding: 2ch 2.5ch; }
+.nav-dir { color: var(--t-dim); font-size: 0.88em; }
+.nav-name { color: var(--t-fg); }
+a.proj-step:hover .nav-name,
+a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
+
+@media (max-width: 54rem) {
+  .media-grid { grid-template-columns: minmax(0, 1fr); }
+  .proj-nav { margin-top: 5ch; }
+}
+
+/* --- 17. Reduced motion ----------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html[data-boot] #boot { display: none; }

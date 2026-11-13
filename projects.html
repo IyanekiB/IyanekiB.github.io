@@ -7,7 +7,12 @@
   <meta name="author" content="Iyan Nekib">
   <title>Projects — Iyan Nekib</title>
 
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    /* the browser would otherwise drop you where you last were on this
+       page; set before first paint so there is no visible jump */
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

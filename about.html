@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-  <meta name="description" content="About Iyan Nekib — Electrical and Computer Engineering graduate. Experience at Microsoft, Westinghouse and HERL, publications, and technical skills.">
+  <meta name="description" content="About Iyan Nekib — Electrical and Computer Engineering graduate. Associate Data Engineer at IBM Canada. Experience at Microsoft, Westinghouse and HERL, publications, and technical skills.">
   <meta name="author" content="Iyan Nekib">
   <title>About — Iyan Nekib</title>
 
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    /* the browser would otherwise drop you where you last were on this
+       page; set before first paint so there is no visible jump */
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,15 +106,17 @@
         <p>
           Hey! I'm Iyan. I recently graduated from the <span class="hl">University of
           Pittsburgh</span> with a degree in Electrical and Computer Engineering (3.7 GPA,
-          Dean's Honors List, 2022–2025) and I'm now back home in Halifax, Nova Scotia.
+          Dean's Honors List, 2022–2025) and I'm now back home in Halifax, working as an
+          <span class="hl">Associate Data Engineer at IBM Canada</span>.
         </p>
         <p>
           I've been lucky to work on some genuinely interesting problems along the way:
           integrating depth cameras onto autonomous wheelchairs at the <span class="hl">Human
           Engineering Research Laboratories</span>, contributing to a distributed storage system
           at <span class="hl">Microsoft</span>, and building an ML-powered glove for real-time VR
-          hand tracking as my senior project. I still have a lot to learn, but I enjoy showing up
-          and figuring things out.
+          hand tracking as my senior project, and now building the <span class="hl">ETL/ELT
+          pipelines</span> that feed enterprise analytics and machine learning at IBM. I still
+          have a lot to learn, but I enjoy showing up and figuring things out.
         </p>
         <p>
           I'm most at home working on systems problems, the kind where hardware and software have
@@ -174,10 +181,23 @@
       <div class="records timeline d-box">
 
         <article class="item rise" style="--i:1">
+          <div class="item-when"><span>June 2026 – Present</span><span>Bedford, Nova Scotia</span></div>
+          <div class="item-body">
+            <p class="item-title">IBM Canada</p>
+            <p class="item-role">Associate Data Engineer</p>
+            <ul class="item-list">
+              <li>Develop and maintain <strong>ETL/ELT data pipelines</strong> using Python, SQL, pandas, NumPy and cloud-based data platforms, covering extraction, transformation, validation and integration.</li>
+              <li>Support enterprise analytics, reporting and <strong>machine learning workflows</strong> within Agile delivery teams.</li>
+            </ul>
+            <p class="tags"><span>Python</span><span>SQL</span><span>pandas</span><span>NumPy</span><span>ETL / ELT</span><span>Agile</span></p>
+          </div>
+        </article>
+
+        <article class="item rise" style="--i:2">
           <div class="item-when"><span>Sept – Dec 2025</span><span>Pittsburgh, PA</span></div>
           <div class="item-body">
             <p class="item-title">Microsoft</p>
-            <p class="item-role">Software Engineering Project Contributor</p>
+            <p class="item-role">Software Engineering Intern</p>
             <ul class="item-list">
               <li>Contributed reliability-focused control-plane enhancements to <strong>OpenEBS Mayastor</strong>, implementing Rust-based services and REST/OpenAPI-driven metrics endpoints, reducing recurring production alerts by 25%.</li>
               <li>Investigated and debugged production issues across distributed storage components by analyzing logs and <strong>Prometheus metrics</strong>, validating fixes through peer reviews and post-deployment checks in a Kubernetes-native environment.</li>
@@ -186,11 +206,11 @@
           </div>
         </article>
 
-        <article class="item rise" style="--i:2">
+        <article class="item rise" style="--i:3">
           <div class="item-when"><span>Jan – Apr 2025</span><span>Cranberry Township, PA</span></div>
           <div class="item-body">
             <p class="item-title">Westinghouse Electric Company</p>
-            <p class="item-role">Software Engineering Project Contributor</p>
+            <p class="item-role">Software Engineering Intern</p>
             <ul class="item-list">
               <li>Developed a diagnostic tool to parse and visualize <strong>50+ XML-based system configuration files</strong>, supporting requirements traceability, documentation and engineering analysis, reducing data retrieval time by 40%.</li>
               <li>Designed hierarchical system views and validation logic to support debugging, design reviews and cross-functional engineering decision-making.</li>
@@ -199,7 +219,7 @@
           </div>
         </article>
 
-        <article class="item rise" style="--i:3">
+        <article class="item rise" style="--i:4">
           <div class="item-when"><span>Sept 2023 – Apr 2024</span><span>Pittsburgh, PA</span></div>
           <div class="item-body">
             <p class="item-title">Human Engineering Research Laboratories</p>
@@ -320,22 +340,26 @@
           <dd class="tags"><span>Python</span><span>C++</span><span>Java</span><span>Rust</span><span>Go</span><span>JavaScript</span><span>C</span><span>MATLAB</span><span>VHDL</span><span>PostgreSQL</span></dd>
         </div>
         <div class="rise" style="--i:2">
+          <dt>Data Engineering</dt>
+          <dd class="tags"><span>SQL</span><span>ETL / ELT</span><span>pandas</span><span>NumPy</span><span>Data Pipelines</span><span>Enterprise Analytics</span></dd>
+        </div>
+        <div class="rise" style="--i:3">
           <dt>AI / ML</dt>
           <dd class="tags"><span>PyTorch</span><span>TensorFlow</span><span>OpenCV</span><span>scikit-learn</span><span>LangChain</span><span>Agentic Systems</span><span>MediaPipe</span></dd>
         </div>
-        <div class="rise" style="--i:3">
+        <div class="rise" style="--i:4">
           <dt>DevOps &amp; Cloud</dt>
           <dd class="tags"><span>Docker</span><span>Kubernetes</span><span>Azure</span><span>GitHub Actions</span><span>GitLab</span><span>Helm</span><span>Prometheus</span><span>Grafana</span><span>REST APIs</span></dd>
         </div>
-        <div class="rise" style="--i:4">
+        <div class="rise" style="--i:5">
           <dt>Computer Architecture</dt>
           <dd class="tags"><span>VHDL</span><span>MIPS32</span><span>Multi-cycle CPU Design</span><span>Vivado</span><span>Intel Quartus</span><span>FPGA Synthesis</span></dd>
         </div>
-        <div class="rise" style="--i:5">
+        <div class="rise" style="--i:6">
           <dt>Embedded Systems</dt>
           <dd class="tags"><span>ESP32</span><span>ATMega328P</span><span>Arduino</span><span>UART / I2C</span><span>Zynq</span><span>NVIDIA Jetson</span><span>Intel RealSense</span></dd>
         </div>
-        <div class="rise" style="--i:6">
+        <div class="rise" style="--i:7">
           <dt>Software Engineering</dt>
           <dd class="tags"><span>Agile / Scrum</span><span>Test-Driven Development</span><span>Design Patterns</span><span>CI/CD</span><span>System Architecture</span><span>JUnit</span><span>pytest</span><span>MVC</span></dd>
         </div>

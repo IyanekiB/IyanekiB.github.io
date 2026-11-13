@@ -7,6 +7,16 @@
 (function () {
   'use strict';
 
+  /* The one place the site's version lives. The home screen's label
+     is written from it, so the string is never typed twice. Bump it
+     here: patch for fixes, minor for a feature or a page. */
+  var VERSION = '2.0.0';
+
+  /* Project pages sit a directory down, so their command targets need
+     a prefix. The page declares it rather than the script guessing
+     from the URL, which breaks the moment anything is renamed. */
+  var ROOT = document.documentElement.getAttribute('data-root') || '';
+
   var out, cmd, hint;
 
   /* each command's echo and output share one .entry, so consecutive
@@ -19,7 +29,7 @@
     out.appendChild(current);
   }
 
-  function go(href) { window.location.href = href; }
+  function go(href) { window.location.href = ROOT + href; }
   function openTab(href) { window.open(href, '_blank', 'noopener'); }
 
   function reboot() {
@@ -36,6 +46,7 @@
     resume:   { d: 'Download the PDF',            run: function () { go('resume.html'); } },
     github:   { d: 'github.com/IyanekiB',         run: function () { openTab('https://github.com/IyanekiB'); } },
     linkedin: { d: 'in/iyan-nekib',               run: function () { openTab('https://www.linkedin.com/in/iyan-nekib/'); } },
+    version:  { d: 'What this build is',          run: function () { print('iyan-nekib v' + VERSION); } },
     help:     { d: 'List every command',          run: printHelp },
     clear:    { d: 'Clear the output',            run: function () { out.replaceChildren(); current = null; } },
     reboot:   { d: 'Replay the opening sequence', run: reboot }
@@ -93,6 +104,13 @@
     return { hits: hits, shared: shared };
   }
 
+  /* the markup carries the name only; the version is appended here so
+     it cannot drift from VERSION above */
+  function stampVersion() {
+    var el = document.getElementById('ver');
+    if (el) el.textContent = 'iyan-nekib v' + VERSION;
+  }
+
   function size() {
     cmd.style.width = cmd.value.length + 'ch';
     hint.hidden = cmd.value.length > 0;
@@ -106,16 +124,29 @@
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    /* split marked labels into per-character spans once; spaces stay
-       bare text nodes so inline-block cannot collapse them */
+    /* Split marked labels into per-character spans once, grouped by
+       word. The grouping matters: characters are inline-block, so a
+       line can break between any two of them — which split "/about"
+       down the middle in prose. A nowrap wrapper per word stops that
+       while still allowing a break at the spaces, which long project
+       titles need or they overflow a narrow window. */
     [].forEach.call(document.querySelectorAll('.jt'), function (el) {
       var frag = document.createDocumentFragment();
-      el.textContent.split('').forEach(function (ch) {
-        if (ch === ' ') { frag.appendChild(document.createTextNode(ch)); return; }
-        var s = document.createElement('span');
-        s.className = 'jc';
-        s.textContent = ch;
-        frag.appendChild(s);
+      el.textContent.split(/(\s+)/).forEach(function (chunk) {
+        if (!chunk) return;
+        if (/^\s+$/.test(chunk)) {
+          frag.appendChild(document.createTextNode(chunk));
+          return;
+        }
+        var word = document.createElement('span');
+        word.className = 'jw';
+        chunk.split('').forEach(function (ch) {
+          var s = document.createElement('span');
+          s.className = 'jc';
+          s.textContent = ch;
+          word.appendChild(s);
+        });
+        frag.appendChild(word);
       });
       el.replaceChildren(frag);
     });
@@ -469,6 +500,7 @@
   }
 
   function init() {
+    stampVersion();
     initBrowser();
     initJitter();
     initProx();
@@ -524,6 +556,14 @@
       }
     });
   }
+
+  /* Every navigation starts at the top. The head script already turns
+     off the browser's own scroll restoration, so this only has to cover
+     the back-forward cache, where no fresh load happens at all. A hash
+     is left alone: the projects tab links are real anchors. */
+  window.addEventListener('pageshow', function () {
+    if (!window.location.hash) window.scrollTo(0, 0);
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

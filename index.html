@@ -14,6 +14,9 @@
        at the end of <body>, where the elements actually exist. */
     (function () {
       document.documentElement.classList.add('js');
+      /* the browser would otherwise drop you where you last were on
+         this page; set before first paint so there is no jump */
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       try {
         if (sessionStorage.getItem('ink.booted')) return;
       } catch (e) { /* private browsing — fall through and show it */ }
@@ -40,7 +43,7 @@
       <h1 class="vh">Iyan Nekib — Electrical and Computer Engineering</h1>
 
       <div class="region d-box">
-        <span class="box-label">iyan-nekib v1.0.0</span>
+        <span class="box-label" id="ver">iyan-nekib</span>
 
         <section class="pane pane-id" aria-label="Introduction">
           <p class="welcome rise" style="--i:0">Welcome to Iyan's Portfolio</p>
