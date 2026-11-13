@@ -10,7 +10,7 @@
   /* The one place the site's version lives. The home screen's label
      is written from it, so the string is never typed twice. Bump it
      here: patch for fixes, minor for a feature or a page. */
-  var VERSION = '2.0.0';
+  var VERSION = '2.0.1';
 
   /* Project pages sit a directory down, so their command targets need
      a prefix. The page declares it rather than the script guessing
