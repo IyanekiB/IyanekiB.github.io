@@ -43,6 +43,9 @@
 </head>
 <body>
 
+  <!-- #screen clips its own contents for the rounded corners, so the
+       sticky note that hangs over its edge lives here beside it -->
+  <div class="stage">
   <main id="screen">
 
     <div class="titlebar" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -127,6 +130,7 @@
 
     </div>
   </main>
+  </div>
 
   <div id="boot" role="dialog" aria-modal="true" aria-labelledby="boot-title">
 

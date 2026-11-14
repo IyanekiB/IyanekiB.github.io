@@ -237,6 +237,24 @@ h1, h2 { margin: 0; font-size: inherit; font-weight: inherit; }
   border-radius: 3px;
 }
 
+/* A triangle on the row under the pointer. Drawn from borders rather
+   than set as a glyph: the outline triangles are not in IBM Plex Mono
+   and would quietly fall back to some other face, at some other size. */
+.row-desc { position: relative; }
+
+@media (hover: hover) and (pointer: fine) {
+  a.row:hover .row-desc::after,
+  a.row:focus-visible .row-desc::after {
+    content: "";
+    display: inline-block;
+    margin-left: 1ch;
+    vertical-align: 0.08em;
+    border-style: solid;
+    border-width: 0.3em 0.42em 0.3em 0;
+    border-color: transparent var(--t-accent) transparent transparent;
+  }
+}
+
 .row-cmd { color: var(--t-fg); }
 .row-desc { color: var(--t-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -658,12 +676,11 @@ body.page {
 .cmdbar-nav a:hover,
 .cmdbar-nav a:focus-visible { color: var(--t-accent); }
 
-/* you are here: lit, and inert, because the link goes nowhere */
+/* You are here: lit, so it reads as the current page. It keeps its
+   hover and focus affordance and stays keyboard reachable -- it is
+   still a control, it simply does not reload the page you are on. */
 .cmdbar-nav a[aria-current="page"],
 a.row[aria-current="page"] .row-cmd { color: var(--t-accent); }
-.cmdbar-nav a[aria-current="page"],
-a.row[aria-current="page"] { cursor: default; }
-a.row[aria-current="page"]:hover { background: none; }
 
 /* --- extruded wordmarks ----------------------------------- */
 
@@ -1165,6 +1182,11 @@ body.page .work-item[data-reveal].seen .rise {
     top: 0;
     margin-bottom: 5ch;
     border-radius: 0 0 10px 10px;
+    /* The window is opaque, but it comes before the list in the source
+       and a sticky box with no z-index paints in document order -- so
+       the entries' text was drawn on top of it and it read as
+       see-through. This is the whole fix. */
+    z-index: 2;
   }
   .work .browser-win { border-radius: 0 0 10px 10px; }
   .work-item { padding-block: 6ch; scroll-margin-top: 2ch; }
@@ -1354,7 +1376,87 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
   .proj-nav { margin-top: 5ch; }
 }
 
-/* --- 17. Reduced motion ----------------------------------- */
+/* ============================================================
+   17. Sticky notes
+   Paper stuck onto the interface: a light-blue square, a pushpin, a
+   few degrees of rotation. Deliberately the one thing on the site that
+   is not flat -- it should read as something a person added rather
+   than part of the UI. Still IBM Plex Mono, so the site keeps its one
+   typeface.
+   ============================================================ */
+
+.stage { position: relative; }
+
+.note {
+  --paper: #bcd7f0;
+  --paper-edge: #a9c9e6;
+
+  position: absolute;
+  z-index: 3;
+  width: 14ch;
+  padding: 2.2ch 1.6ch 1.8ch;
+  background: linear-gradient(170deg, var(--paper), var(--paper-edge));
+  color: #1b2a3a;
+  font-size: 0.82em;
+  line-height: 1.45;
+  text-align: center;
+  border-radius: 1px;
+  box-shadow: 0 10px 22px rgb(0 0 0 / 0.45), 0 2px 4px rgb(0 0 0 / 0.3);
+  pointer-events: none;
+}
+
+/* the pin, as one round head with a highlight */
+.note::before {
+  content: "";
+  position: absolute;
+  top: 0.7ch;
+  left: 50%;
+  width: 0.78em;
+  height: 0.78em;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #f0b070, #b5651d 62%, #7d4512);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.5);
+}
+
+/* a turned-up bottom corner, so it reads as paper rather than a card */
+.note::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 1.5ch;
+  height: 1.5ch;
+  background: linear-gradient(135deg, transparent 50%, rgb(0 0 0 / 0.18) 50%);
+}
+
+/* home: stuck to the side of the window, mostly on it. The overhang is
+   kept small on purpose -- body only pads 1.5rem, so a note hanging
+   further off would push a horizontal scrollbar on a narrow desktop. */
+/* far enough out that it only overlaps the window margin, not the row
+   text -- at -5ch it sat on top of "Background and skills" */
+.note-nav {
+  top: 6.4em;
+  right: -9ch;
+  transform: rotate(3.5deg);
+}
+
+/* beside the command bar, in the empty space to its right */
+.note-prompt {
+  bottom: -0.6em;
+  right: 0;
+  transform: rotate(-2.5deg);
+}
+
+.note-host { position: relative; }
+
+/* Below this there is no room beside the window at all, and the
+   prompt line itself is close to full width. */
+@media (max-width: 72rem) {
+  .note { display: none; }
+}
+
+/* --- 18. Reduced motion ----------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html[data-boot] #boot { display: none; }

@@ -10,12 +10,16 @@
   /* The one place the site's version lives. The home screen's label
      is written from it, so the string is never typed twice. Bump it
      here: patch for fixes, minor for a feature or a page. */
-  var VERSION = '2.0.1';
+  var VERSION = '2.1.0';
 
   /* Project pages sit a directory down, so their command targets need
      a prefix. The page declares it rather than the script guessing
      from the URL, which breaks the moment anything is renamed. */
   var ROOT = document.documentElement.getAttribute('data-root') || '';
+
+  function wantsMotion() {
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
 
   var out, cmd, hint;
 
@@ -51,7 +55,13 @@
     [].forEach.call(document.querySelectorAll('.cmdbar-nav a, a.row'), function (a) {
       if (!samePath(a.href)) return;
       a.setAttribute('aria-current', 'page');
-      a.addEventListener('click', function (e) { e.preventDefault(); });
+      a.addEventListener('click', function (e) {
+        /* still a control -- it keeps its hover, focus and keyboard
+           behaviour. It just does not reload the page you are on and
+           replay the entrance; it takes you back to the top instead. */
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: wantsMotion() ? 'smooth' : 'auto' });
+      });
     });
   }
 
@@ -176,6 +186,34 @@
         v.parentNode.appendChild(note);
       }, true);
     });
+  }
+
+  /* Two paper notes, built here rather than written into nine copies:
+     one place to change the wording, and the prompt note then exists
+     exactly when the prompt does -- html:not(.js) hides the command bar
+     entirely, so a note pointing at it would otherwise point at
+     nothing. Decorative, hence aria-hidden. */
+  function makeNote(cls, text) {
+    var note = document.createElement('aside');
+    note.className = 'note ' + cls;
+    note.setAttribute('aria-hidden', 'true');
+    note.textContent = text;
+    return note;
+  }
+
+  function initNotes() {
+    /* the window clips its own contents, so the note that hangs over
+       its edge has to be a sibling -- .stage is that wrapper */
+    var stage = document.querySelector('.stage');
+    if (stage && document.querySelector('.rows')) {
+      stage.appendChild(makeNote('note-nav', 'you can jump from here'));
+    }
+
+    var form = document.getElementById('prompt');
+    if (form && form.parentNode) {
+      form.parentNode.classList.add('note-host');
+      form.parentNode.appendChild(makeNote('note-prompt', 'or just type where you want to go'));
+    }
   }
 
   function size() {
@@ -518,7 +556,7 @@
       quiet = setTimeout(release, 180);
     }
 
-    var soft = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var soft = wantsMotion();
 
     [].forEach.call(tabs, function (t, i) {
       t.addEventListener('click', function (e) {
@@ -571,6 +609,7 @@
     initCurrent();
     initNavDirection();
     initMedia();
+    initNotes();
     initBrowser();
     initJitter();
     initProx();
