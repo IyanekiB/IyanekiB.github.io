@@ -1392,11 +1392,11 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
 
   position: absolute;
   z-index: 3;
-  width: 14ch;
-  padding: 2.2ch 1.6ch 1.8ch;
+  width: 17ch;
+  padding: 2.6ch 1.8ch 2.2ch;
   background: linear-gradient(170deg, var(--paper), var(--paper-edge));
   color: #1b2a3a;
-  font-size: 0.82em;
+  font-size: 0.95em;
   line-height: 1.45;
   text-align: center;
   border-radius: 1px;
@@ -1434,9 +1434,12 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
    further off would push a horizontal scrollbar on a narrow desktop. */
 /* far enough out that it only overlaps the window margin, not the row
    text -- at -5ch it sat on top of "Background and skills" */
+/* clear of the row cells, which run to the column edge well past the
+   text, and high enough to sit on the window corner rather than the
+   first row */
 .note-nav {
-  top: 6.4em;
-  right: -9ch;
+  top: 2.4em;
+  right: -11ch;
   transform: rotate(3.5deg);
 }
 
@@ -1445,14 +1448,48 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
    body, because #screen clips anything past its edge. */
 .note-prompt {
   bottom: -0.6em;
-  right: -4ch;
+  right: -5ch;
   transform: rotate(-2.5deg);
 }
 
 .stage > .note-prompt {
   bottom: 0.6em;
-  right: -9ch;
+  right: -10ch;
 }
+
+/* A drawn arrow out of each note, pointing at the thing it is talking
+   about. Amber rather than the site blue: it should read as something
+   scribbled on top, like the pin, not as part of the interface. */
+.note-arrow {
+  position: absolute;
+  width: 5.6em;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: #e8b64c;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* down and to the left, at the rows */
+.note-nav .note-arrow {
+  left: -3.4em;
+  bottom: -3.6em;
+  transform: rotate(-8deg);
+}
+
+/* The art points downward, so a clockwise quarter turn aims it left,
+   back along the prompt line toward the chevron. The two hosts put the
+   note at different heights relative to the prompt -- .doc pads 6ch
+   below it, .stage does not -- so the offset is per host. */
+.note-prompt .note-arrow {
+  left: -5em;
+  bottom: 3.6em;
+  transform: rotate(74deg);
+}
+
+.stage .note-prompt .note-arrow { bottom: 0.3em; }
 
 .note-host { position: relative; }
 

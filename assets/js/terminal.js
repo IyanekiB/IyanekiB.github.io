@@ -10,7 +10,7 @@
   /* The one place the site's version lives. The home screen's label
      is written from it, so the string is never typed twice. Bump it
      here: patch for fixes, minor for a feature or a page. */
-  var VERSION = '2.1.1';
+  var VERSION = '2.2.0';
 
   /* Project pages sit a directory down, so their command targets need
      a prefix. The page declares it rather than the script guessing
@@ -193,11 +193,24 @@
      exactly when the prompt does -- html:not(.js) hides the command bar
      entirely, so a note pointing at it would otherwise point at
      nothing. Decorative, hence aria-hidden. */
+  var ARROW =
+    '<svg class="note-arrow" viewBox="0 0 104 70" aria-hidden="true" focusable="false">' +
+      '<path d="M98 6 C 76 3, 30 12, 17 56"/>' +
+      '<path d="M17 58 L 33 49"/>' +
+      '<path d="M17 58 L 14 38"/>' +
+    '</svg>';
+
   function makeNote(cls, text) {
     var note = document.createElement('aside');
     note.className = 'note ' + cls;
     note.setAttribute('aria-hidden', 'true');
-    note.textContent = text;
+
+    var body = document.createElement('span');
+    body.textContent = text;          /* textContent, never innerHTML */
+    note.appendChild(body);
+
+    /* the arrow is static art of ours, so markup is safe here */
+    note.insertAdjacentHTML('beforeend', ARROW);
     return note;
   }
 
@@ -218,7 +231,7 @@
        sit against the prompt directly. */
     var host = stage || form.parentNode;
     host.classList.add('note-host');
-    host.appendChild(makeNote('note-prompt', 'or just type where you want to go'));
+    host.appendChild(makeNote('note-prompt', 'Type where you want to go from here as well!'));
   }
 
   function size() {
