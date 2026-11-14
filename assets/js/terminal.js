@@ -10,7 +10,7 @@
   /* The one place the site's version lives. The home screen's label
      is written from it, so the string is never typed twice. Bump it
      here: patch for fixes, minor for a feature or a page. */
-  var VERSION = '2.1.0';
+  var VERSION = '2.1.1';
 
   /* Project pages sit a directory down, so their command targets need
      a prefix. The page declares it rather than the script guessing
@@ -210,10 +210,15 @@
     }
 
     var form = document.getElementById('prompt');
-    if (form && form.parentNode) {
-      form.parentNode.classList.add('note-host');
-      form.parentNode.appendChild(makeNote('note-prompt', 'or just type where you want to go'));
-    }
+    if (!form || !form.parentNode) return;
+
+    /* On the home screen the terminal clips its own contents, so this
+       note goes in the same wrapper as the other one in order to hang
+       over the edge. Elsewhere the page body does not clip, so it can
+       sit against the prompt directly. */
+    var host = stage || form.parentNode;
+    host.classList.add('note-host');
+    host.appendChild(makeNote('note-prompt', 'or just type where you want to go'));
   }
 
   function size() {

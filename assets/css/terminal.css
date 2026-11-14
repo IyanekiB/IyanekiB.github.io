@@ -676,11 +676,10 @@ body.page {
 .cmdbar-nav a:hover,
 .cmdbar-nav a:focus-visible { color: var(--t-accent); }
 
-/* You are here: lit, so it reads as the current page. It keeps its
-   hover and focus affordance and stays keyboard reachable -- it is
-   still a control, it simply does not reload the page you are on. */
-.cmdbar-nav a[aria-current="page"],
-a.row[aria-current="page"] .row-cmd { color: var(--t-accent); }
+/* The current page carries aria-current for assistive tech, but looks
+   and behaves exactly like its neighbours -- a permanently lit row read
+   as hard-coded rather than as state. It simply does not reload the
+   page you are already on. */
 
 /* --- extruded wordmarks ----------------------------------- */
 
@@ -1441,11 +1440,18 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
   transform: rotate(3.5deg);
 }
 
-/* beside the command bar, in the empty space to its right */
+/* beside the command bar, hanging off the right the way the nav note
+   does. On the home screen its host is .stage rather than the terminal
+   body, because #screen clips anything past its edge. */
 .note-prompt {
   bottom: -0.6em;
-  right: 0;
+  right: -4ch;
   transform: rotate(-2.5deg);
+}
+
+.stage > .note-prompt {
+  bottom: 0.6em;
+  right: -9ch;
 }
 
 .note-host { position: relative; }
