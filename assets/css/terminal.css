@@ -1447,13 +1447,13 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
    does. On the home screen its host is .stage rather than the terminal
    body, because #screen clips anything past its edge. */
 .note-prompt {
-  bottom: -0.6em;
+  bottom: 3.8em;
   right: -5ch;
   transform: rotate(-2.5deg);
 }
 
 .stage > .note-prompt {
-  bottom: 0.6em;
+  bottom: 4.4em;
   right: -10ch;
 }
 
@@ -1462,34 +1462,28 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
    scribbled on top, like the pin, not as part of the interface. */
 .note-arrow {
   position: absolute;
-  width: 5.6em;
+  width: 13.5em;
   height: auto;
+  right: -2em;
   overflow: visible;
   fill: none;
   stroke: #e8b64c;
-  stroke-width: 5.5;
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 /* down and to the left, at the rows */
-.note-nav .note-arrow {
-  left: -3.4em;
-  bottom: -3.6em;
-  transform: rotate(-8deg);
-}
+.note-nav .note-arrow { top: 94%; }
 
 /* The art points downward, so a clockwise quarter turn aims it left,
    back along the prompt line toward the chevron. The two hosts put the
    note at different heights relative to the prompt -- .doc pads 6ch
    below it, .stage does not -- so the offset is per host. */
-.note-prompt .note-arrow {
-  left: -5em;
-  bottom: 3.6em;
-  transform: rotate(74deg);
-}
+.note-prompt .note-arrow { top: 105%; transform: scaleY(0.52); transform-origin: top right; }
 
-.stage .note-prompt .note-arrow { bottom: 0.3em; }
+
 
 .note-host { position: relative; }
 

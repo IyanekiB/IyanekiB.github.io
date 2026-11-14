@@ -10,7 +10,7 @@
   /* The one place the site's version lives. The home screen's label
      is written from it, so the string is never typed twice. Bump it
      here: patch for fixes, minor for a feature or a page. */
-  var VERSION = '2.2.0';
+  var VERSION = '2.2.1';
 
   /* Project pages sit a directory down, so their command targets need
      a prefix. The page declares it rather than the script guessing
@@ -193,11 +193,13 @@
      exactly when the prompt does -- html:not(.js) hides the command bar
      entirely, so a note pointing at it would otherwise point at
      nothing. Decorative, hence aria-hidden. */
+  /* A plain drawn curve, long and shallow: it starts out in the margin
+     beyond the window and sweeps in to its target. */
   var ARROW =
-    '<svg class="note-arrow" viewBox="0 0 104 70" aria-hidden="true" focusable="false">' +
-      '<path d="M98 6 C 76 3, 30 12, 17 56"/>' +
-      '<path d="M17 58 L 33 49"/>' +
-      '<path d="M17 58 L 14 38"/>' +
+    '<svg class="note-arrow" viewBox="0 0 152 74" aria-hidden="true" focusable="false">' +
+      '<path d="M146 9 C 112 1, 42 14, 13 58"/>' +
+      '<path d="M13 60 L 34 53"/>' +
+      '<path d="M13 60 L 15 39"/>' +
     '</svg>';
 
   function makeNote(cls, text) {
