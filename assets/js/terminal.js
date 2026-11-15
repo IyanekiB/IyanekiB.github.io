@@ -10,12 +10,16 @@
   /* The one place the site's version lives. The home screen's label
      is written from it, so the string is never typed twice. Bump it
      here: patch for fixes, minor for a feature or a page. */
-  var VERSION = '2.0.1';
+  var VERSION = '2.2.5';
 
   /* Project pages sit a directory down, so their command targets need
      a prefix. The page declares it rather than the script guessing
      from the URL, which breaks the moment anything is renamed. */
   var ROOT = document.documentElement.getAttribute('data-root') || '';
+
+  function wantsMotion() {
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
 
   var out, cmd, hint;
 
@@ -51,7 +55,13 @@
     [].forEach.call(document.querySelectorAll('.cmdbar-nav a, a.row'), function (a) {
       if (!samePath(a.href)) return;
       a.setAttribute('aria-current', 'page');
-      a.addEventListener('click', function (e) { e.preventDefault(); });
+      a.addEventListener('click', function (e) {
+        /* still a control -- it keeps its hover, focus and keyboard
+           behaviour. It just does not reload the page you are on and
+           replay the entrance; it takes you back to the top instead. */
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: wantsMotion() ? 'smooth' : 'auto' });
+      });
     });
   }
 
@@ -176,6 +186,61 @@
         v.parentNode.appendChild(note);
       }, true);
     });
+  }
+
+  /* Two paper notes, built here rather than written into nine copies:
+     one place to change the wording, and the prompt note then exists
+     exactly when the prompt does -- html:not(.js) hides the command bar
+     entirely, so a note pointing at it would otherwise point at
+     nothing. Decorative, hence aria-hidden. */
+  /* A hooked arrow: it leaves the underside of the note, swings out
+     past the edge of the window, then comes back in and down at the
+     thing the note is talking about. Two cubics, and it crosses
+     neither itself nor the paper it comes from. The tail sits at 41%
+     across the box: far enough right that it clears the note's edge
+     once the box is offset, and still leaving the swing room to its
+     right. The barbs are the end tangent rotated by thirty degrees
+     either way, so the head stays square to the curve however the
+     whole thing is scaled. */
+  var ARROW =
+    '<svg class="note-arrow" viewBox="0 0 140 132" aria-hidden="true" focusable="false">' +
+      '<path d="M57 4 C 112 0, 140 32, 134 68 C 128 108, 54 114, 4 126"/>' +
+      '<path d="M4 126 L 25 132"/>' +
+      '<path d="M4 126 L 20 111"/>' +
+    '</svg>';
+
+  function makeNote(cls, text) {
+    var note = document.createElement('aside');
+    note.className = 'note ' + cls;
+    note.setAttribute('aria-hidden', 'true');
+
+    var body = document.createElement('span');
+    body.textContent = text;          /* textContent, never innerHTML */
+    note.appendChild(body);
+
+    /* the arrow is static art of ours, so markup is safe here */
+    note.insertAdjacentHTML('beforeend', ARROW);
+    return note;
+  }
+
+  function initNotes() {
+    /* the window clips its own contents, so the note that hangs over
+       its edge has to be a sibling -- .stage is that wrapper */
+    var stage = document.querySelector('.stage');
+    if (stage && document.querySelector('.rows')) {
+      stage.appendChild(makeNote('note-nav', 'you can jump from here'));
+    }
+
+    var form = document.getElementById('prompt');
+    if (!form || !form.parentNode) return;
+
+    /* On the home screen the terminal clips its own contents, so this
+       note goes in the same wrapper as the other one in order to hang
+       over the edge. Elsewhere the page body does not clip, so it can
+       sit against the prompt directly. */
+    var host = stage || form.parentNode;
+    host.classList.add('note-host');
+    host.appendChild(makeNote('note-prompt', 'Type where you want to go from here as well!'));
   }
 
   function size() {
@@ -518,7 +583,7 @@
       quiet = setTimeout(release, 180);
     }
 
-    var soft = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var soft = wantsMotion();
 
     [].forEach.call(tabs, function (t, i) {
       t.addEventListener('click', function (e) {
@@ -571,6 +636,7 @@
     initCurrent();
     initNavDirection();
     initMedia();
+    initNotes();
     initBrowser();
     initJitter();
     initProx();
