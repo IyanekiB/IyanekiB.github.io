@@ -10,7 +10,7 @@
   /* The one place the site's version lives. The home screen's label
      is written from it, so the string is never typed twice. Bump it
      here: patch for fixes, minor for a feature or a page. */
-  var VERSION = '2.2.1';
+  var VERSION = '2.2.5';
 
   /* Project pages sit a directory down, so their command targets need
      a prefix. The page declares it rather than the script guessing
@@ -193,13 +193,20 @@
      exactly when the prompt does -- html:not(.js) hides the command bar
      entirely, so a note pointing at it would otherwise point at
      nothing. Decorative, hence aria-hidden. */
-  /* A plain drawn curve, long and shallow: it starts out in the margin
-     beyond the window and sweeps in to its target. */
+  /* A hooked arrow: it leaves the underside of the note, swings out
+     past the edge of the window, then comes back in and down at the
+     thing the note is talking about. Two cubics, and it crosses
+     neither itself nor the paper it comes from. The tail sits at 41%
+     across the box: far enough right that it clears the note's edge
+     once the box is offset, and still leaving the swing room to its
+     right. The barbs are the end tangent rotated by thirty degrees
+     either way, so the head stays square to the curve however the
+     whole thing is scaled. */
   var ARROW =
-    '<svg class="note-arrow" viewBox="0 0 152 74" aria-hidden="true" focusable="false">' +
-      '<path d="M146 9 C 112 1, 42 14, 13 58"/>' +
-      '<path d="M13 60 L 34 53"/>' +
-      '<path d="M13 60 L 15 39"/>' +
+    '<svg class="note-arrow" viewBox="0 0 140 132" aria-hidden="true" focusable="false">' +
+      '<path d="M57 4 C 112 0, 140 32, 134 68 C 128 108, 54 114, 4 126"/>' +
+      '<path d="M4 126 L 25 132"/>' +
+      '<path d="M4 126 L 20 111"/>' +
     '</svg>';
 
   function makeNote(cls, text) {

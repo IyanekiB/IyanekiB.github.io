@@ -1443,12 +1443,25 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
   transform: rotate(3.5deg);
 }
 
-/* beside the command bar, hanging off the right the way the nav note
+/* Beside the command bar, hanging off the right the way the nav note
    does. On the home screen its host is .stage rather than the terminal
-   body, because #screen clips anything past its edge. */
+   body, because #screen clips anything past its edge.
+
+   On a document page it is pushed entirely clear of the text column.
+   At -5ch it overlapped the column by twelve characters and sat on
+   whatever happened to be there -- the last row of the skills table on
+   /about, the PDF frame on /resume, which runs the full width of the
+   column and cannot be dodged vertically: there are only 36px between
+   its bottom edge and the prompt, and the note is 126px tall. Clearing
+   the column outright is the only placement that works on every page
+   at every width. */
 .note-prompt {
-  bottom: 3.8em;
-  right: -5ch;
+  bottom: 6.6em;
+  /* 18ch, not the 17ch the note is wide: it is rotated two and a half
+     degrees, so its lower corner swings about 3px further left than
+     its edge and was still catching the PDF frame. Clearance has to be
+     measured off the corners of a rotated box, not its sides. */
+  right: -18ch;
   transform: rotate(-2.5deg);
 }
 
@@ -1462,9 +1475,13 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
    scribbled on top, like the pin, not as part of the interface. */
 .note-arrow {
   position: absolute;
-  width: 13.5em;
+  width: 11.6em;
   height: auto;
-  right: -2em;
+  /* The box sits beside the note rather than under it, so the tail
+     meets the note's right edge and the whole swing happens out in the
+     margin. This is the one measurement the layout has to make room
+     for -- see the arrow breakpoint at the end of this section. */
+  right: -7.2em;
   overflow: visible;
   fill: none;
   stroke: #e8b64c;
@@ -1474,16 +1491,20 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
   stroke-linejoin: round;
 }
 
-/* down and to the left, at the rows */
-.note-nav .note-arrow { top: 94%; }
+/* Where the tail meets the paper. The two notes are different heights,
+   so this is a percentage of each rather than one shared number. */
+.note-nav .note-arrow    { top: 58%; }
+.note-prompt .note-arrow { top: 6%; }
 
-/* The art points downward, so a clockwise quarter turn aims it left,
-   back along the prompt line toward the chevron. The two hosts put the
-   note at different heights relative to the prompt -- .doc pads 6ch
-   below it, .stage does not -- so the offset is per host. */
-.note-prompt .note-arrow { top: 105%; transform: scaleY(0.52); transform-origin: top right; }
-
-
+/* The projects page runs its column at 124ch rather than 96ch, so it
+   has barely half the side margin to spend. It is the page that sets
+   the arrow breakpoint below, and it still wants its note pulled in
+   further than the others. */
+/* The projects page cannot do the same -- its 124ch column leaves so
+   little margin that a note clear of it would run off the viewport.
+   It does not need to: that page's content stops well above the
+   prompt, so nothing is underneath the note here. */
+.doc-wide > .note-prompt { right: -1ch; }
 
 .note-host { position: relative; }
 
@@ -1491,6 +1512,23 @@ a.proj-step:focus-visible .nav-name { color: var(--t-a1); }
    prompt line itself is close to full width. */
 @media (max-width: 72rem) {
   .note { display: none; }
+}
+
+/* The arrow wants about 7em of clear margin past the note, and on a
+   document page the note has already spent the margin getting clear of
+   the text. Something had to give, and unreadable text is a fault
+   where a missing flourish is not, so the note keeps its place and the
+   arrow waits for a window wide enough to hold both. The home screen
+   is unaffected: its note hangs off a 100ch window with room to
+   spare, and keeps its arrow at every width.
+
+   95rem rather than 90: at exactly 1440 the arrow ran 11px off the
+   right edge on every document page, which is the sort of thing only
+   a sweep that tests the breakpoint's own value finds. */
+.doc .note-arrow { display: none; }
+
+@media (min-width: 95rem) {
+  .doc .note-arrow { display: block; }
 }
 
 /* --- 18. Reduced motion ----------------------------------- */
